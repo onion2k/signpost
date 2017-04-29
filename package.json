@@ -1,0 +1,26 @@
+{
+  "name": "signpost",
+  "version": "1.0.0",
+  "description": "A signpost generator",
+  "main": "index.js",
+  "scripts": {
+    "test": "test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/onion2k/signpost.git"
+  },
+  "keywords": [
+    "three.js"
+  ],
+  "author": "Chris Neale",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/onion2k/signpost/issues"
+  },
+  "homepage": "https://github.com/onion2k/signpost#readme",
+  "dependencies": {
+    "node-geocoder": "^3.16.0",
+    "three": "^0.85.2"
+  }
+}
