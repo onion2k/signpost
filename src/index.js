@@ -30,14 +30,14 @@ function init() {
     wrapper.appendChild(scene.renderer.domElement);
 
     signpost = new signpostGen();
-    signpost.arm('home', 30, 100);
-    signpost.arm('work', 45, 100);
-    signpost.arm('liverpool', 90, 100);
-    signpost.arm('london', 110, 100);
-    signpost.arm('san franscisco', 170, 100);
-    signpost.arm('new york', 180, 100);
-    signpost.arm('paris', 230, 100);
-    signpost.arm('rom', 240, 100);
+    signpost.arm('Sunderland', 30, 100);
+    signpost.arm('Newcastle', 45, 100);
+    signpost.arm('Liverpool', 90, 100);
+    signpost.arm('London', 110, 100);
+    signpost.arm('San Franscisco', 170, 100);
+    signpost.arm('New York', 180, 100);
+    signpost.arm('Paris', 230, 100);
+    signpost.arm('Rome', 240, 100);
 
     scene.addObject(signpost.obj);
 

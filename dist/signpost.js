@@ -3139,14 +3139,14 @@ function init() {
     wrapper.appendChild(scene.renderer.domElement);
 
     signpost = new _signpost2.default();
-    signpost.arm('home', 30, 100);
-    signpost.arm('work', 45, 100);
-    signpost.arm('liverpool', 90, 100);
-    signpost.arm('london', 110, 100);
-    signpost.arm('san franscisco', 170, 100);
-    signpost.arm('new york', 180, 100);
-    signpost.arm('paris', 230, 100);
-    signpost.arm('rom', 240, 100);
+    signpost.arm('Sunderland', 30, 100);
+    signpost.arm('Newcastle', 45, 100);
+    signpost.arm('Liverpool', 90, 100);
+    signpost.arm('London', 110, 100);
+    signpost.arm('San Franscisco', 170, 100);
+    signpost.arm('New York', 180, 100);
+    signpost.arm('Paris', 230, 100);
+    signpost.arm('Rome', 240, 100);
 
     scene.addObject(signpost.obj);
 }
@@ -3188,7 +3188,7 @@ var signpostGen = function () {
         this.arms = [];
         this.obj = new _three.Object3D();
 
-        this.create();
+        this.base();
     }
 
     _createClass(signpostGen, [{
@@ -3205,9 +3205,17 @@ var signpostGen = function () {
 
             texture.needsUpdate = true;
 
-            var armMaterial = new _three.MeshPhongMaterial({ map: texture, color: 0xffffff, shininess: 0, shading: _three.FlatShading });
+            var armMaterials = [new _three.MeshBasicMaterial({ color: 0xcccccc }), // right
+            new _three.MeshBasicMaterial({ color: 0xcccccc }), // left
+            new _three.MeshBasicMaterial({ color: 0xcccccc }), // top
+            new _three.MeshBasicMaterial({ color: 0xcccccc }), // bottom
+            new _three.MeshPhongMaterial({ map: texture, color: 0xffffff, shininess: 0, shading: _three.FlatShading }), // front
+            new _three.MeshPhongMaterial({ map: texture, color: 0xffffff, shininess: 0, shading: _three.FlatShading }) //back
+
+            ];
+
             var armGeo = new _three.BoxGeometry(12 + len * 2, 6, 1);
-            var arm = new _three.Mesh(armGeo, armMaterial);
+            var arm = new _three.Mesh(armGeo, armMaterials);
 
             arm.position.y = 66 - this.arms.length * 5;
             arm.position.x = 12 + len * 2 / 2 - 3;
@@ -3230,19 +3238,19 @@ var signpostGen = function () {
 
             var ctx = canvas.getContext('2d');
 
-            ctx.font = '20pt Arial';
-            ctx.fillStyle = 'red';
+            ctx.font = '12pt Verdana';
+            ctx.fillStyle = 'rgb(212,212,212)';
             ctx.fillRect(0, 0, canvas.width, canvas.height);
             ctx.fillStyle = 'white';
-            ctx.fillRect(10, 10, canvas.width - 20, canvas.height - 20);
-            ctx.fillStyle = 'black';
+            ctx.fillRect(5, 5, canvas.width - 10, canvas.height - 10);
+            ctx.fillStyle = 'red';
             ctx.textAlign = "center";
             ctx.textBaseline = "middle";
             ctx.fillText(placename, canvas.width / 2, canvas.height / 2);
         }
     }, {
-        key: 'create',
-        value: function create() {
+        key: 'base',
+        value: function base() {
 
             var postMaterial = new _three.MeshPhongMaterial({ color: 0xdddddd, shininess: 10, shading: _three.FlatShading });
             var postGeo = new _three.CylinderGeometry(4, 4, 80, 12, 1);
@@ -3251,7 +3259,7 @@ var signpostGen = function () {
 
             this.obj.add(post);
 
-            var baseMaterial = new _three.MeshPhongMaterial({ color: 0x00ff00, shininess: 10, shading: _three.FlatShading });
+            var baseMaterial = new _three.MeshLambertMaterial({ color: 0x00ff00 });
             var baseGeo = new _three.CylinderGeometry(32, 32, 1, 32, 1);
             var base = new _three.Mesh(baseGeo, baseMaterial);
 
@@ -3330,14 +3338,15 @@ var signpostScene = function () {
         key: 'addLight',
         value: function addLight() {
 
-            var light = new _three.DirectionalLight(0xffffff);
-            light.position.set(10, 10, 10);
+            var light = new _three.PointLight(0xffffff);
+            light.position.set(150, 250, -50);
             this.scene.add(light);
 
-            var targetObject = new _three.Object3D();
-            targetObject.position.set(100, 100, 100);
-            light.target = targetObject;
-            this.scene.add(targetObject);
+            this.lights.push(light);
+
+            var light = new _three.PointLight(0xffffff);
+            light.position.set(-150, 250, -50);
+            this.scene.add(light);
 
             this.lights.push(light);
         }

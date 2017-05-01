@@ -1,8 +1,8 @@
 import {
     WebGLRenderer,
     Scene,
-    DirectionalLight,
-    DirectionalLightHelper,
+    PointLight,
+    PointLightHelper,
     PerspectiveCamera,
     Object3D,
     Vector3
@@ -54,14 +54,16 @@ export default class signpostScene {
 
     addLight() {
 
-        var light = new DirectionalLight(0xffffff);
-        light.position.set(10, 10, 10);
+        var light = new PointLight(0xffffff);
+        light.position.set(150, 250, -50);
         this.scene.add(light);
 
-        var targetObject = new Object3D();
-        targetObject.position.set(100, 100, 100);
-        light.target = targetObject;
-        this.scene.add(targetObject);
+        this.lights.push(light);
+
+
+        var light = new PointLight(0xffffff);
+        light.position.set(-150, 250, -50);
+        this.scene.add(light);
 
         this.lights.push(light);
 

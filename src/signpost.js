@@ -1,12 +1,15 @@
 import {
     MeshPhongMaterial,
+    MeshLambertMaterial,
+    MeshBasicMaterial,
     Texture,
     BoxGeometry,
     CylinderGeometry,
     Mesh, 
     Object3D,
     Vector3,
-    FlatShading
+    FlatShading,
+    SmoothShading
 } from '../node_modules/three/build/three.module';
 
 export default class signpostGen {
@@ -17,7 +20,7 @@ export default class signpostGen {
         this.arms = [];
         this.obj = new Object3D();
 
-        this.create();
+        this.base();
 
     }
 
@@ -32,10 +35,21 @@ export default class signpostGen {
         var texture = new Texture(canvas);
 
         texture.needsUpdate = true;
-        
-        var armMaterial = new MeshPhongMaterial({ map: texture, color: 0xffffff, shininess: 0, shading: FlatShading });
+
+
+        var armMaterials = [
+
+            new MeshBasicMaterial({ color: 0xcccccc }), // right
+            new MeshBasicMaterial({ color: 0xcccccc }), // left
+            new MeshBasicMaterial({ color: 0xcccccc }), // top
+            new MeshBasicMaterial({ color: 0xcccccc }), // bottom
+            new MeshPhongMaterial({ map: texture, color: 0xffffff, shininess: 0, shading: FlatShading }), // front
+            new MeshPhongMaterial({ map: texture, color: 0xffffff, shininess: 0, shading: FlatShading }) //back
+
+        ];
+
         var armGeo = new BoxGeometry(12 + (len * 2), 6, 1);
-        var arm = new Mesh(armGeo, armMaterial);
+        var arm = new Mesh(armGeo, armMaterials);
 
         arm.position.y = 66 - (this.arms.length * 5);
         arm.position.x = (12 + (len * 2) / 2) - 3;
@@ -58,19 +72,19 @@ export default class signpostGen {
 
         var ctx = canvas.getContext('2d');
 
-        ctx.font = '20pt Arial';
-        ctx.fillStyle = 'red';
+        ctx.font = '12pt Verdana';
+        ctx.fillStyle = 'rgb(212,212,212)';
         ctx.fillRect(0, 0, canvas.width, canvas.height);
         ctx.fillStyle = 'white';
-        ctx.fillRect(10, 10, canvas.width - 20, canvas.height - 20);
-        ctx.fillStyle = 'black';
+        ctx.fillRect(5, 5, canvas.width - 10, canvas.height - 10);
+        ctx.fillStyle = 'red';
         ctx.textAlign = "center";
         ctx.textBaseline = "middle";
         ctx.fillText(placename, canvas.width / 2, canvas.height / 2);
 
     }
 
-    create() {
+    base() {
 
         var postMaterial = new MeshPhongMaterial({ color: 0xdddddd, shininess: 10, shading: FlatShading });
         var postGeo = new CylinderGeometry(4, 4, 80, 12, 1);
@@ -79,7 +93,7 @@ export default class signpostGen {
 
         this.obj.add(post);
 
-        var baseMaterial = new MeshPhongMaterial({ color: 0x00ff00, shininess: 10, shading: FlatShading });
+        var baseMaterial = new MeshLambertMaterial({ color: 0x00ff00 });
         var baseGeo = new CylinderGeometry(32, 32, 1, 32, 1);
         var base = new Mesh(baseGeo, baseMaterial);
 
