@@ -11,6 +11,8 @@ import {
 import signpostScene from './signpostScene';
 import signpostGen from './signpost';
 
+var arms = require('./arms.json');
+
 var scene, renderer;
 var camera;
 var signpost, post, base;
@@ -30,14 +32,10 @@ function init() {
     wrapper.appendChild(scene.renderer.domElement);
 
     signpost = new signpostGen();
-    signpost.arm('Sunderland', 30, 2);
-    signpost.arm('Newcastle', 45, 13);
-    signpost.arm('Liverpool', 90, 120);
-    signpost.arm('London', 110, 200);
-    signpost.arm('San Franscisco', 170, 4500);
-    signpost.arm('New York', 180, 3000);
-    signpost.arm('Paris', 230, 800);
-    signpost.arm('Rome', 240, 1300);
+
+    for (var arm in arms) {
+        signpost.arm(arms[arm].placename, arms[arm].bearing, arms[arm].distance);
+    }
 
     scene.addObject(signpost.obj);
 

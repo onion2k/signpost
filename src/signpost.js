@@ -54,9 +54,8 @@ export default class signpostGen {
         arm.position.x = (12 + (len) / 2) - 3;
 
         var joint = new Object3D();
-        joint.rotation.y = direction;
-
         joint.add(arm);
+        joint.rotation.y = (Math.PI / 2) + (direction * 0.0174533);
 
         this.obj.add(joint);
 
@@ -99,6 +98,14 @@ export default class signpostGen {
         var base = new Mesh(baseGeo, baseMaterial);
 
         this.obj.add(base);
+
+
+        var northMaterial = new MeshLambertMaterial({ color: 0xff0000 });
+        var northGeo = new CylinderGeometry(2, 2, 2, 8, 1);
+        var north = new Mesh(northGeo, northMaterial);
+        north.position.z = -24;
+
+        this.obj.add(north);
 
     }
 

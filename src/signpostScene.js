@@ -57,14 +57,11 @@ export default class signpostScene {
         var light = new PointLight(0xffffff);
         light.position.set(150, 250, -50);
         this.scene.add(light);
-
         this.lights.push(light);
-
 
         var light = new PointLight(0xffffff);
         light.position.set(-150, 250, -50);
         this.scene.add(light);
-
         this.lights.push(light);
 
     }
