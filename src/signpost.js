@@ -30,29 +30,28 @@ export default class signpostGen {
 
         var canvas = document.createElement('canvas');
 
-        this.texture(canvas, placename);
+        this.texture(canvas, placename, distance);
 
         var texture = new Texture(canvas);
 
         texture.needsUpdate = true;
 
-
         var armMaterials = [
 
-            new MeshBasicMaterial({ color: 0xcccccc }), // right
-            new MeshBasicMaterial({ color: 0xcccccc }), // left
-            new MeshBasicMaterial({ color: 0xcccccc }), // top
-            new MeshBasicMaterial({ color: 0xcccccc }), // bottom
+            new MeshBasicMaterial({ color: 0xd4d4d4 }), // right
+            new MeshBasicMaterial({ color: 0xd4d4d4 }), // left
+            new MeshBasicMaterial({ color: 0xd4d4d4 }), // top
+            new MeshBasicMaterial({ color: 0xd4d4d4 }), // bottom
             new MeshPhongMaterial({ map: texture, color: 0xffffff, shininess: 0, shading: FlatShading }), // front
             new MeshPhongMaterial({ map: texture, color: 0xffffff, shininess: 0, shading: FlatShading }) //back
 
         ];
 
-        var armGeo = new BoxGeometry(12 + (len * 2), 6, 1);
+        var armGeo = new BoxGeometry(12 + (len * 1), 6, 1);
         var arm = new Mesh(armGeo, armMaterials);
 
         arm.position.y = 66 - (this.arms.length * 5);
-        arm.position.x = (12 + (len * 2) / 2) - 3;
+        arm.position.x = (12 + (len) / 2) - 3;
 
         var joint = new Object3D();
         joint.rotation.y = direction;
@@ -65,22 +64,24 @@ export default class signpostGen {
 
     }
 
-    texture(canvas, placename){
+    texture(canvas, placename, distance){
 
         canvas.width = 256;
         canvas.height = 64;
 
         var ctx = canvas.getContext('2d');
 
-        ctx.font = '12pt Verdana';
+        ctx.font = '14pt Verdana';
         ctx.fillStyle = 'rgb(212,212,212)';
         ctx.fillRect(0, 0, canvas.width, canvas.height);
         ctx.fillStyle = 'white';
         ctx.fillRect(5, 5, canvas.width - 10, canvas.height - 10);
-        ctx.fillStyle = 'red';
+        ctx.fillStyle = 'rgb(64,64,64)';
         ctx.textAlign = "center";
         ctx.textBaseline = "middle";
-        ctx.fillText(placename, canvas.width / 2, canvas.height / 2);
+        ctx.fillText(placename, canvas.width / 2, canvas.height / 3);
+        ctx.font = '12pt Verdana';
+        ctx.fillText(distance+" miles", canvas.width / 2, canvas.height / 1.5);
 
     }
 

@@ -3139,14 +3139,14 @@ function init() {
     wrapper.appendChild(scene.renderer.domElement);
 
     signpost = new _signpost2.default();
-    signpost.arm('Sunderland', 30, 100);
-    signpost.arm('Newcastle', 45, 100);
-    signpost.arm('Liverpool', 90, 100);
-    signpost.arm('London', 110, 100);
-    signpost.arm('San Franscisco', 170, 100);
-    signpost.arm('New York', 180, 100);
-    signpost.arm('Paris', 230, 100);
-    signpost.arm('Rome', 240, 100);
+    signpost.arm('Sunderland', 30, 2);
+    signpost.arm('Newcastle', 45, 13);
+    signpost.arm('Liverpool', 90, 120);
+    signpost.arm('London', 110, 200);
+    signpost.arm('San Franscisco', 170, 4500);
+    signpost.arm('New York', 180, 3000);
+    signpost.arm('Paris', 230, 800);
+    signpost.arm('Rome', 240, 1300);
 
     scene.addObject(signpost.obj);
 }
@@ -3199,26 +3199,26 @@ var signpostGen = function () {
 
             var canvas = document.createElement('canvas');
 
-            this.texture(canvas, placename);
+            this.texture(canvas, placename, distance);
 
             var texture = new _three.Texture(canvas);
 
             texture.needsUpdate = true;
 
-            var armMaterials = [new _three.MeshBasicMaterial({ color: 0xcccccc }), // right
-            new _three.MeshBasicMaterial({ color: 0xcccccc }), // left
-            new _three.MeshBasicMaterial({ color: 0xcccccc }), // top
-            new _three.MeshBasicMaterial({ color: 0xcccccc }), // bottom
+            var armMaterials = [new _three.MeshBasicMaterial({ color: 0xd4d4d4 }), // right
+            new _three.MeshBasicMaterial({ color: 0xd4d4d4 }), // left
+            new _three.MeshBasicMaterial({ color: 0xd4d4d4 }), // top
+            new _three.MeshBasicMaterial({ color: 0xd4d4d4 }), // bottom
             new _three.MeshPhongMaterial({ map: texture, color: 0xffffff, shininess: 0, shading: _three.FlatShading }), // front
             new _three.MeshPhongMaterial({ map: texture, color: 0xffffff, shininess: 0, shading: _three.FlatShading }) //back
 
             ];
 
-            var armGeo = new _three.BoxGeometry(12 + len * 2, 6, 1);
+            var armGeo = new _three.BoxGeometry(12 + len * 1, 6, 1);
             var arm = new _three.Mesh(armGeo, armMaterials);
 
             arm.position.y = 66 - this.arms.length * 5;
-            arm.position.x = 12 + len * 2 / 2 - 3;
+            arm.position.x = 12 + len / 2 - 3;
 
             var joint = new _three.Object3D();
             joint.rotation.y = direction;
@@ -3231,22 +3231,24 @@ var signpostGen = function () {
         }
     }, {
         key: 'texture',
-        value: function texture(canvas, placename) {
+        value: function texture(canvas, placename, distance) {
 
             canvas.width = 256;
             canvas.height = 64;
 
             var ctx = canvas.getContext('2d');
 
-            ctx.font = '12pt Verdana';
+            ctx.font = '14pt Verdana';
             ctx.fillStyle = 'rgb(212,212,212)';
             ctx.fillRect(0, 0, canvas.width, canvas.height);
             ctx.fillStyle = 'white';
             ctx.fillRect(5, 5, canvas.width - 10, canvas.height - 10);
-            ctx.fillStyle = 'red';
+            ctx.fillStyle = 'rgb(64,64,64)';
             ctx.textAlign = "center";
             ctx.textBaseline = "middle";
-            ctx.fillText(placename, canvas.width / 2, canvas.height / 2);
+            ctx.fillText(placename, canvas.width / 2, canvas.height / 3);
+            ctx.font = '12pt Verdana';
+            ctx.fillText(distance + " miles", canvas.width / 2, canvas.height / 1.5);
         }
     }, {
         key: 'base',
@@ -3328,7 +3330,7 @@ var signpostScene = function () {
 
             // put a camera in the scene
             var camera = new _three.PerspectiveCamera(65, this.width / this.height, 1, 10000);
-            camera.position.set(0, 100, 100);
+            camera.position.set(0, 75, 75);
             camera.lookAt(new _three.Vector3(0, 40, 0));
             this.scene.add(camera);
 

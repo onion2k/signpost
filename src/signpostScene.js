@@ -44,7 +44,7 @@ export default class signpostScene {
 
         // put a camera in the scene
         var camera = new PerspectiveCamera(65, this.width / this.height, 1, 10000);
-        camera.position.set(0, 100, 100);
+        camera.position.set(0, 75, 75);
         camera.lookAt(new Vector3(0,40,0));
         this.scene.add(camera);
 
