@@ -3110,6 +3110,10 @@ function CanvasRenderer(){console.error('THREE.CanvasRenderer has been moved to 
 
 var _three = __webpack_require__(0);
 
+var _signpostScene = __webpack_require__(5);
+
+var _signpostScene2 = _interopRequireDefault(_signpostScene);
+
 var _signpost = __webpack_require__(3);
 
 var _signpost2 = _interopRequireDefault(_signpost);
@@ -3130,61 +3134,33 @@ function init() {
     var width = wrapper.offsetWidth;
     var height = wrapper.offsetHeight;
 
-    renderer = new _three.WebGLRenderer({
-        antialias: true, // to get smoother output
-        alpha: true
-    });
-    renderer.setClearColor(0xffffff, 0);
-    renderer.setSize(width, height);
+    scene = new _signpostScene2.default(width, height);
 
-    wrapper.appendChild(renderer.domElement);
+    wrapper.appendChild(scene.renderer.domElement);
 
-    // create a scene
-    scene = new _three.Scene();
+    signpost = new _signpost2.default();
+    signpost.arm('home', 30, 100);
+    signpost.arm('work', 45, 100);
+    signpost.arm('liverpool', 90, 100);
+    signpost.arm('london', 110, 100);
+    signpost.arm('san franscisco', 170, 100);
+    signpost.arm('new york', 180, 100);
+    signpost.arm('paris', 230, 100);
+    signpost.arm('rom', 240, 100);
 
-    var light = new _three.DirectionalLight(0xffffff);
-    light.position.set(10, 10, 10);
-    scene.add(light);
-
-    var targetObject = new _three.Object3D();
-    targetObject.position.set(100, 100, 100);
-    light.target = targetObject;
-    scene.add(targetObject);
-
-    // put a camera in the scene
-    camera = new _three.PerspectiveCamera(65, width / height, 1, 10000);
-    camera.position.set(0, 100, 100);
-    camera.lookAt(new _three.Vector3(0, 40, 0));
-    scene.add(camera);
-
-    signpost = new _three.Object3D();
-
-    var postMaterial = new _three.MeshPhongMaterial({ color: 0xdddddd, shininess: 10, shading: _three.FlatShading });
-    var postGeo = new _three.CylinderGeometry(4, 4, 64, 12, 1);
-    post = new _three.Mesh(postGeo, postMaterial);
-    post.position.y = 30;
-
-    signpost.add(post);
-
-    var baseMaterial = new _three.MeshPhongMaterial({ color: 0x00ff00, shininess: 10, shading: _three.FlatShading });
-    var baseGeo = new _three.CylinderGeometry(32, 32, 1, 32, 1);
-    base = new _three.Mesh(baseGeo, baseMaterial);
-
-    signpost.add(base);
-
-    scene.add(signpost);
+    scene.addObject(signpost.obj);
 }
 
 function animate() {
 
     requestAnimationFrame(animate);
-    signpost.rotation.y += 0.01;
+    signpost.obj.rotation.y += 0.01;
     render();
 }
 
 // render the scene
 function render() {
-    renderer.render(scene, camera);
+    scene.render();
 }
 
 /***/ }),
@@ -3193,6 +3169,10 @@ function render() {
 
 "use strict";
 
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
@@ -3206,18 +3186,167 @@ var signpostGen = function () {
 
         this.id = 1;
         this.arms = [];
+        this.obj = new _three.Object3D();
+
+        this.create();
     }
 
     _createClass(signpostGen, [{
         key: 'arm',
-        value: function arm(placename, distance) {
+        value: function arm(placename, direction, distance) {
+
+            var len = placename.length;
+
+            var canvas = document.createElement('canvas');
+
+            this.texture(canvas, placename);
+
+            var texture = new _three.Texture(canvas);
+
+            texture.needsUpdate = true;
+
+            var armMaterial = new _three.MeshPhongMaterial({ map: texture, color: 0xffffff, shininess: 0, shading: _three.FlatShading });
+            var armGeo = new _three.BoxGeometry(12 + len * 2, 6, 1);
+            var arm = new _three.Mesh(armGeo, armMaterial);
+
+            arm.position.y = 66 - this.arms.length * 5;
+            arm.position.x = 12 + len * 2 / 2 - 3;
+
+            var joint = new _three.Object3D();
+            joint.rotation.y = direction;
+
+            joint.add(arm);
+
+            this.obj.add(joint);
 
             this.arms.push({ 'placename': placename, 'distance': distance });
+        }
+    }, {
+        key: 'texture',
+        value: function texture(canvas, placename) {
+
+            canvas.width = 256;
+            canvas.height = 64;
+
+            var ctx = canvas.getContext('2d');
+
+            ctx.font = '20pt Arial';
+            ctx.fillStyle = 'red';
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+            ctx.fillStyle = 'white';
+            ctx.fillRect(10, 10, canvas.width - 20, canvas.height - 20);
+            ctx.fillStyle = 'black';
+            ctx.textAlign = "center";
+            ctx.textBaseline = "middle";
+            ctx.fillText(placename, canvas.width / 2, canvas.height / 2);
+        }
+    }, {
+        key: 'create',
+        value: function create() {
+
+            var postMaterial = new _three.MeshPhongMaterial({ color: 0xdddddd, shininess: 10, shading: _three.FlatShading });
+            var postGeo = new _three.CylinderGeometry(4, 4, 80, 12, 1);
+            var post = new _three.Mesh(postGeo, postMaterial);
+            post.position.y = 30;
+
+            this.obj.add(post);
+
+            var baseMaterial = new _three.MeshPhongMaterial({ color: 0x00ff00, shininess: 10, shading: _three.FlatShading });
+            var baseGeo = new _three.CylinderGeometry(32, 32, 1, 32, 1);
+            var base = new _three.Mesh(baseGeo, baseMaterial);
+
+            this.obj.add(base);
         }
     }]);
 
     return signpostGen;
 }();
+
+exports.default = signpostGen;
+
+/***/ }),
+/* 4 */,
+/* 5 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _three = __webpack_require__(0);
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+var signpostScene = function () {
+    function signpostScene(width, height) {
+        _classCallCheck(this, signpostScene);
+
+        this.width = width;
+        this.height = height;
+
+        this.scene = new _three.Scene();
+        this.lights = [];
+        this.cameras = [];
+
+        this.addCamera();
+        this.addLight();
+
+        this.renderer = new _three.WebGLRenderer({
+            antialias: true, // to get smoother output
+            alpha: true
+        });
+        this.renderer.setClearColor(0xffffff, 0);
+        this.renderer.setSize(this.width, this.height);
+    }
+
+    _createClass(signpostScene, [{
+        key: 'render',
+        value: function render() {
+            this.renderer.render(this.scene, this.cameras[0]);
+        }
+    }, {
+        key: 'addObject',
+        value: function addObject(obj) {
+            this.scene.add(obj);
+        }
+    }, {
+        key: 'addCamera',
+        value: function addCamera() {
+
+            // put a camera in the scene
+            var camera = new _three.PerspectiveCamera(65, this.width / this.height, 1, 10000);
+            camera.position.set(0, 100, 100);
+            camera.lookAt(new _three.Vector3(0, 40, 0));
+            this.scene.add(camera);
+
+            this.cameras.push(camera);
+        }
+    }, {
+        key: 'addLight',
+        value: function addLight() {
+
+            var light = new _three.DirectionalLight(0xffffff);
+            light.position.set(10, 10, 10);
+            this.scene.add(light);
+
+            var targetObject = new _three.Object3D();
+            targetObject.position.set(100, 100, 100);
+            light.target = targetObject;
+            this.scene.add(targetObject);
+
+            this.lights.push(light);
+        }
+    }]);
+
+    return signpostScene;
+}();
+
+exports.default = signpostScene;
 
 /***/ })
 /******/ ]);

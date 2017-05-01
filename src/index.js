@@ -1,9 +1,5 @@
 import { 
     WebGLRenderer, 
-    Scene, 
-    DirectionalLight,
-    DirectionalLightHelper,
-    PerspectiveCamera, 
     CylinderGeometry, 
     MeshPhongMaterial, 
     Mesh, 
@@ -12,7 +8,8 @@ import {
     FlatShading
 } from '../node_modules/three/build/three.module';
 
-import signpostGenerator from './signpost';
+import signpostScene from './signpostScene';
+import signpostGen from './signpost';
 
 var scene, renderer;
 var camera;
@@ -28,61 +25,33 @@ function init() {
     let width = wrapper.offsetWidth;
     let height = wrapper.offsetHeight;
 
-    renderer = new WebGLRenderer({
-        antialias: true,	// to get smoother output
-        alpha: true
-    });
-    renderer.setClearColor(0xffffff, 0);
-    renderer.setSize(width, height);
+    scene = new signpostScene(width, height);
 
-    wrapper.appendChild(renderer.domElement);
+    wrapper.appendChild(scene.renderer.domElement);
 
-    // create a scene
-    scene = new Scene();
+    signpost = new signpostGen();
+    signpost.arm('home', 30, 100);
+    signpost.arm('work', 45, 100);
+    signpost.arm('liverpool', 90, 100);
+    signpost.arm('london', 110, 100);
+    signpost.arm('san franscisco', 170, 100);
+    signpost.arm('new york', 180, 100);
+    signpost.arm('paris', 230, 100);
+    signpost.arm('rom', 240, 100);
 
-    var light = new DirectionalLight(0xffffff);
-    light.position.set(10, 10, 10);
-    scene.add(light);
-
-    var targetObject = new Object3D();
-    targetObject.position.set(100, 100, 100);
-	light.target = targetObject;
-	scene.add(targetObject);
-
-    // put a camera in the scene
-    camera = new PerspectiveCamera(65, width / height, 1, 10000);
-    camera.position.set(0, 100, 100);
-    camera.lookAt(new Vector3(0,40,0));
-    scene.add(camera);
-
-    signpost = new Object3D();
-
-    var postMaterial = new MeshPhongMaterial({ color: 0xdddddd, shininess: 10, shading: FlatShading });
-    var postGeo = new CylinderGeometry(4, 4, 64, 12, 1);
-    post = new Mesh(postGeo, postMaterial);
-    post.position.y = 30;
-
-    signpost.add(post);
-
-    var baseMaterial = new MeshPhongMaterial({ color: 0x00ff00, shininess: 10, shading: FlatShading });
-    var baseGeo = new CylinderGeometry(32, 32, 1, 32, 1);
-    base = new Mesh(baseGeo, baseMaterial);
-
-    signpost.add(base);
-
-    scene.add(signpost);
+    scene.addObject(signpost.obj);
 
 }
 
 function animate() {
 
     requestAnimationFrame(animate);
-    signpost.rotation.y += 0.01;
+    signpost.obj.rotation.y += 0.01;
     render();
 
 }
 
 // render the scene
 function render() {
-    renderer.render(scene, camera);
+    scene.render();
 }
