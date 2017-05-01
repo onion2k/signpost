@@ -9,7 +9,8 @@ import {
     Object3D,
     Vector3,
     FlatShading,
-    SmoothShading
+    SmoothShading,
+    Matrix4
 } from '../node_modules/three/build/three.module';
 
 export default class signpostGen {
@@ -55,7 +56,7 @@ export default class signpostGen {
 
         var joint = new Object3D();
         joint.add(arm);
-        joint.rotation.y = (Math.PI / 2) + (direction * 0.0174533);
+        rotateAroundObjectAxis(joint, new Vector3(0,1,0), (Math.PI / 2) + (direction * 0.0174533) );
 
         this.obj.add(joint);
 
@@ -108,5 +109,23 @@ export default class signpostGen {
         this.obj.add(north);
 
     }
+
+}
+
+
+function rotateAroundObjectAxis(object, axis, radians) {
+    var rotationMatrix = new Matrix4();
+    rotationMatrix.makeRotationAxis(axis.normalize(), radians);
+    object.matrix.multiply(rotationMatrix);
+    object.rotation.setFromRotationMatrix( object.matrix );
+
+}
+
+function rotateAroundWorldAxis( object, axis, radians ) {
+    var rotationMatrix = new Matrix4();
+    rotationMatrix.makeRotationAxis( axis.normalize(), radians );
+    rotationMatrix.multiply( object.matrix );
+    object.matrix = rotationMatrix;
+    object.rotation.setFromRotationMatrix( object.matrix );
 
 }

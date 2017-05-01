@@ -1,8 +1,8 @@
 module.exports = [
     {"placename":"NORTH","distance":100,"bearing":0,"direction":"SSE"},
-    {"placename":"EAST","distance":100,"bearing":90,"direction":"SSE"},
+    {"placename":"EAST","distance":100,"bearing":-90,"direction":"SSE"},
     {"placename":"SOUTH","distance":100,"bearing":180,"direction":"SSE"},
-    {"placename":"WEST","distance":100,"bearing":270,"direction":"SSE"},    
+    {"placename":"WEST","distance":100,"bearing":90,"direction":"SSE"},    
     {"placename":"London, UK","distance":241,"bearing":167.17342766186414,"direction":"SSE"},
     {"placename":"Newcastle Upon Tyne, UK","distance":11,"bearing":294.30889950822956,"direction":"WNW"},
     {"placename":"New York, USA","distance":3354,"bearing":284.700685037886,"direction":"WSW"},
