@@ -63,7 +63,7 @@
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 1);
+/******/ 	return __webpack_require__(__webpack_require__.s = 2);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -3101,7 +3101,8 @@ function Projector(){console.error('THREE.Projector has been moved to /examples/
 function CanvasRenderer(){console.error('THREE.CanvasRenderer has been moved to /examples/js/renderers/CanvasRenderer.js');this.domElement=document.createElementNS('http://www.w3.org/1999/xhtml','canvas');this.clear=function(){};this.render=function(){};this.setClearColor=function(){};this.setSize=function(){};}exports.WebGLRenderTargetCube=WebGLRenderTargetCube;exports.WebGLRenderTarget=WebGLRenderTarget;exports.WebGLRenderer=WebGLRenderer;exports.ShaderLib=ShaderLib;exports.UniformsLib=UniformsLib;exports.UniformsUtils=UniformsUtils;exports.ShaderChunk=ShaderChunk;exports.FogExp2=FogExp2;exports.Fog=Fog;exports.Scene=Scene;exports.LensFlare=LensFlare;exports.Sprite=Sprite;exports.LOD=LOD;exports.SkinnedMesh=SkinnedMesh;exports.Skeleton=Skeleton;exports.Bone=Bone;exports.Mesh=Mesh;exports.LineSegments=LineSegments;exports.LineLoop=LineLoop;exports.Line=Line;exports.Points=Points;exports.Group=Group;exports.VideoTexture=VideoTexture;exports.DataTexture=DataTexture;exports.CompressedTexture=CompressedTexture;exports.CubeTexture=CubeTexture;exports.CanvasTexture=CanvasTexture;exports.DepthTexture=DepthTexture;exports.Texture=Texture;exports.CompressedTextureLoader=CompressedTextureLoader;exports.DataTextureLoader=DataTextureLoader;exports.CubeTextureLoader=CubeTextureLoader;exports.TextureLoader=TextureLoader;exports.ObjectLoader=ObjectLoader;exports.MaterialLoader=MaterialLoader;exports.BufferGeometryLoader=BufferGeometryLoader;exports.DefaultLoadingManager=DefaultLoadingManager;exports.LoadingManager=LoadingManager;exports.JSONLoader=JSONLoader;exports.ImageLoader=ImageLoader;exports.FontLoader=FontLoader;exports.FileLoader=FileLoader;exports.Loader=Loader;exports.Cache=Cache;exports.AudioLoader=AudioLoader;exports.SpotLightShadow=SpotLightShadow;exports.SpotLight=SpotLight;exports.PointLight=PointLight;exports.RectAreaLight=RectAreaLight;exports.HemisphereLight=HemisphereLight;exports.DirectionalLightShadow=DirectionalLightShadow;exports.DirectionalLight=DirectionalLight;exports.AmbientLight=AmbientLight;exports.LightShadow=LightShadow;exports.Light=Light;exports.StereoCamera=StereoCamera;exports.PerspectiveCamera=PerspectiveCamera;exports.OrthographicCamera=OrthographicCamera;exports.CubeCamera=CubeCamera;exports.ArrayCamera=ArrayCamera;exports.Camera=Camera;exports.AudioListener=AudioListener;exports.PositionalAudio=PositionalAudio;exports.AudioContext=AudioContext;exports.AudioAnalyser=AudioAnalyser;exports.Audio=Audio;exports.VectorKeyframeTrack=VectorKeyframeTrack;exports.StringKeyframeTrack=StringKeyframeTrack;exports.QuaternionKeyframeTrack=QuaternionKeyframeTrack;exports.NumberKeyframeTrack=NumberKeyframeTrack;exports.ColorKeyframeTrack=ColorKeyframeTrack;exports.BooleanKeyframeTrack=BooleanKeyframeTrack;exports.PropertyMixer=PropertyMixer;exports.PropertyBinding=PropertyBinding;exports.KeyframeTrack=KeyframeTrack;exports.AnimationUtils=AnimationUtils;exports.AnimationObjectGroup=AnimationObjectGroup;exports.AnimationMixer=AnimationMixer;exports.AnimationClip=AnimationClip;exports.Uniform=Uniform;exports.InstancedBufferGeometry=InstancedBufferGeometry;exports.BufferGeometry=BufferGeometry;exports.GeometryIdCount=GeometryIdCount;exports.Geometry=Geometry;exports.InterleavedBufferAttribute=InterleavedBufferAttribute;exports.InstancedInterleavedBuffer=InstancedInterleavedBuffer;exports.InterleavedBuffer=InterleavedBuffer;exports.InstancedBufferAttribute=InstancedBufferAttribute;exports.Face3=Face3;exports.Object3D=Object3D;exports.Raycaster=Raycaster;exports.Layers=Layers;exports.EventDispatcher=EventDispatcher;exports.Clock=Clock;exports.QuaternionLinearInterpolant=QuaternionLinearInterpolant;exports.LinearInterpolant=LinearInterpolant;exports.DiscreteInterpolant=DiscreteInterpolant;exports.CubicInterpolant=CubicInterpolant;exports.Interpolant=Interpolant;exports.Triangle=Triangle;exports.Math=_Math;exports.Spherical=Spherical;exports.Cylindrical=Cylindrical;exports.Plane=Plane;exports.Frustum=Frustum;exports.Sphere=Sphere;exports.Ray=Ray;exports.Matrix4=Matrix4;exports.Matrix3=Matrix3;exports.Box3=Box3;exports.Box2=Box2;exports.Line3=Line3;exports.Euler=Euler;exports.Vector4=Vector4;exports.Vector3=Vector3;exports.Vector2=Vector2;exports.Quaternion=Quaternion;exports.Color=Color;exports.MorphBlendMesh=MorphBlendMesh;exports.ImmediateRenderObject=ImmediateRenderObject;exports.VertexNormalsHelper=VertexNormalsHelper;exports.SpotLightHelper=SpotLightHelper;exports.SkeletonHelper=SkeletonHelper;exports.PointLightHelper=PointLightHelper;exports.RectAreaLightHelper=RectAreaLightHelper;exports.HemisphereLightHelper=HemisphereLightHelper;exports.GridHelper=GridHelper;exports.PolarGridHelper=PolarGridHelper;exports.FaceNormalsHelper=FaceNormalsHelper;exports.DirectionalLightHelper=DirectionalLightHelper;exports.CameraHelper=CameraHelper;exports.BoxHelper=BoxHelper;exports.ArrowHelper=ArrowHelper;exports.AxisHelper=AxisHelper;exports.CatmullRomCurve3=CatmullRomCurve3;exports.CubicBezierCurve3=CubicBezierCurve3;exports.QuadraticBezierCurve3=QuadraticBezierCurve3;exports.LineCurve3=LineCurve3;exports.ArcCurve=ArcCurve;exports.EllipseCurve=EllipseCurve;exports.SplineCurve=SplineCurve;exports.CubicBezierCurve=CubicBezierCurve;exports.QuadraticBezierCurve=QuadraticBezierCurve;exports.LineCurve=LineCurve;exports.Shape=Shape;exports.Path=Path;exports.ShapePath=ShapePath;exports.Font=Font;exports.CurvePath=CurvePath;exports.Curve=Curve;exports.ShapeUtils=ShapeUtils;exports.SceneUtils=SceneUtils;exports.WireframeGeometry=WireframeGeometry;exports.ParametricGeometry=ParametricGeometry;exports.ParametricBufferGeometry=ParametricBufferGeometry;exports.TetrahedronGeometry=TetrahedronGeometry;exports.TetrahedronBufferGeometry=TetrahedronBufferGeometry;exports.OctahedronGeometry=OctahedronGeometry;exports.OctahedronBufferGeometry=OctahedronBufferGeometry;exports.IcosahedronGeometry=IcosahedronGeometry;exports.IcosahedronBufferGeometry=IcosahedronBufferGeometry;exports.DodecahedronGeometry=DodecahedronGeometry;exports.DodecahedronBufferGeometry=DodecahedronBufferGeometry;exports.PolyhedronGeometry=PolyhedronGeometry;exports.PolyhedronBufferGeometry=PolyhedronBufferGeometry;exports.TubeGeometry=TubeGeometry;exports.TubeBufferGeometry=TubeBufferGeometry;exports.TorusKnotGeometry=TorusKnotGeometry;exports.TorusKnotBufferGeometry=TorusKnotBufferGeometry;exports.TorusGeometry=TorusGeometry;exports.TorusBufferGeometry=TorusBufferGeometry;exports.TextGeometry=TextGeometry;exports.TextBufferGeometry=TextBufferGeometry;exports.SphereGeometry=SphereGeometry;exports.SphereBufferGeometry=SphereBufferGeometry;exports.RingGeometry=RingGeometry;exports.RingBufferGeometry=RingBufferGeometry;exports.PlaneGeometry=PlaneGeometry;exports.PlaneBufferGeometry=PlaneBufferGeometry;exports.LatheGeometry=LatheGeometry;exports.LatheBufferGeometry=LatheBufferGeometry;exports.ShapeGeometry=ShapeGeometry;exports.ShapeBufferGeometry=ShapeBufferGeometry;exports.ExtrudeGeometry=ExtrudeGeometry;exports.ExtrudeBufferGeometry=ExtrudeBufferGeometry;exports.EdgesGeometry=EdgesGeometry;exports.ConeGeometry=ConeGeometry;exports.ConeBufferGeometry=ConeBufferGeometry;exports.CylinderGeometry=CylinderGeometry;exports.CylinderBufferGeometry=CylinderBufferGeometry;exports.CircleGeometry=CircleGeometry;exports.CircleBufferGeometry=CircleBufferGeometry;exports.BoxGeometry=BoxGeometry;exports.BoxBufferGeometry=BoxBufferGeometry;exports.ShadowMaterial=ShadowMaterial;exports.SpriteMaterial=SpriteMaterial;exports.RawShaderMaterial=RawShaderMaterial;exports.ShaderMaterial=ShaderMaterial;exports.PointsMaterial=PointsMaterial;exports.MeshPhysicalMaterial=MeshPhysicalMaterial;exports.MeshStandardMaterial=MeshStandardMaterial;exports.MeshPhongMaterial=MeshPhongMaterial;exports.MeshToonMaterial=MeshToonMaterial;exports.MeshNormalMaterial=MeshNormalMaterial;exports.MeshLambertMaterial=MeshLambertMaterial;exports.MeshDepthMaterial=MeshDepthMaterial;exports.MeshBasicMaterial=MeshBasicMaterial;exports.LineDashedMaterial=LineDashedMaterial;exports.LineBasicMaterial=LineBasicMaterial;exports.Material=Material;exports.Float64BufferAttribute=Float64BufferAttribute;exports.Float32BufferAttribute=Float32BufferAttribute;exports.Uint32BufferAttribute=Uint32BufferAttribute;exports.Int32BufferAttribute=Int32BufferAttribute;exports.Uint16BufferAttribute=Uint16BufferAttribute;exports.Int16BufferAttribute=Int16BufferAttribute;exports.Uint8ClampedBufferAttribute=Uint8ClampedBufferAttribute;exports.Uint8BufferAttribute=Uint8BufferAttribute;exports.Int8BufferAttribute=Int8BufferAttribute;exports.BufferAttribute=BufferAttribute;exports.REVISION=REVISION;exports.MOUSE=MOUSE;exports.CullFaceNone=CullFaceNone;exports.CullFaceBack=CullFaceBack;exports.CullFaceFront=CullFaceFront;exports.CullFaceFrontBack=CullFaceFrontBack;exports.FrontFaceDirectionCW=FrontFaceDirectionCW;exports.FrontFaceDirectionCCW=FrontFaceDirectionCCW;exports.BasicShadowMap=BasicShadowMap;exports.PCFShadowMap=PCFShadowMap;exports.PCFSoftShadowMap=PCFSoftShadowMap;exports.FrontSide=FrontSide;exports.BackSide=BackSide;exports.DoubleSide=DoubleSide;exports.FlatShading=FlatShading;exports.SmoothShading=SmoothShading;exports.NoColors=NoColors;exports.FaceColors=FaceColors;exports.VertexColors=VertexColors;exports.NoBlending=NoBlending;exports.NormalBlending=NormalBlending;exports.AdditiveBlending=AdditiveBlending;exports.SubtractiveBlending=SubtractiveBlending;exports.MultiplyBlending=MultiplyBlending;exports.CustomBlending=CustomBlending;exports.AddEquation=AddEquation;exports.SubtractEquation=SubtractEquation;exports.ReverseSubtractEquation=ReverseSubtractEquation;exports.MinEquation=MinEquation;exports.MaxEquation=MaxEquation;exports.ZeroFactor=ZeroFactor;exports.OneFactor=OneFactor;exports.SrcColorFactor=SrcColorFactor;exports.OneMinusSrcColorFactor=OneMinusSrcColorFactor;exports.SrcAlphaFactor=SrcAlphaFactor;exports.OneMinusSrcAlphaFactor=OneMinusSrcAlphaFactor;exports.DstAlphaFactor=DstAlphaFactor;exports.OneMinusDstAlphaFactor=OneMinusDstAlphaFactor;exports.DstColorFactor=DstColorFactor;exports.OneMinusDstColorFactor=OneMinusDstColorFactor;exports.SrcAlphaSaturateFactor=SrcAlphaSaturateFactor;exports.NeverDepth=NeverDepth;exports.AlwaysDepth=AlwaysDepth;exports.LessDepth=LessDepth;exports.LessEqualDepth=LessEqualDepth;exports.EqualDepth=EqualDepth;exports.GreaterEqualDepth=GreaterEqualDepth;exports.GreaterDepth=GreaterDepth;exports.NotEqualDepth=NotEqualDepth;exports.MultiplyOperation=MultiplyOperation;exports.MixOperation=MixOperation;exports.AddOperation=AddOperation;exports.NoToneMapping=NoToneMapping;exports.LinearToneMapping=LinearToneMapping;exports.ReinhardToneMapping=ReinhardToneMapping;exports.Uncharted2ToneMapping=Uncharted2ToneMapping;exports.CineonToneMapping=CineonToneMapping;exports.UVMapping=UVMapping;exports.CubeReflectionMapping=CubeReflectionMapping;exports.CubeRefractionMapping=CubeRefractionMapping;exports.EquirectangularReflectionMapping=EquirectangularReflectionMapping;exports.EquirectangularRefractionMapping=EquirectangularRefractionMapping;exports.SphericalReflectionMapping=SphericalReflectionMapping;exports.CubeUVReflectionMapping=CubeUVReflectionMapping;exports.CubeUVRefractionMapping=CubeUVRefractionMapping;exports.RepeatWrapping=RepeatWrapping;exports.ClampToEdgeWrapping=ClampToEdgeWrapping;exports.MirroredRepeatWrapping=MirroredRepeatWrapping;exports.NearestFilter=NearestFilter;exports.NearestMipMapNearestFilter=NearestMipMapNearestFilter;exports.NearestMipMapLinearFilter=NearestMipMapLinearFilter;exports.LinearFilter=LinearFilter;exports.LinearMipMapNearestFilter=LinearMipMapNearestFilter;exports.LinearMipMapLinearFilter=LinearMipMapLinearFilter;exports.UnsignedByteType=UnsignedByteType;exports.ByteType=ByteType;exports.ShortType=ShortType;exports.UnsignedShortType=UnsignedShortType;exports.IntType=IntType;exports.UnsignedIntType=UnsignedIntType;exports.FloatType=FloatType;exports.HalfFloatType=HalfFloatType;exports.UnsignedShort4444Type=UnsignedShort4444Type;exports.UnsignedShort5551Type=UnsignedShort5551Type;exports.UnsignedShort565Type=UnsignedShort565Type;exports.UnsignedInt248Type=UnsignedInt248Type;exports.AlphaFormat=AlphaFormat;exports.RGBFormat=RGBFormat;exports.RGBAFormat=RGBAFormat;exports.LuminanceFormat=LuminanceFormat;exports.LuminanceAlphaFormat=LuminanceAlphaFormat;exports.RGBEFormat=RGBEFormat;exports.DepthFormat=DepthFormat;exports.DepthStencilFormat=DepthStencilFormat;exports.RGB_S3TC_DXT1_Format=RGB_S3TC_DXT1_Format;exports.RGBA_S3TC_DXT1_Format=RGBA_S3TC_DXT1_Format;exports.RGBA_S3TC_DXT3_Format=RGBA_S3TC_DXT3_Format;exports.RGBA_S3TC_DXT5_Format=RGBA_S3TC_DXT5_Format;exports.RGB_PVRTC_4BPPV1_Format=RGB_PVRTC_4BPPV1_Format;exports.RGB_PVRTC_2BPPV1_Format=RGB_PVRTC_2BPPV1_Format;exports.RGBA_PVRTC_4BPPV1_Format=RGBA_PVRTC_4BPPV1_Format;exports.RGBA_PVRTC_2BPPV1_Format=RGBA_PVRTC_2BPPV1_Format;exports.RGB_ETC1_Format=RGB_ETC1_Format;exports.LoopOnce=LoopOnce;exports.LoopRepeat=LoopRepeat;exports.LoopPingPong=LoopPingPong;exports.InterpolateDiscrete=InterpolateDiscrete;exports.InterpolateLinear=InterpolateLinear;exports.InterpolateSmooth=InterpolateSmooth;exports.ZeroCurvatureEnding=ZeroCurvatureEnding;exports.ZeroSlopeEnding=ZeroSlopeEnding;exports.WrapAroundEnding=WrapAroundEnding;exports.TrianglesDrawMode=TrianglesDrawMode;exports.TriangleStripDrawMode=TriangleStripDrawMode;exports.TriangleFanDrawMode=TriangleFanDrawMode;exports.LinearEncoding=LinearEncoding;exports.sRGBEncoding=sRGBEncoding;exports.GammaEncoding=GammaEncoding;exports.RGBEEncoding=RGBEEncoding;exports.LogLuvEncoding=LogLuvEncoding;exports.RGBM7Encoding=RGBM7Encoding;exports.RGBM16Encoding=RGBM16Encoding;exports.RGBDEncoding=RGBDEncoding;exports.BasicDepthPacking=BasicDepthPacking;exports.RGBADepthPacking=RGBADepthPacking;exports.CubeGeometry=BoxGeometry;exports.Face4=Face4;exports.LineStrip=LineStrip;exports.LinePieces=LinePieces;exports.MeshFaceMaterial=MeshFaceMaterial;exports.MultiMaterial=MultiMaterial;exports.PointCloud=PointCloud;exports.Particle=Particle;exports.ParticleSystem=ParticleSystem;exports.PointCloudMaterial=PointCloudMaterial;exports.ParticleBasicMaterial=ParticleBasicMaterial;exports.ParticleSystemMaterial=ParticleSystemMaterial;exports.Vertex=Vertex;exports.DynamicBufferAttribute=DynamicBufferAttribute;exports.Int8Attribute=Int8Attribute;exports.Uint8Attribute=Uint8Attribute;exports.Uint8ClampedAttribute=Uint8ClampedAttribute;exports.Int16Attribute=Int16Attribute;exports.Uint16Attribute=Uint16Attribute;exports.Int32Attribute=Int32Attribute;exports.Uint32Attribute=Uint32Attribute;exports.Float32Attribute=Float32Attribute;exports.Float64Attribute=Float64Attribute;exports.ClosedSplineCurve3=ClosedSplineCurve3;exports.SplineCurve3=SplineCurve3;exports.Spline=Spline;exports.BoundingBoxHelper=BoundingBoxHelper;exports.EdgesHelper=EdgesHelper;exports.WireframeHelper=WireframeHelper;exports.XHRLoader=XHRLoader;exports.BinaryTextureLoader=BinaryTextureLoader;exports.GeometryUtils=GeometryUtils;exports.ImageUtils=ImageUtils;exports.Projector=Projector;exports.CanvasRenderer=CanvasRenderer;
 
 /***/ }),
-/* 1 */
+/* 1 */,
+/* 2 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3109,9 +3110,15 @@ function CanvasRenderer(){console.error('THREE.CanvasRenderer has been moved to 
 
 var _three = __webpack_require__(0);
 
+var _signpost = __webpack_require__(3);
+
+var _signpost2 = _interopRequireDefault(_signpost);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
 var scene, renderer;
 var camera;
-var box;
+var signpost, post, base;
 
 if (!init()) animate();
 
@@ -3136,25 +3143,42 @@ function init() {
     scene = new _three.Scene();
 
     var light = new _three.DirectionalLight(0xffffff);
-    light.position.set(0, 0, 15).normalize();
+    light.position.set(10, 10, 10);
     scene.add(light);
+
+    var targetObject = new _three.Object3D();
+    targetObject.position.set(100, 100, 100);
+    light.target = targetObject;
+    scene.add(targetObject);
 
     // put a camera in the scene
     camera = new _three.PerspectiveCamera(65, width / height, 1, 10000);
-    camera.position.set(0, 5, 75);
+    camera.position.set(0, 100, 100);
+    camera.lookAt(new _three.Vector3(0, 40, 0));
     scene.add(camera);
 
-    var boxGeo = new _three.CylinderGeometry(5, 5, 50, 8, 1);
-    box = new _three.Mesh(boxGeo, new _three.MeshLambertMaterial({ color: 0x22ff22, shading: _three.FlatShading }));
-    box.position.y = -10;
+    signpost = new _three.Object3D();
 
-    scene.add(box);
+    var postMaterial = new _three.MeshPhongMaterial({ color: 0xdddddd, shininess: 10, shading: _three.FlatShading });
+    var postGeo = new _three.CylinderGeometry(4, 4, 64, 12, 1);
+    post = new _three.Mesh(postGeo, postMaterial);
+    post.position.y = 30;
+
+    signpost.add(post);
+
+    var baseMaterial = new _three.MeshPhongMaterial({ color: 0x00ff00, shininess: 10, shading: _three.FlatShading });
+    var baseGeo = new _three.CylinderGeometry(32, 32, 1, 32, 1);
+    base = new _three.Mesh(baseGeo, baseMaterial);
+
+    signpost.add(base);
+
+    scene.add(signpost);
 }
 
 function animate() {
 
     requestAnimationFrame(animate);
-    box.rotation.y += 0.01;
+    signpost.rotation.y += 0.01;
     render();
 }
 
@@ -3162,6 +3186,38 @@ function animate() {
 function render() {
     renderer.render(scene, camera);
 }
+
+/***/ }),
+/* 3 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _three = __webpack_require__(0);
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+var signpostGen = function () {
+    function signpostGen() {
+        _classCallCheck(this, signpostGen);
+
+        this.id = 1;
+        this.arms = [];
+    }
+
+    _createClass(signpostGen, [{
+        key: 'arm',
+        value: function arm(placename, distance) {
+
+            this.arms.push({ 'placename': placename, 'distance': distance });
+        }
+    }]);
+
+    return signpostGen;
+}();
 
 /***/ })
 /******/ ]);
