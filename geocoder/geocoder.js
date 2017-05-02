@@ -17,7 +17,7 @@ var arms = [];
 
 var calcDist = function(from, to) {
 
-  var toJson = jsonfile.readFileSync(to.placename+".json", { throws: false });
+  var toJson = jsonfile.readFileSync('./places/'+to.placename+".json", { throws: false });
 
   if (!toJson) {
 
@@ -27,7 +27,7 @@ var calcDist = function(from, to) {
         to.longitude = res[0].longitude;
         to.latitude = res[0].latitude;
 
-        jsonfile.writeFile(to.placename+'.json', to, {spaces: 2});
+        jsonfile.writeFile('./places/'+to.placename+'.json', to, {spaces: 2});
 
         arms.push({ 
           "placename": to.location,
@@ -55,9 +55,7 @@ var calcDist = function(from, to) {
 }
 
 for (var t in signpost.to) {
-
-  calcDist(signpost.from, signpost.to[t]);
-
+    calcDist(signpost.from, signpost.to[t]);
 }
 
 jsonfile.writeFile('../src/arms.json', arms, {spaces: 2});

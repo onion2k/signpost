@@ -5,7 +5,7 @@ var path = require('path');
 module.exports = {
     entry: './src/index.js',
     output: {
-        path: __dirname+'/dist',
+        path: __dirname+'/public/dist',
         filename: 'signpost.js'
     },
     module: {
