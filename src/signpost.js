@@ -56,7 +56,7 @@ export default class signpostGen {
 
         var joint = new Object3D();
         joint.add(arm);
-        rotateAroundObjectAxis(joint, new Vector3(0,1,0), (Math.PI / 2) + (direction * 0.0174533) );
+        joint.rotation.y = (Math.PI / 2) + (-1 * direction * 0.0174533);
 
         this.obj.add(joint);
 

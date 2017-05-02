@@ -3107,7 +3107,7 @@ function CanvasRenderer(){console.error('THREE.CanvasRenderer has been moved to 
 "use strict";
 
 
-module.exports = [{ "placename": "NORTH", "distance": 100, "bearing": 0, "direction": "SSE" }, { "placename": "EAST", "distance": 100, "bearing": -90, "direction": "SSE" }, { "placename": "SOUTH", "distance": 100, "bearing": 180, "direction": "SSE" }, { "placename": "WEST", "distance": 100, "bearing": 90, "direction": "SSE" }, { "placename": "London, UK", "distance": 241, "bearing": 167.17342766186414, "direction": "SSE" }, { "placename": "Newcastle Upon Tyne, UK", "distance": 11, "bearing": 294.30889950822956, "direction": "WNW" }, { "placename": "New York, USA", "distance": 3354, "bearing": 284.700685037886, "direction": "WSW" }, { "placename": "Paris, France", "distance": 448, "bearing": 157.74320026124576, "direction": "SSE" }, { "placename": "Rome, Italy", "distance": 1098, "bearing": 139.30105367536515, "direction": "SE" }, { "placename": "Bournemouth, UK", "distance": 291, "bearing": 184.40442237247956, "direction": "S" }];
+module.exports = [{ "placename": "London", "distance": 241, "bearing": 167.17342766186414, "direction": "SSE" }, { "placename": "Newcastle", "distance": 11, "bearing": 294.30889950822956, "direction": "WNW" }, { "placename": "New York", "distance": 3354, "bearing": 284.700685037886, "direction": "WSW" }, { "placename": "Paris", "distance": 448, "bearing": 157.74320026124576, "direction": "SSE" }, { "placename": "Rome", "distance": 1098, "bearing": 139.30105367536515, "direction": "SE" }, { "placename": "Bournemouth", "distance": 291, "bearing": 184.40442237247956, "direction": "S" }];
 
 /***/ }),
 /* 2 */
@@ -3168,7 +3168,7 @@ var signpostGen = function () {
 
             var joint = new _three.Object3D();
             joint.add(arm);
-            rotateAroundObjectAxis(joint, new _three.Vector3(0, 1, 0), Math.PI / 2 + direction * 0.0174533);
+            joint.rotation.y = Math.PI / 2 + -1 * direction * 0.0174533;
 
             this.obj.add(joint);
 
