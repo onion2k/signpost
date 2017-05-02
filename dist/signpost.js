@@ -3107,7 +3107,7 @@ function CanvasRenderer(){console.error('THREE.CanvasRenderer has been moved to 
 "use strict";
 
 
-module.exports = [{ "placename": "London", "distance": 241, "bearing": 167.17342766186414, "direction": "SSE" }, { "placename": "Newcastle", "distance": 11, "bearing": 294.30889950822956, "direction": "WNW" }, { "placename": "New York", "distance": 3354, "bearing": 284.700685037886, "direction": "WSW" }, { "placename": "Paris", "distance": 448, "bearing": 157.74320026124576, "direction": "SSE" }, { "placename": "Rome", "distance": 1098, "bearing": 139.30105367536515, "direction": "SE" }, { "placename": "Bournemouth", "distance": 291, "bearing": 184.40442237247956, "direction": "S" }];
+module.exports = [{ "placename": "London", "distance": 241, "bearing": 167.17342766186414, "direction": "SSE" }, { "placename": "Newcastle", "distance": 0, "bearing": 294.30889950822956, "direction": "WNW" }, { "placename": "New York", "distance": 3354, "bearing": 284.700685037886, "direction": "WSW" }, { "placename": "Paris", "distance": 448, "bearing": 157.74320026124576, "direction": "SSE" }, { "placename": "Rome", "distance": 1098, "bearing": 139.30105367536515, "direction": "SE" }, { "placename": "Bournemouth", "distance": 291, "bearing": 184.40442237247956, "direction": "S" }];
 
 /***/ }),
 /* 2 */
@@ -3183,7 +3183,6 @@ var signpostGen = function () {
 
             var ctx = canvas.getContext('2d');
 
-            ctx.font = '14pt Verdana';
             ctx.fillStyle = 'rgb(212,212,212)';
             ctx.fillRect(0, 0, canvas.width, canvas.height);
             ctx.fillStyle = 'white';
@@ -3191,9 +3190,15 @@ var signpostGen = function () {
             ctx.fillStyle = 'rgb(64,64,64)';
             ctx.textAlign = "center";
             ctx.textBaseline = "middle";
-            ctx.fillText(placename, canvas.width / 2, canvas.height / 3);
-            ctx.font = '12pt Verdana';
-            ctx.fillText(distance + " miles", canvas.width / 2, canvas.height / 1.5);
+            if (distance > 0) {
+                ctx.font = '14pt Verdana';
+                ctx.fillText(placename, canvas.width / 2, canvas.height / 3);
+                ctx.font = '12pt Verdana';
+                ctx.fillText(distance + " miles", canvas.width / 2, canvas.height / 1.5);
+            } else {
+                ctx.font = '16pt Verdana';
+                ctx.fillText(placename, canvas.width / 2, canvas.height / 2);
+            }
         }
     }, {
         key: 'base',
@@ -3206,13 +3211,13 @@ var signpostGen = function () {
 
             this.obj.add(post);
 
-            var baseMaterial = new _three.MeshLambertMaterial({ color: 0x00ff00 });
-            var baseGeo = new _three.CylinderGeometry(32, 32, 1, 32, 1);
+            var baseMaterial = new _three.MeshPhysicalMaterial({ color: 0x00ff00, roughness: 100 });
+            var baseGeo = new _three.CylinderGeometry(32, 32, 1, 128, 1);
             var base = new _three.Mesh(baseGeo, baseMaterial);
 
             this.obj.add(base);
 
-            var northMaterial = new _three.MeshLambertMaterial({ color: 0xff0000 });
+            var northMaterial = new _three.MeshPhysicalMaterial({ color: 0xff0000 });
             var northGeo = new _three.CylinderGeometry(2, 2, 2, 8, 1);
             var north = new _three.Mesh(northGeo, northMaterial);
             north.position.z = -24;

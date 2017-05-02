@@ -1,6 +1,6 @@
 import {
     MeshPhongMaterial,
-    MeshLambertMaterial,
+    MeshPhysicalMaterial,
     MeshBasicMaterial,
     Texture,
     BoxGeometry,
@@ -71,7 +71,6 @@ export default class signpostGen {
 
         var ctx = canvas.getContext('2d');
 
-        ctx.font = '14pt Verdana';
         ctx.fillStyle = 'rgb(212,212,212)';
         ctx.fillRect(0, 0, canvas.width, canvas.height);
         ctx.fillStyle = 'white';
@@ -79,9 +78,15 @@ export default class signpostGen {
         ctx.fillStyle = 'rgb(64,64,64)';
         ctx.textAlign = "center";
         ctx.textBaseline = "middle";
-        ctx.fillText(placename, canvas.width / 2, canvas.height / 3);
-        ctx.font = '12pt Verdana';
-        ctx.fillText(distance+" miles", canvas.width / 2, canvas.height / 1.5);
+        if (distance > 0) {
+            ctx.font = '14pt Verdana';
+            ctx.fillText(placename, canvas.width / 2, canvas.height / 3);
+            ctx.font = '12pt Verdana';
+            ctx.fillText(distance+" miles", canvas.width / 2, canvas.height / 1.5);
+        } else {
+            ctx.font = '16pt Verdana';
+            ctx.fillText(placename, canvas.width / 2, canvas.height / 2);
+        }
 
     }
 
@@ -94,14 +99,13 @@ export default class signpostGen {
 
         this.obj.add(post);
 
-        var baseMaterial = new MeshLambertMaterial({ color: 0x00ff00 });
-        var baseGeo = new CylinderGeometry(32, 32, 1, 32, 1);
+        var baseMaterial = new MeshPhysicalMaterial({ color: 0x00ff00, roughness: 100 });
+        var baseGeo = new CylinderGeometry(32, 32, 1, 128, 1);
         var base = new Mesh(baseGeo, baseMaterial);
 
         this.obj.add(base);
 
-
-        var northMaterial = new MeshLambertMaterial({ color: 0xff0000 });
+        var northMaterial = new MeshPhysicalMaterial({ color: 0xff0000 });
         var northGeo = new CylinderGeometry(2, 2, 2, 8, 1);
         var north = new Mesh(northGeo, northMaterial);
         north.position.z = -24;
