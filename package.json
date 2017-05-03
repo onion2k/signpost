@@ -5,6 +5,7 @@
   "main": "./src/index.js",
   "scripts": {
     "api": "pm2 start ./api/app.js --name=api",
+    "api-restart": "pm2 restart api",
     "api-stop": "pm2 stop api",
     "build": "./node_modules/.bin/webpack --progress --colors",
     "watch": "./node_modules/.bin/webpack --progress --colors --watch",
@@ -32,6 +33,7 @@
     "jsonfile": "^3.0.0",
     "node-geocoder": "^3.16.0",
     "pm2": "^2.4.6",
+    "socket.io": "^1.7.3",
     "three": "^0.85.2",
     "webpack": "^2.4.1"
   },
