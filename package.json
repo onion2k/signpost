@@ -5,7 +5,7 @@
   "main": "./src/index.js",
   "scripts": {
     "api": "pm2 start ./api/app.js --name=api",
-    "api-restart": "pm2 restart api",
+    "api-restart": "pm2 api-restart api",
     "api-stop": "pm2 stop api",
     "build": "./node_modules/.bin/webpack --progress --colors",
     "watch": "./node_modules/.bin/webpack --progress --colors --watch",
