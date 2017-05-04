@@ -3164,7 +3164,7 @@ var signpostGen = function () {
             var arm = new _three.Mesh(armGeo, armMaterials);
 
             arm.position.y = 66 - this.arms.length * 5;
-            arm.position.x = 12 + len / 2 - 3;
+            arm.position.x = 12 + len / 2 - 5;
 
             var joint = new _three.Object3D();
             joint.add(arm);
@@ -3205,7 +3205,7 @@ var signpostGen = function () {
         value: function base() {
 
             var postMaterial = new _three.MeshPhongMaterial({ color: 0xdddddd, shininess: 10, shading: _three.FlatShading });
-            var postGeo = new _three.CylinderGeometry(4, 4, 80, 12, 1);
+            var postGeo = new _three.CylinderGeometry(2, 2, 80, 12, 1);
             var post = new _three.Mesh(postGeo, postMaterial);
             post.position.y = 30;
 
@@ -3223,6 +3223,13 @@ var signpostGen = function () {
             north.position.z = -24;
 
             this.obj.add(north);
+
+            var topperMaterial = new _three.MeshPhongMaterial({ color: 0xdddddd, shininess: 10, shading: _three.FlatShading });
+            var topperGeo = new _three.SphereGeometry(3, 12, 12);
+            var topper = new _three.Mesh(topperGeo, topperMaterial);
+            topper.position.y = 72;
+
+            this.obj.add(topper);
         }
     }]);
 

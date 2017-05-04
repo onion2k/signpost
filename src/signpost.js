@@ -5,6 +5,7 @@ import {
     Texture,
     BoxGeometry,
     CylinderGeometry,
+    SphereGeometry,
     Mesh, 
     Object3D,
     Vector3,
@@ -52,7 +53,7 @@ export default class signpostGen {
         var arm = new Mesh(armGeo, armMaterials);
 
         arm.position.y = 66 - (this.arms.length * 5);
-        arm.position.x = (12 + (len) / 2) - 3;
+        arm.position.x = (12 + (len) / 2) - 5;
 
         var joint = new Object3D();
         joint.add(arm);
@@ -93,7 +94,7 @@ export default class signpostGen {
     base() {
 
         var postMaterial = new MeshPhongMaterial({ color: 0xdddddd, shininess: 10, shading: FlatShading });
-        var postGeo = new CylinderGeometry(4, 4, 80, 12, 1);
+        var postGeo = new CylinderGeometry(2, 2, 80, 12, 1);
         var post = new Mesh(postGeo, postMaterial);
         post.position.y = 30;
 
@@ -111,6 +112,13 @@ export default class signpostGen {
         north.position.z = -24;
 
         this.obj.add(north);
+
+        var topperMaterial = new MeshPhongMaterial({ color: 0xdddddd, shininess: 10, shading: FlatShading });
+        var topperGeo = new SphereGeometry(3, 12, 12);
+        var topper = new Mesh(topperGeo, topperMaterial);
+        topper.position.y = 72;
+
+        this.obj.add(topper);
 
     }
 
