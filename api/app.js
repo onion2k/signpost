@@ -5,13 +5,23 @@ var app = express();
 var server = require('http').Server(app);
 var io = require('socket.io')(server);
 
-server.listen(8081);
+var geocoder = require('../geocoder/geocoder.module.js');
 
-app.use(express.static('public'));
+var from = {
+    "placename": "sunderland",
+    "location": "Sunderland, UK",
+    "latitude": 54.9145215,
+    "longitude": -1.3709684
+}
+
+app.use(express.static('../public'));
 
 io.on('connection', function (socket) {
-  socket.emit('news', { hello: 'world' });
-  socket.on('my other event', function (data) {
-    console.log(data);
+  socket.on('geocode', function (data) {
+    geocoder.encode(from, [{ 'placename': 'london', 'location': 'london' }]).then((result) => {
+      socket.emit('geocode', result);
+    });
   });
 });
+
+server.listen(8081);
