@@ -16,7 +16,7 @@ var calcDist = function(from, to) {
 
   var toJson = jsonfile.readFileSync('./places/'+to.placename+".json", { throws: false });
 
-  console.log(to.placename);
+  console.log(to.location);
 
   if (!toJson) {
 
@@ -30,12 +30,14 @@ var calcDist = function(from, to) {
 
         jsonfile.writeFile('./places/'+to.placename+'.json', to, {spaces: 2});
 
-        return { 
+        var response = { 
           "placename": to.location,
           "distance": Math.round(geolib.convertUnit('mi', geolib.getDistance(from, to))),
           "bearing":  geolib.getBearing(from, to),
-          "direction":  geolib.getCompassDirection(from, toJson).exact
+          "direction":  geolib.getCompassDirection(from, to).exact
         };
+
+        return response;
 
       })
       .catch(function(err) {

@@ -59,8 +59,8 @@
             signpost.arm(data[0].placename, data[0].bearing, data[0].distance);
           });
 
-          function geocode(placename, location) {
-            socket.emit('geocode', { placename: placename, location: location });
+          function geocode(location) {
+            socket.emit('geocode', { location: location });
           }
 
         </script>
