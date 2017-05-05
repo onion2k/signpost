@@ -16,7 +16,11 @@ var calcDist = function(from, to) {
 
   var toJson = jsonfile.readFileSync('./places/'+to.placename+".json", { throws: false });
 
+  console.log(to.placename);
+
   if (!toJson) {
+
+    console.log("Not found");
 
     return geocoder.geocode(to.location)
       .then(function(res) {
@@ -39,6 +43,9 @@ var calcDist = function(from, to) {
       });
 
   } else {
+
+    console.log("Found");
+    console.log(toJson);
 
     return Promise.resolve({ 
       "placename": to.location,

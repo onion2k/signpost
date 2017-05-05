@@ -39,12 +39,14 @@ function init() {
 
     scene.addObject(signpost.obj);
 
+    window.signpost = signpost;
+
 }
 
 function animate() {
 
     requestAnimationFrame(animate);
-    signpost.obj.rotation.y += 0.01;
+    signpost.obj.rotation.y += 0.02;
     render();
 
 }

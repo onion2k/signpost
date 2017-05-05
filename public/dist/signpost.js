@@ -3107,7 +3107,7 @@ function CanvasRenderer(){console.error('THREE.CanvasRenderer has been moved to 
 "use strict";
 
 
-module.exports = [{ "placename": "London", "distance": 241, "bearing": 167.17342766186414, "direction": "SSE" }, { "placename": "Newcastle", "distance": 0, "bearing": 294.30889950822956, "direction": "WNW" }, { "placename": "New York", "distance": 3354, "bearing": 284.700685037886, "direction": "WSW" }, { "placename": "Paris", "distance": 448, "bearing": 157.74320026124576, "direction": "SSE" }, { "placename": "Rome", "distance": 1098, "bearing": 139.30105367536515, "direction": "SE" }, { "placename": "Bournemouth", "distance": 291, "bearing": 184.40442237247956, "direction": "S" }];
+module.exports = [];
 
 /***/ }),
 /* 2 */
@@ -3163,7 +3163,7 @@ var signpostGen = function () {
             var armGeo = new _three.BoxGeometry(12 + len * 1, 6, 1);
             var arm = new _three.Mesh(armGeo, armMaterials);
 
-            arm.position.y = 66 - this.arms.length * 5;
+            arm.position.y = 66 - this.arms.length * 6;
             arm.position.x = 12 + len / 2 - 5;
 
             var joint = new _three.Object3D();
@@ -3382,12 +3382,14 @@ function init() {
     }
 
     scene.addObject(signpost.obj);
+
+    window.signpost = signpost;
 }
 
 function animate() {
 
     requestAnimationFrame(animate);
-    signpost.obj.rotation.y += 0.01;
+    signpost.obj.rotation.y += 0.02;
     render();
 }
 

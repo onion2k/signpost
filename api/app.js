@@ -18,7 +18,7 @@ app.use(express.static('../public'));
 
 io.on('connection', function (socket) {
   socket.on('geocode', function (data) {
-    geocoder.encode(from, [{ 'placename': 'london', 'location': 'london' }]).then((result) => {
+    geocoder.encode(from, [{ 'placename': data.location.replace(/\W+/g, ''), 'location': data.location }]).then((result) => {
       socket.emit('geocode', result);
     });
   });

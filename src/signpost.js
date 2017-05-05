@@ -52,7 +52,7 @@ export default class signpostGen {
         var armGeo = new BoxGeometry(12 + (len * 1), 6, 1);
         var arm = new Mesh(armGeo, armMaterials);
 
-        arm.position.y = 66 - (this.arms.length * 5);
+        arm.position.y = 66 - (this.arms.length * 6);
         arm.position.x = (12 + (len) / 2) - 5;
 
         var joint = new Object3D();

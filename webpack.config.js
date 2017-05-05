@@ -6,7 +6,9 @@ module.exports = {
     entry: './src/index.js',
     output: {
         path: __dirname+'/public/dist',
-        filename: 'signpost.js'
+        filename: 'signpost.js',
+      library: 'myLibrary',
+      libraryTarget: 'var'
     },
     module: {
         loaders: [{
