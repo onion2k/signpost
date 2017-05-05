@@ -10,70 +10,67 @@ var options = {
   formatter: null         // 'gpx', 'string', ...
 };
 
-var geocoder = NodeGeocoder(options);
+module.exports = class geocoder {
 
-var calcDist = function(from, to) {
+  constructor(){
+    this.geo = NodeGeocoder(options);
+  }
 
-  var toJson = jsonfile.readFileSync('./places/'+to.placename+".json", { throws: false });
+  calcDist(from, to){
 
-  console.log(to.location);
+    var toJson = jsonfile.readFileSync('./places/'+to.place.replace(/\W+/g, '')+".json", { throws: false });
 
-  if (!toJson) {
+    if (!toJson) {
 
-    console.log("Not found");
+      return this.geo.geocode(to.place)
+        .then(function(res) {
 
-    return geocoder.geocode(to.location)
-      .then(function(res) {
+          to.longitude = res[0].longitude;
+          to.latitude = res[0].latitude;
 
-        to.longitude = res[0].longitude;
-        to.latitude = res[0].latitude;
+          jsonfile.writeFile('./places/'+to.place.replace(/\W+/g, '')+'.json', to, {spaces: 2});
 
-        jsonfile.writeFile('./places/'+to.placename+'.json', to, {spaces: 2});
+          var response = { 
+            "title": to.title,
+            "placename": to.place,
+            "distance": Math.round(geolib.convertUnit('mi', geolib.getDistance(from, to))),
+            "bearing":  geolib.getBearing(from, to),
+            "direction":  geolib.getCompassDirection(from, to).exact
+          };
 
-        var response = { 
-          "placename": to.location,
-          "distance": Math.round(geolib.convertUnit('mi', geolib.getDistance(from, to))),
-          "bearing":  geolib.getBearing(from, to),
-          "direction":  geolib.getCompassDirection(from, to).exact
-        };
+          return response;
 
-        return response;
+        })
+        .catch(function(err) {
+          console.log(err);
+        });
 
-      })
-      .catch(function(err) {
-        console.log(err);
+    } else {
+
+      return Promise.resolve({ 
+        "title": to.title,
+        "placename": to.place,
+        "distance": Math.round(geolib.convertUnit('mi', geolib.getDistance(from, toJson))),
+        "bearing":  geolib.getBearing(from, toJson),
+        "direction":  geolib.getCompassDirection(from, toJson).exact
       });
 
-  } else {
-
-    console.log("Found");
-    console.log(toJson);
-
-    return Promise.resolve({ 
-      "placename": to.location,
-      "distance": Math.round(geolib.convertUnit('mi', geolib.getDistance(from, toJson))),
-      "bearing":  geolib.getBearing(from, toJson),
-      "direction":  geolib.getCompassDirection(from, toJson).exact
-    });
+    }
 
   }
 
-}
+  encode(from, placelist){
 
-var encode = function(from, placelist){
+    var arms = [];
 
-  var arms = [];
+    for (var t in placelist) {
+        arms.push(this.calcDist(from, placelist[t]));
+    }
 
-  for (var t in placelist) {
-      arms.push(calcDist(from, placelist[t]));
+    return Promise.all(arms).then(function(result){
+      return result;
+    })
+
   }
 
-  return Promise.all(arms).then(function(result){
-    return result;
-  })
-
-}
-
-module.exports = {
-  encode: encode,
 }

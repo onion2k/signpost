@@ -7,6 +7,8 @@ var io = require('socket.io')(server);
 
 var geocoder = require('../geocoder/geocoder.module.js');
 
+var geo = new geocoder();
+
 var from = {
     "placename": "sunderland",
     "location": "Sunderland, UK",
@@ -18,8 +20,7 @@ app.use(express.static('public'));
 
 io.on('connection', function (socket) {
   socket.on('geocode', function (data) {
-    console.log(data);
-    geocoder.encode(from, [{ 'placename': data.location.replace(/\W+/g, ''), 'location': data.location }]).then((result) => {
+    geo.encode(from, [{ 'title': data.title, 'place': data.place }]).then((result) => {
       socket.emit('geocode', result);
     });
   });
