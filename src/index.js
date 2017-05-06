@@ -23,7 +23,7 @@ function init() {
     let wrapper = document.getElementById('wrapper');
 
     let width = wrapper.offsetWidth;
-    let height = wrapper.offsetHeight;
+    let height = wrapper.offsetHeight + 6;
 
     scene = new signpostScene(width, height);
 

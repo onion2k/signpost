@@ -8,6 +8,12 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="stylesheet" href="css/materialize.css">
         <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+        <style>
+          canvas {
+            padding: 0;
+            margin: 0;
+          }
+        </style>
     </head>
     <body>
 
@@ -25,19 +31,17 @@
       </nav>
     </div>
 
-      <div class="row">
+    <div class="row" style="margin-bottom: 0 !important; padding-bottom: 0;">
+        <div class="col s4">
 
-
-
-          <div class="col s4">
-
-            <ul class="collection">
-              <li class="collection-item"><div>Alvin<a href="#!" class="secondary-content"><i class="material-icons">send</i></a></div></li>
-              <li class="collection-item"><div>Alvin<a href="#!" class="secondary-content"><i class="material-icons">send</i></a></div></li>
-              <li class="collection-item"><div>Alvin<a href="#!" class="secondary-content"><i class="material-icons">send</i></a></div></li>
-              <li class="collection-item"><div>Alvin<a href="#!" class="secondary-content"><i class="material-icons">send</i></a></div></li>
-            </ul>
-
+          <ul class="collapsible" data-collapsible="accordion">
+            <li>
+              <div class="collapsible-header"><i class="material-icons">filter_drama</i>First</div>
+              <div class="collapsible-body"><span>Lorem ipsum dolor sit amet.</span></div>
+            </li>
+            <li>
+              <div class="collapsible-header"><i class="material-icons">filter_drama</i>New Place</div>
+              <div class="collapsible-body" style="overflow: auto;">
                 <form id="addplace">
                   <div class="form-group">
                     <label for="placename">Place</label>
@@ -49,35 +53,34 @@
                   </div>
                   <button type="submit" id="addnewplace" class="btn right">Add Place</button>
                 </form>
+              </div>
+            </li>
 
+          </ul>
+
+        </div>
+        <div class="col s8" style="min-height: 600px; border-left: 1px solid #d4d4d4" id="wrapper"></div>
+    </div>
+    <footer class="page-footer">
+        <div class="row">
+          <div class="col l6 s12">
+            <h5 class="white-text">Footer Content</h5>
+            <p class="grey-text text-lighten-4">You can use rows and columns here to organize your footer content.</p>
           </div>
-
-          <div class="col s8" style="min-height: 600px;" id="wrapper"></div>
-
+          <div class="col l4 offset-l2 s12">
+            <h5 class="white-text">Links</h5>
+            <ul>
+              <li><a class="grey-text text-lighten-3" href="#!">Link 1</a></li>
+              <li><a class="grey-text text-lighten-3" href="#!">Link 2</a></li>
+              <li><a class="grey-text text-lighten-3" href="#!">Link 3</a></li>
+              <li><a class="grey-text text-lighten-3" href="#!">Link 4</a></li>
+            </ul>
+          </div>
+        </div>
+      <div class="footer-copyright" style="padding-left: 10px;">
+        Made by Onion2k
       </div>
-
-
-
-        <footer class="page-footer">
-            <div class="row">
-              <div class="col l6 s12">
-                <h5 class="white-text">Footer Content</h5>
-                <p class="grey-text text-lighten-4">You can use rows and columns here to organize your footer content.</p>
-              </div>
-              <div class="col l4 offset-l2 s12">
-                <h5 class="white-text">Links</h5>
-                <ul>
-                  <li><a class="grey-text text-lighten-3" href="#!">Link 1</a></li>
-                  <li><a class="grey-text text-lighten-3" href="#!">Link 2</a></li>
-                  <li><a class="grey-text text-lighten-3" href="#!">Link 3</a></li>
-                  <li><a class="grey-text text-lighten-3" href="#!">Link 4</a></li>
-                </ul>
-              </div>
-            </div>
-          <div class="footer-copyright" style="padding-left: 10px;">
-            Made by Onion2k
-          </div>
-        </footer>
+    </footer>
 
 
 

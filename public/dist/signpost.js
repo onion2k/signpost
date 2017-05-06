@@ -3359,7 +3359,7 @@ function init() {
     var wrapper = document.getElementById('wrapper');
 
     var width = wrapper.offsetWidth;
-    var height = wrapper.offsetHeight;
+    var height = wrapper.offsetHeight + 6;
 
     scene = new _signpostScene2.default(width, height);
 
