@@ -11,15 +11,13 @@ import {
 import signpostScene from './signpostScene';
 import signpostGen from './signpost';
 
-var arms = require('./arms.json');
-
 var scene, renderer;
 var camera;
 var signpost, post, base;
+var arms = [];
 
 if (!init()) animate();
 
-// init the scene
 function init() {
 
     let wrapper = document.getElementById('wrapper');
