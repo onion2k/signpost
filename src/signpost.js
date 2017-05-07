@@ -29,9 +29,7 @@ export default class signpostGen {
     arm(placename, direction, distance){
 
         let len = placename.length;
-
         var canvas = document.createElement('canvas');
-
         this.texture(canvas, placename, distance);
 
         var texture = new Texture(canvas);
@@ -61,7 +59,7 @@ export default class signpostGen {
 
         this.obj.add(joint);
 
-        this.arms.push({'placename': placename, 'distance': distance});
+        this.arms.push({'placename': placename, 'distance': distance, 'joint': joint});
 
     }
 

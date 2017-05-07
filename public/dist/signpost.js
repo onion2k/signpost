@@ -3134,9 +3134,7 @@ var signpostGen = function () {
         value: function arm(placename, direction, distance) {
 
             var len = placename.length;
-
             var canvas = document.createElement('canvas');
-
             this.texture(canvas, placename, distance);
 
             var texture = new _three.Texture(canvas);
@@ -3164,7 +3162,7 @@ var signpostGen = function () {
 
             this.obj.add(joint);
 
-            this.arms.push({ 'placename': placename, 'distance': distance });
+            this.arms.push({ 'placename': placename, 'distance': distance, 'joint': joint });
         }
     }, {
         key: 'texture',

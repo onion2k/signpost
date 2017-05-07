@@ -34,7 +34,9 @@
     <div class="row" style="margin-bottom: 0 !important; padding-bottom: 0;">
         <div class="col s4">
 
-          <ul id="placelist" class="collapsible" data-collapsible="accordion">
+          <ul id="placelist" ref="placelist" class="collapsible" data-collapsible="accordion" style="margin-top: 15px;">
+
+            <place v-for="place in places" v-bind:place="place" :key="place.place"></place>
 
             <li id="newplaceform">
               <div class="collapsible-header active"><i class="material-icons">location_on</i>Add a new place</div>
@@ -42,13 +44,13 @@
                 <form id="addplace">
                   <div class="form-group">
                     <label for="placename">Place</label>
-                    <input type="text" class="form-control" id="place" placeholder="A place or an address">
+                    <input type="text" class="form-control" v-model="place" placeholder="Eg Sunderland, UK">
                   </div>
                   <div class="form-group">
-                    <label for="title">A custom title (Optional)</label>
-                    <input type="text" class="form-control" id="title" placeholder="Eg Allison's house">
+                    <label for="title">Title (Optional)</label>
+                    <input type="text" class="form-control" v-model="title" placeholder="Eg Allison's House'">
                   </div>
-                  <button type="submit" id="addnewplace" class="btn right">Add Place</button>
+                  <button type="button" id="addnewplace" v-on:click="addPlace" class="btn right">Add Place</button>
                 </form>
               </div>
             </li>
@@ -56,7 +58,9 @@
           </ul>
 
         </div>
-        <div class="col s8" style="min-height: 600px; border-left: 1px solid #d4d4d4" id="wrapper"></div>
+        <div class="col s8 no-padding">
+           <div style="min-height: 600px; padding: 0;" id="wrapper"></div>
+        </div>
     </div>
     <footer class="page-footer">
         <div class="row">
@@ -84,54 +88,59 @@
 
         <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
         <script src="js/materialize.min.js"></script>
-
-        <script src="./dist/signpost.js"></script>
-
+        <script src="js/vue.js"></script>
+        <script src="dist/signpost.js"></script>
         <script src="/socket.io/socket.io.js"></script>
+
         <script>
 
           var socket = io.connect('http://localhost:8081');
-          var placelist = document.querySelector('#placelist');
-          var place = document.querySelector('#place');
-          var title = document.querySelector('#title');
-          var ff = document.querySelector('#newplaceform');
-          var f = document.querySelector('#addnewplace');
 
-          socket.on('geocode', function (data) {
-
-            signpost.arm(data[0].title || data[0].placename, data[0].bearing, data[0].distance);
-
-            var l = document.createElement('li');
-            l.innerHTML = '\
-              <div class="collapsible-header"><i class="material-icons">label</i>'+(data[0].title || data[0].placename)+'<span class="secondary-content">Click to edit</span></div>\
+          Vue.component('place', {
+            props: ['place'],
+            template: '<li>\
+              <div class="collapsible-header"><i class="material-icons">label</i>{{ place.title || place.place }}<span class="secondary-content">Click to edit</span></div>\
               <div class="collapsible-body" style="overflow: auto;">\
-                <form id="addplace">\
+                <form id="editplace">\
                   <div class="form-group">\
                     <label for="placename">Place</label>\
-                    <input type="text" class="form-control" id="place" placeholder="A place or an address" value="'+data[0].placename+'">\
+                    <input type="text" class="form-control" placeholder="A place or an address" v-model.lazy="place.place">\
                   </div>\
                   <div class="form-group">\
-                    <label for="title">A custom title (Optional)</label>\
-                    <input type="text" class="form-control" id="title" placeholder="Eg Allison\'s house" value="'+data[0].title+'">\
+                    <label for="title">Title (Optional)</label>\
+                    <input type="text" class="form-control" placeholder="Eg Allison\'s house" v-model.lazy="place.title">\
                   </div>\
-                  <button type="submit" id="addnewplace" class="btn right">Update Place</button>\
+                  <button type="button" v-on:click.native="editPlace" class="btn right">Update Place</button>\
                 </form>\
               </div>\
-            ';
-            placelist.insertBefore(l, ff);
+            </li>',
+            methods: {
+              editPlace: function () {
+                console.log('place', this.place);
+              }
+            }
+          })
 
-            place.value = '';
-            title.value = '';
-            f.disabled = null;
-
+          var app = new Vue({
+            el: '#placelist',
+            data: {
+              place: '',
+              title: '',
+              places: []
+            },
+            methods: {
+              addPlace: function (event) {
+                socket.emit('geocode', { place: this.place, title: this.title });
+              },
+              doSomething: function(title, place){
+                this.places.push({ title: title, place: place });
+              }
+            }
           });
 
-          f.addEventListener('click', function(e){
-
-            e.preventDefault();
-            socket.emit('geocode', { place: place.value, title: title.value });
-            f.disabled = true;
-
+          socket.on('geocode', function (data) {
+            signpost.arm(data[0].title || data[0].placename, data[0].bearing, data[0].distance);
+            app.doSomething(data[0].title, data[0].placename);
           });
 
         </script>
