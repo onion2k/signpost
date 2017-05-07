@@ -22,9 +22,9 @@
           <div class="nav-wrapper">
             <a href="#" class="brand-logo" style="margin-left: 10px;">It's A Sign</a>
             <ul id="nav-mobile" class="right hide-on-med-and-down">
-              <li><a href="sass.html">Sass</a></li>
-              <li><a href="badges.html">Components</a></li>
-              <li><a href="collapsible.html">JavaScript</a></li>
+              <li><a href="sass.html">About</a></li>
+              <li><a href="badges.html">Buy A Sign</a></li>
+              <li><a href="sass.html">Custom Signs</a></li>
             </ul>
             <a href="#" data-activates="nav-mobile" class="button-collapse"><i class="material-icons">menu</i></a>
           </div>
@@ -34,13 +34,10 @@
     <div class="row" style="margin-bottom: 0 !important; padding-bottom: 0;">
         <div class="col s4">
 
-          <ul class="collapsible" data-collapsible="accordion">
-            <li>
-              <div class="collapsible-header"><i class="material-icons">filter_drama</i>First</div>
-              <div class="collapsible-body"><span>Lorem ipsum dolor sit amet.</span></div>
-            </li>
-            <li>
-              <div class="collapsible-header"><i class="material-icons">filter_drama</i>New Place</div>
+          <ul id="placelist" class="collapsible" data-collapsible="accordion">
+
+            <li id="newplaceform">
+              <div class="collapsible-header active"><i class="material-icons">location_on</i>Add a new place</div>
               <div class="collapsible-body" style="overflow: auto;">
                 <form id="addplace">
                   <div class="form-group">
@@ -49,7 +46,7 @@
                   </div>
                   <div class="form-group">
                     <label for="title">A custom title (Optional)</label>
-                    <input type="text" class="form-control" id="title" placeholder="Eg Allison's house'">
+                    <input type="text" class="form-control" id="title" placeholder="Eg Allison's house">
                   </div>
                   <button type="submit" id="addnewplace" class="btn right">Add Place</button>
                 </form>
@@ -97,23 +94,45 @@
           var placelist = document.querySelector('#placelist');
           var place = document.querySelector('#place');
           var title = document.querySelector('#title');
+          var ff = document.querySelector('#newplaceform');
           var f = document.querySelector('#addnewplace');
 
           socket.on('geocode', function (data) {
 
             signpost.arm(data[0].title || data[0].placename, data[0].bearing, data[0].distance);
 
-            var l = document.createElement('a');
-            l.classList.add('list-group-item');
-            l.innerHTML = '<h4 class="list-group-item-heading">'+data[0].title+'</h4><p class="list-group-item-text">'+data[0].placename+'</p>';
-            placelist.appendChild(l);
+            var l = document.createElement('li');
+            l.innerHTML = '\
+              <div class="collapsible-header"><i class="material-icons">label</i>'+(data[0].title || data[0].placename)+'<span class="secondary-content">Click to edit</span></div>\
+              <div class="collapsible-body" style="overflow: auto;">\
+                <form id="addplace">\
+                  <div class="form-group">\
+                    <label for="placename">Place</label>\
+                    <input type="text" class="form-control" id="place" placeholder="A place or an address" value="'+data[0].placename+'">\
+                  </div>\
+                  <div class="form-group">\
+                    <label for="title">A custom title (Optional)</label>\
+                    <input type="text" class="form-control" id="title" placeholder="Eg Allison\'s house" value="'+data[0].title+'">\
+                  </div>\
+                  <button type="submit" id="addnewplace" class="btn right">Update Place</button>\
+                </form>\
+              </div>\
+            ';
+            placelist.insertBefore(l, ff);
+
+            place.value = '';
+            title.value = '';
+            f.disabled = null;
 
           });
 
           f.addEventListener('click', function(e){
+
             e.preventDefault();
             socket.emit('geocode', { place: place.value, title: title.value });
-          })
+            f.disabled = true;
+
+          });
 
         </script>
 

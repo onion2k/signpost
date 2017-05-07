@@ -22,4 +22,8 @@ gulp.task('css', function(){
     .pipe(gulp.dest('public/css'))
 });
 
-gulp.task('default', [ 'copy', 'fonts', 'css', 'js' ]);
+gulp.task('build', [ 'copy', 'fonts', 'css', 'js' ]);
+
+gulp.task('watch', function() {
+    gulp.watch('web-src/**/*', ['copy','css', 'js']);
+});
