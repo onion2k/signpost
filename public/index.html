@@ -101,19 +101,19 @@
           Vue.component('placeedit', {
             props: ['place'],
             data: function(){
-              return {'pin': this.place.place, 'pit': this.place.title};
+              return {'instancePlace': this.place.place, 'instanceTitle': this.place.title};
             },
             template: '<li v-bind:class="{ active: place.active }">\
-              <div class="collapsible-header" v-on:click="activate(place)" v-bind:class="{ active: place.active }"><i class="material-icons">label</i>{{ place.title || place.place }}<span class="secondary-content">Click to edit</span></div>\
+              <div class="collapsible-header" v-on:click="activate(place)" v-bind:class="{ active: place.active }"><i class="material-icons">label</i>{{ instanceTitle || instancePlace }}<span class="secondary-content">Click to edit</span></div>\
               <div class="collapsible-body" v-bind:class="{ active: place.active }" style="overflow: auto;">\
                 <form id="editplace">\
                   <div class="form-group">\
                     <label for="placename">Place</label>\
-                    <input type="text" placeholder="A place or an address" v-bind:value="pin" @input="pin = $event.target.value">\
+                    <input type="text" placeholder="A place or an address" v-bind:value="instancePlace" @input="instancePlace = $event.target.value">\
                   </div>\
                   <div class="form-group">\
                     <label for="title">Title (Optional)</label>\
-                    <input type="text" placeholder="Eg Allison\'s house" v-bind:value="pit" @input="pit = $event.target.value">\
+                    <input type="text" placeholder="Eg Allison\'s house" v-bind:value="instanceTitle" @input="instanceTitle = $event.target.value">\
                   </div>\
                   <button type="button" v-on:click="editplace(place)" class="btn right">Update Place</button>\
                 </form>\
@@ -121,7 +121,7 @@
             </li>',
             methods: {
               editplace: function (place) {
-                console.log('edit place', this.pin, this.pit);
+                console.log('edit place', this.instancePlace, this.instanceTitle);
               },
               activate: function(place){
                 place.active = !place.active;
