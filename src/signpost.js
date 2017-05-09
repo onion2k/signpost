@@ -63,6 +63,10 @@ export default class signpostGen {
 
     }
 
+    disarm(index) {
+        this.obj.remove(this.arms[index].joint);
+    }
+
     texture(canvas, placename, distance){
 
         canvas.width = 256;

@@ -3165,6 +3165,11 @@ var signpostGen = function () {
             this.arms.push({ 'placename': placename, 'distance': distance, 'joint': joint });
         }
     }, {
+        key: 'disarm',
+        value: function disarm(index) {
+            this.obj.remove(this.arms[index].joint);
+        }
+    }, {
         key: 'texture',
         value: function texture(canvas, placename, distance) {
 

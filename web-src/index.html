@@ -121,8 +121,9 @@
             </li>',
             methods: {
               editplace: function (place) {
-                console.log('edit place', this.instancePlace, this.instanceTitle);
-                console.log(place);
+                place.place = this.instancePlace;
+                place.title = this.instanceTitle;
+                app.editArm(place);
               },
               activate: function(place){
                 app.deactivate();
@@ -143,8 +144,15 @@
               addPlace: function (event) {
                 socket.emit('geocode', { place: this.place, title: this.title });
               },
-              doSomething: function(title, place){
-                this.places.push({ title: title, place: place, active: false });
+              addArm: function(title, place, bearing, distance){
+                this.places.push({ title: title, place: place, bearing: bearing, distance: distance, active: false, index: this.places.length+1 });
+                return this.places.length;
+              },
+              editArm: function(place){
+                this.places[place.index-1].title = place.title;
+                this.places[place.index-1].place = place.place;
+                signpost.disarm(place.index-1);
+                signpost.arm(place.title || place.place, place.bearing, place.distance, place.index);
               },
               activateform: function(place){
                 this.deactivate();
@@ -160,8 +168,8 @@
           });
 
           socket.on('geocode', function (data) {
-            signpost.arm(data[0].title || data[0].placename, data[0].bearing, data[0].distance);
-            app.doSomething(data[0].title, data[0].placename);
+            var index = app.addArm(data[0].title, data[0].placename, data[0].bearing, data[0].distance);
+            signpost.arm(data[0].title || data[0].placename, data[0].bearing, data[0].distance, index);
           });
 
         </script>
