@@ -41,9 +41,9 @@
 
             <placeedit v-for="place in places" v-bind:place="place" :key="place.place"></placeedit>
 
-            <li id="newplaceform" class="active">
-              <div class="collapsible-header active"><i class="material-icons">location_on</i>Add a new place</div>
-              <div class="collapsible-body" style="overflow: auto; display: block;">
+            <li id="newplaceform" class="" v-bind:class="{ active: placeform }">
+              <div class="collapsible-header" v-on:click="activateform" v-bind:class="{ active: placeform }"><i class="material-icons">location_on</i>Add a new place</div>
+              <div class="collapsible-body" v-bind:class="{ active: placeform }" style="overflow: auto;">
                 <form id="addplace">
                   <div class="form-group">
                     <label for="placename">Place</label>
@@ -101,7 +101,7 @@
           Vue.component('placeedit', {
             props: ['place'],
             data: function(){
-              return {'instancePlace': this.place.place, 'instanceTitle': this.place.title};
+              return { 'instancePlace': this.place.place, 'instanceTitle': this.place.title };
             },
             template: '<li v-bind:class="{ active: place.active }">\
               <div class="collapsible-header" v-on:click="activate(place)" v-bind:class="{ active: place.active }"><i class="material-icons">label</i>{{ instanceTitle || instancePlace }}<span class="secondary-content">Click to edit</span></div>\
@@ -122,8 +122,10 @@
             methods: {
               editplace: function (place) {
                 console.log('edit place', this.instancePlace, this.instanceTitle);
+                console.log(place);
               },
               activate: function(place){
+                app.deactivate();
                 place.active = !place.active;
               }
             }
@@ -134,7 +136,8 @@
             data: {
               place: '',
               title: '',
-              places: []
+              places: [],
+              placeform: true
             },
             methods: {
               addPlace: function (event) {
@@ -142,6 +145,16 @@
               },
               doSomething: function(title, place){
                 this.places.push({ title: title, place: place, active: false });
+              },
+              activateform: function(place){
+                this.deactivate();
+                this.placeform = true;
+              },
+              deactivate: function() {
+                for (place in this.places) {
+                  this.places[place].active = false;
+                }
+                this.placeform = false;
               }
             }
           });
