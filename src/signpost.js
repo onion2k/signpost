@@ -26,15 +26,16 @@ export default class signpostGen {
 
     }
 
-    arm(placename, direction, distance){
+    arm(placename, direction, distance, index){
+
+        if (index === undefined) { return; }
 
         let len = placename.length;
         var canvas = document.createElement('canvas');
         this.texture(canvas, placename, distance);
 
         var texture = new Texture(canvas);
-
-        texture.needsUpdate = true;
+            texture.needsUpdate = true;
 
         var armMaterials = [
 
@@ -50,12 +51,12 @@ export default class signpostGen {
         var armGeo = new BoxGeometry(12 + (len * 1), 6, 1);
         var arm = new Mesh(armGeo, armMaterials);
 
-        arm.position.y = 66 - (this.arms.length * 6);
-        arm.position.x = (12 + (len) / 2) - 5;
+            arm.position.y = 66 - (index * 6);
+            arm.position.x = (12 + (len) / 2) - 5;
 
         var joint = new Object3D();
-        joint.add(arm);
-        joint.rotation.y = (Math.PI / 2) + (-1 * direction * 0.0174533);
+            joint.add(arm);
+            joint.rotation.y = (Math.PI / 2) + (-1 * direction * 0.0174533);
 
         this.obj.add(joint);
 
@@ -64,7 +65,11 @@ export default class signpostGen {
     }
 
     disarm(index) {
-        this.obj.remove(this.arms[index].joint);
+
+        var r = this.obj.remove(this.arms[index].joint);
+
+        console.log(r, this.obj)
+
     }
 
     texture(canvas, placename, distance){

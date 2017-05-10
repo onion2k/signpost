@@ -3131,14 +3131,17 @@ var signpostGen = function () {
 
     _createClass(signpostGen, [{
         key: 'arm',
-        value: function arm(placename, direction, distance) {
+        value: function arm(placename, direction, distance, index) {
+
+            if (index === undefined) {
+                return;
+            }
 
             var len = placename.length;
             var canvas = document.createElement('canvas');
             this.texture(canvas, placename, distance);
 
             var texture = new _three.Texture(canvas);
-
             texture.needsUpdate = true;
 
             var armMaterials = [new _three.MeshBasicMaterial({ color: 0xd4d4d4 }), // right
@@ -3153,7 +3156,7 @@ var signpostGen = function () {
             var armGeo = new _three.BoxGeometry(12 + len * 1, 6, 1);
             var arm = new _three.Mesh(armGeo, armMaterials);
 
-            arm.position.y = 66 - this.arms.length * 6;
+            arm.position.y = 66 - index * 6;
             arm.position.x = 12 + len / 2 - 5;
 
             var joint = new _three.Object3D();
@@ -3167,7 +3170,10 @@ var signpostGen = function () {
     }, {
         key: 'disarm',
         value: function disarm(index) {
-            this.obj.remove(this.arms[index].joint);
+
+            var r = this.obj.remove(this.arms[index].joint);
+
+            console.log(r, this.obj);
         }
     }, {
         key: 'texture',
