@@ -3165,7 +3165,7 @@ var signpostGen = function () {
 
             this.obj.add(joint);
 
-            this.arms.push({ 'placename': placename, 'distance': distance, 'joint': joint });
+            this.arms[index] = { 'placename': placename, 'distance': distance, 'joint': joint, geo: armGeo, mat: armMaterials, tex: texture };
         }
     }, {
         key: 'disarm',
@@ -3173,7 +3173,16 @@ var signpostGen = function () {
 
             var r = this.obj.remove(this.arms[index].joint);
 
-            console.log(r, this.obj);
+            this.arms[index].geo.dispose();
+            this.arms[index].mat[0].dispose();
+            this.arms[index].mat[1].dispose();
+            this.arms[index].mat[2].dispose();
+            this.arms[index].mat[3].dispose();
+            this.arms[index].mat[4].dispose();
+            this.arms[index].mat[5].dispose();
+            this.arms[index].tex.dispose();
+
+            delete this.arms[index];
         }
     }, {
         key: 'texture',

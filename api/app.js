@@ -20,7 +20,14 @@ app.use(express.static('public'));
 
 io.on('connection', function (socket) {
   socket.on('geocode', function (data) {
+    console.log(data);
     geo.encode(from, [{ 'title': data.title, 'place': data.place }]).then((result) => {
+      if (data.hasOwnProperty('index')) {
+        result[0].index = data.index;
+      } else {
+        result[0].index = -1;
+      }
+      console.log(result);
       socket.emit('geocode', result);
     });
   });

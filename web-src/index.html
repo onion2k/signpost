@@ -149,10 +149,14 @@
                 return this.places.length-1;
               },
               editArm: function(place){
+                signpost.disarm(place.index);
                 this.places[place.index].title = place.title;
                 this.places[place.index].place = place.place;
-                signpost.disarm(place.index);
-                signpost.arm(place.title || place.place, place.bearing, place.distance, place.index);
+                socket.emit('geocode', { place: place.place, title: place.title, index: place.index });
+              },
+              moveArm(bearing, distance, index) {
+                this.places[index].bearing = bearing;
+                this.places[index].distance = distance;
               },
               activateform: function(place){
                 this.deactivate();
@@ -168,8 +172,14 @@
           });
 
           socket.on('geocode', function (data) {
-            var index = app.addArm(data[0].title, data[0].placename, data[0].bearing, data[0].distance);
-                signpost.arm(data[0].title || data[0].placename, data[0].bearing, data[0].distance, index);
+            var index;
+            if (data[0].index === -1) {
+              index = app.addArm(data[0].title, data[0].placename, data[0].bearing, data[0].distance);
+            } else {
+              index = data[0].index;
+              app.moveArm(data[0].bearing, data[0].distance, data[0].index);
+            }
+            signpost.arm(data[0].title || data[0].placename, data[0].bearing, data[0].distance, index);
           });
 
         </script>
