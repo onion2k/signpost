@@ -3133,7 +3133,7 @@ var signpostGen = function () {
         key: 'arm',
         value: function arm(placename, direction, distance, index) {
 
-            if (index === undefined) {
+            if (index === -1) {
                 return;
             }
 

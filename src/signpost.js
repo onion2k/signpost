@@ -28,7 +28,7 @@ export default class signpostGen {
 
     arm(placename, direction, distance, index){
 
-        if (index === undefined) { return; }
+        if (index === -1) { return; }
 
         let len = placename.length;
         var canvas = document.createElement('canvas');

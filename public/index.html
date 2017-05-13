@@ -157,6 +157,7 @@
               moveArm(bearing, distance, index) {
                 this.places[index].bearing = bearing;
                 this.places[index].distance = distance;
+                return index;
               },
               activateform: function(place){
                 this.deactivate();
@@ -174,10 +175,9 @@
           socket.on('geocode', function (data) {
             var index;
             if (data[0].index === -1) {
-              index = app.addArm(data[0].title, data[0].placename, data[0].bearing, data[0].distance);
+              index = app.addArm(data[0].title, data[0].placename, data[0].bearing, data[0].distance, data[0].index);
             } else {
-              index = data[0].index;
-              app.moveArm(data[0].bearing, data[0].distance, data[0].index);
+              index = app.moveArm(data[0].bearing, data[0].distance, data[0].index);
             }
             signpost.arm(data[0].title || data[0].placename, data[0].bearing, data[0].distance, index);
           });
