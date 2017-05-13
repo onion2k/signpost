@@ -13,6 +13,9 @@
             padding: 0;
             margin: 0;
           }
+          .collapsible-body {
+            padding: 1rem;
+          }
           .collapsible-body.active {
             display: block;
           }
@@ -53,11 +56,10 @@
                     <label for="title">Title (Optional)</label>
                     <input type="text" class="form-control" v-model="title" placeholder="Eg Allison's House'">
                   </div>
-                  <button type="button" id="addnewplace" v-on:click="addPlace" class="btn right">Add Place</button>
+                  <button type="button" id="addnewplace" v-on:click="addPlace" class="btn right waves-effect waves-light">Add Place</button>
                 </form>
               </div>
             </li>
-
           </ul>
 
         </div>
@@ -87,9 +89,8 @@
     </footer>
 
 
-
-
         <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+        <script src="js/materialize.min.js"></script>
         <script src="js/vue.js"></script>
         <script src="dist/signpost.js"></script>
         <script src="/socket.io/socket.io.js"></script>
@@ -104,7 +105,7 @@
               return { 'instancePlace': this.place.place, 'instanceTitle': this.place.title };
             },
             template: '<li v-bind:class="{ active: place.active }">\
-              <div class="collapsible-header" v-on:click="activate(place)" v-bind:class="{ active: place.active }"><i class="material-icons">label</i>{{ instanceTitle || instancePlace }}<span class="secondary-content">Click to edit</span></div>\
+              <div class="collapsible-header" v-on:click="activate(place)" v-bind:class="{ active: place.active }"><i class="material-icons">label</i>{{ instanceTitle || instancePlace }}</div>\
               <div class="collapsible-body" v-bind:class="{ active: place.active }" style="overflow: auto;">\
                 <form id="editplace">\
                   <div class="form-group">\
@@ -115,7 +116,8 @@
                     <label for="title">Title (Optional)</label>\
                     <input type="text" placeholder="Eg Allison\'s house" v-bind:value="instanceTitle" @input="instanceTitle = $event.target.value">\
                   </div>\
-                  <button type="button" v-on:click="editplace(place)" class="btn right">Update Place</button>\
+                  <button type="button" v-on:click="deleteplace(place)" class="btn red waves-effect waves-light">Delete</button>\
+                  <button type="button" v-on:click="editplace(place)" class="btn right waves-effect waves-light">Update Place</button>\
                 </form>\
               </div>\
             </li>',
