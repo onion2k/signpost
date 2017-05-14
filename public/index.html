@@ -42,7 +42,7 @@
 
           <ul id="placelist" ref="placelist" style="margin-top: 15px;">
 
-            <draggable :list="places" class="dragArea">
+            <draggable :list="places" @change="onChange" class="dragArea">
               <placeedit v-for="place in places" v-bind:place="place" :key="place.place"></placeedit>
             </draggable>
 
@@ -170,6 +170,9 @@
                 this.places[index].bearing = bearing;
                 this.places[index].distance = distance;
                 return index;
+              },
+              onChange: function(e){
+                console.log("change", e)
               },
               activateform: function(place){
                 this.deactivate();
