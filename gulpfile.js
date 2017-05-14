@@ -12,7 +12,7 @@ gulp.task('fonts', function(){
 });
 
 gulp.task('js', function(){
-  return gulp.src(['web-src/js/bin/*.min.js', 'web-src/js/vendor/*.js'])
+  return gulp.src(['web-src/js/bin/*.min.js', 'web-src/js/vendor/*.js', 'node_modules/sortablejs/Sortable.min.js', 'node_modules/vuedraggable/dist/vuedraggable.js'])
     .pipe(gulp.dest('public/js'))
 });
 
