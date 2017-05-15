@@ -165,6 +165,9 @@
               },
               deleteArm: function(place){
                 signpost.disarm(place.index);
+                this.places.splice(place.index, 1);
+                console.log('Moving all arms above '+place.index+' up 1 place');
+                this.activateform();
               },
               moveArm: function(bearing, distance, index) {
                 this.places[index].bearing = bearing;
@@ -172,7 +175,13 @@
                 return index;
               },
               onChange: function(e){
-                console.log("change", e)
+                if (e.moved) {
+                  if (e.moved.newIndex > e.moved.oldIndex) {
+                    console.log('Moving all arms between '+(e.moved.oldIndex+1)+' and '+(e.moved.newIndex)+' up 1 place');
+                  } else {
+                    console.log('Moving all arms between '+(e.moved.oldIndex)+' and '+(e.moved.newIndex)+' down 1 place');
+                  }
+                }
               },
               activateform: function(place){
                 this.deactivate();
