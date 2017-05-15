@@ -3165,6 +3165,8 @@ var signpostGen = function () {
 
             this.obj.add(joint);
 
+            TweenLite.from(arm.position, 1, { x: 12 + len / 2 - 5 + 50, ease: Back.easeOut.config(1.2) });
+
             this.arms[index] = { 'placename': placename, 'distance': distance, 'joint': joint, geo: armGeo, mat: armMaterials, tex: texture };
         }
     }, {
