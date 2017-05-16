@@ -3165,7 +3165,12 @@ var signpostGen = function () {
 
             this.obj.add(joint);
 
-            TweenLite.from(arm.position, 1, { x: 12 + len / 2 - 5 + 50, ease: Back.easeOut.config(1.2) });
+            signpostRotator.paused(true);
+
+            TweenLite.from(arm.position, 1, { x: 12 + len / 2 - 5 + 50, ease: Back.easeOut.config(1.2), onComplete: function onComplete() {
+
+                    signpostRotator.paused(false);
+                } });
 
             this.arms[index] = { 'placename': placename, 'distance': distance, 'joint': joint, geo: armGeo, mat: armMaterials, tex: texture };
         }
@@ -3175,7 +3180,9 @@ var signpostGen = function () {
 
             var self = this;
 
-            TweenLite.to(this.arms[index].joint.position, 1, { x: this.arms[index].joint.position.x + 50, onComplete: function onComplete() {
+            signpostRotator.paused(true);
+
+            TweenLite.to(this.arms[index].joint.position, 1, { z: this.arms[index].joint.position.x + 50, onComplete: function onComplete() {
 
                     var r = self.obj.remove(self.arms[index].joint);
 
@@ -3189,6 +3196,8 @@ var signpostGen = function () {
                     self.arms[index].tex.dispose();
 
                     delete self.arms[index];
+
+                    signpostRotator.paused(false);
                 }, onCompleteParams: ["index", index]
             });
         }
@@ -3399,13 +3408,21 @@ function init() {
 
     scene.addObject(signpost.obj);
 
+    doTween();
+
     window.signpost = signpost;
+    window.signpostRotator = signpostRotator;
+}
+
+function doTween() {
+
+    signpost.obj.rotation.y = 0;
+    window.signpostRotator = TweenLite.to(signpost.obj.rotation, 10, { y: Math.PI * 2, ease: Linear.easeNone, onComplete: doTween });
 }
 
 function animate() {
 
     requestAnimationFrame(animate);
-    signpost.obj.rotation.y += 0.02;
     render();
 }
 

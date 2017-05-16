@@ -60,7 +60,13 @@ export default class signpostGen {
 
         this.obj.add(joint);
 
-        TweenLite.from(arm.position, 1, { x: (12 + (len) / 2) - 5 + 50, ease: Back.easeOut.config(1.2) });
+        signpostRotator.paused(true);
+
+        TweenLite.from(arm.position, 1, { x: (12 + (len) / 2) - 5 + 50, ease: Back.easeOut.config(1.2), onComplete: function(){
+    
+            signpostRotator.paused(false);
+
+        } });
 
         this.arms[index] = {'placename': placename, 'distance': distance, 'joint': joint, geo: armGeo, mat: armMaterials, tex: texture};
 
@@ -70,7 +76,9 @@ export default class signpostGen {
 
         var self = this;
 
-        TweenLite.to(this.arms[index].joint.position, 1, { x: this.arms[index].joint.position.x + 50, onComplete: function(){
+        signpostRotator.paused(true);
+
+        TweenLite.to(this.arms[index].joint.position, 1, { z: this.arms[index].joint.position.x + 50, onComplete: function(){
 
                 var r = self.obj.remove(self.arms[index].joint);
 
@@ -84,6 +92,8 @@ export default class signpostGen {
                 self.arms[index].tex.dispose();
 
                 delete self.arms[index];
+
+                signpostRotator.paused(false);
 
             }, onCompleteParams:[ "index",index ]
         });
