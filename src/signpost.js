@@ -68,18 +68,25 @@ export default class signpostGen {
 
     disarm(index) {
 
-        var r = this.obj.remove(this.arms[index].joint);
+        var self = this;
 
-        this.arms[index].geo.dispose();
-        this.arms[index].mat[0].dispose();
-        this.arms[index].mat[1].dispose();
-        this.arms[index].mat[2].dispose();
-        this.arms[index].mat[3].dispose();
-        this.arms[index].mat[4].dispose();
-        this.arms[index].mat[5].dispose();
-        this.arms[index].tex.dispose();
+        TweenLite.to(this.arms[index].joint.position, 1, { x: this.arms[index].joint.position.x + 50, onComplete: function(){
 
-        delete this.arms[index];
+                var r = self.obj.remove(self.arms[index].joint);
+
+                self.arms[index].geo.dispose();
+                self.arms[index].mat[0].dispose();
+                self.arms[index].mat[1].dispose();
+                self.arms[index].mat[2].dispose();
+                self.arms[index].mat[3].dispose();
+                self.arms[index].mat[4].dispose();
+                self.arms[index].mat[5].dispose();
+                self.arms[index].tex.dispose();
+
+                delete self.arms[index];
+
+            }, onCompleteParams:[ "index",index ]
+        });
 
     }
 
