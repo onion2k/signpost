@@ -169,6 +169,11 @@
                 signpost.disarm(place.index);
                 this.places.splice(place.index, 1);
                 console.log('Moving all arms above '+place.index+' up 1 place');
+                this.places.map(function(p){
+                  if (p.index >= place.index) {
+                    p.index--;
+                  }
+                })
                 this.activateform();
               },
               moveArm: function(bearing, distance, index) {

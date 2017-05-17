@@ -3182,7 +3182,9 @@ var signpostGen = function () {
 
             signpostRotator.paused(true);
 
-            TweenLite.to(this.arms[index].joint.position, 1, { z: this.arms[index].joint.position.x + 50, onComplete: function onComplete() {
+            TweenLite.to(this.arms[index].joint.position, 1, {
+                z: this.arms[index].joint.position.x + 50,
+                onComplete: function onComplete() {
 
                     var r = self.obj.remove(self.arms[index].joint);
 
@@ -3196,9 +3198,15 @@ var signpostGen = function () {
                     self.arms[index].tex.dispose();
 
                     delete self.arms[index];
+                    self.arms.splice(index, 1);
+
+                    for (var g = index; g < self.arms.length; g++) {
+                        TweenLite.to(self.arms[g].joint.position, 1, { y: self.arms[g].joint.position.y + 6 });
+                    }
 
                     signpostRotator.paused(false);
-                }, onCompleteParams: ["index", index]
+                },
+                onCompleteParams: ["index", index]
             });
         }
     }, {

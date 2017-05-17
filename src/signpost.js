@@ -78,7 +78,9 @@ export default class signpostGen {
 
         signpostRotator.paused(true);
 
-        TweenLite.to(this.arms[index].joint.position, 1, { z: this.arms[index].joint.position.x + 50, onComplete: function(){
+        TweenLite.to(this.arms[index].joint.position, 1, { 
+            z: this.arms[index].joint.position.x + 50, 
+            onComplete: function(){
 
                 var r = self.obj.remove(self.arms[index].joint);
 
@@ -92,10 +94,16 @@ export default class signpostGen {
                 self.arms[index].tex.dispose();
 
                 delete self.arms[index];
+                self.arms.splice(index, 1);
+
+                for (var g = index; g < self.arms.length; g++) {
+                    TweenLite.to(self.arms[g].joint.position, 1, { y: self.arms[g].joint.position.y + 6 });
+                }
 
                 signpostRotator.paused(false);
 
-            }, onCompleteParams:[ "index",index ]
+            }, 
+            onCompleteParams:[ "index",index ]
         });
 
     }
