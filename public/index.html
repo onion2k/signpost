@@ -168,7 +168,6 @@
               deleteArm: function(place){
                 signpost.disarm(place.index);
                 this.places.splice(place.index, 1);
-                console.log('Moving all arms above '+place.index+' up 1 place');
                 this.places.map(function(p){
                   if (p.index >= place.index) {
                     p.index--;
@@ -184,10 +183,25 @@
               onChange: function(e){
                 if (e.moved) {
                   if (e.moved.newIndex > e.moved.oldIndex) {
-                    console.log('Moving all arms between '+(e.moved.oldIndex+1)+' and '+(e.moved.newIndex)+' up 1 place');
+
+                    signpost.move(e.moved.oldIndex, -1*e.moved.newIndex);
+
+                    var s = (e.moved.oldIndex+1);
+                    var f = (e.moved.newIndex+1);
+
+                    for (var x = s; x < f; x++) { signpost.move(x, 1); }
+
                   } else {
-                    console.log('Moving all arms between '+(e.moved.oldIndex)+' and '+(e.moved.newIndex)+' down 1 place');
-                  }
+
+                    signpost.move(e.moved.oldIndex, e.moved.oldIndex-e.moved.newIndex);
+
+                    var f = (e.moved.oldIndex);
+                    var s = (e.moved.newIndex);
+
+                    for (var x = s; x < f; x++) { signpost.move(x, -1); }
+
+                }
+
                 }
               },
               activateform: function(place){

@@ -3172,7 +3172,7 @@ var signpostGen = function () {
                     signpostRotator.paused(false);
                 } });
 
-            this.arms[index] = { 'placename': placename, 'distance': distance, 'joint': joint, geo: armGeo, mat: armMaterials, tex: texture };
+            this.arms[index] = { 'placename': placename, 'distance': distance, 'joint': joint, 'arm': arm, geo: armGeo, mat: armMaterials, tex: texture };
         }
     }, {
         key: 'disarm',
@@ -3182,8 +3182,8 @@ var signpostGen = function () {
 
             signpostRotator.paused(true);
 
-            TweenLite.to(this.arms[index].joint.position, 1, {
-                z: this.arms[index].joint.position.x + 50,
+            TweenLite.to(this.arms[index].arm.position, 1, {
+                x: this.arms[index].arm.position.x + 50,
                 onComplete: function onComplete() {
 
                     var r = self.obj.remove(self.arms[index].joint);
@@ -3207,6 +3207,19 @@ var signpostGen = function () {
                     signpostRotator.paused(false);
                 },
                 onCompleteParams: ["index", index]
+            });
+        }
+    }, {
+        key: 'move',
+        value: function move(index, position, removeOnComplete) {
+
+            var self = this;
+
+            var newPos = position * 6;
+
+            TweenLite.to(self.arms[index].joint.position, 1, {
+                delay: index * .25,
+                y: self.arms[index].joint.position.y + newPos
             });
         }
     }, {

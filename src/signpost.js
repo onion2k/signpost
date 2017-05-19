@@ -68,7 +68,7 @@ export default class signpostGen {
 
         } });
 
-        this.arms[index] = {'placename': placename, 'distance': distance, 'joint': joint, geo: armGeo, mat: armMaterials, tex: texture};
+        this.arms[index] = {'placename': placename, 'distance': distance, 'joint': joint, 'arm': arm, geo: armGeo, mat: armMaterials, tex: texture};
 
     }
 
@@ -78,8 +78,8 @@ export default class signpostGen {
 
         signpostRotator.paused(true);
 
-        TweenLite.to(this.arms[index].joint.position, 1, { 
-            z: this.arms[index].joint.position.x + 50, 
+        TweenLite.to(this.arms[index].arm.position, 1, { 
+            x: this.arms[index].arm.position.x + 50, 
             onComplete: function(){
 
                 var r = self.obj.remove(self.arms[index].joint);
@@ -104,6 +104,19 @@ export default class signpostGen {
 
             }, 
             onCompleteParams:[ "index",index ]
+        });
+
+    }
+
+    move(index, position, removeOnComplete) {
+
+        var self = this;
+
+        var newPos = position * 6;
+
+        TweenLite.to(self.arms[index].joint.position, 1, {
+            delay: index*.25,
+            y: self.arms[index].joint.position.y + newPos,
         });
 
     }
