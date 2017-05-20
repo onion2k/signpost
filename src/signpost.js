@@ -68,7 +68,15 @@ export default class signpostGen {
 
         } });
 
-        this.arms[index] = {'placename': placename, 'distance': distance, 'joint': joint, 'arm': arm, geo: armGeo, mat: armMaterials, tex: texture};
+        this.arms[index] = { 
+            'placename': placename, 
+            'distance': distance, 
+            'joint': joint, 
+            'arm': arm, 
+            'geo': armGeo, 
+            'mat': armMaterials, 
+            'tex': texture
+        };
 
     }
 
@@ -96,6 +104,7 @@ export default class signpostGen {
                 delete self.arms[index];
                 self.arms.splice(index, 1);
 
+                //TODO: This is wrong if the arms have been moved. Move to Vue?
                 for (var g = index; g < self.arms.length; g++) {
                     TweenLite.to(self.arms[g].joint.position, 1, { y: self.arms[g].joint.position.y + 6 });
                 }
