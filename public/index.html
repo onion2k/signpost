@@ -200,12 +200,12 @@
 
                     //up the post
 
-                    signpost.move(this.places[e.moved.newIndex].id, e.moved.oldIndex - e.moved.newIndex);
+                    signpost.move(this.places[e.moved.newIndex].id, -1 * (e.moved.newIndex - e.moved.oldIndex));
 
                     var f = (e.moved.oldIndex);
-                    var s = (e.moved.newIndex);
+                    var s = (e.moved.newIndex+1);
 
-                    for (var x = s; x < f; x++) {
+                    for (var x = s; x <= f; x++) {
                       signpost.move(this.places[x].id, -1);
                     }
 
