@@ -148,8 +148,14 @@
             data: {
               place: '',
               title: '',
-              places: [],
+              places: [{ place: 'France', index: 0, id: 'france' }, { place: 'London', index: 1, id: 'london' }, { place: 'Germany', index: 2, id: 'germany' }, { place: 'Sunderland, UK', index: 3, id: 'sunderland' }],
               placeform: true
+            },
+            created: function(){
+              for (p in this.places) {
+                var place = this.places[p];
+                socket.emit('geocode', { place: place.place, title: place.title, index: p, id: place.id });
+              }
             },
             methods: {
               addPlace: function (event) {
@@ -232,8 +238,10 @@
               id = generateUUID();
               index = app.addArm(data[0].title, data[0].placename, data[0].bearing, data[0].distance, id);
             } else {
+              id = data[0].id;
               index = app.moveArm(data[0].bearing, data[0].distance, data[0].index);
             }
+            console.log(id)
             signpost.arm(data[0].title || data[0].placename, data[0].bearing, data[0].distance, index, id);
           });
 

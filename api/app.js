@@ -6,7 +6,6 @@ var server = require('http').Server(app);
 var io = require('socket.io')(server);
 
 var geocoder = require('../geocoder/geocoder.module.js');
-
 var geo = new geocoder();
 
 var from = {
@@ -20,8 +19,10 @@ app.use(express.static('public'));
 
 io.on('connection', function (socket) {
   socket.on('geocode', function (data) {
-    console.log(data);
     geo.encode(from, [{ 'title': data.title, 'place': data.place }]).then((result) => {
+      if (data.hasOwnProperty('id')) {
+        result[0].id = data.id;
+      }
       if (data.hasOwnProperty('index')) {
         result[0].index = data.index;
       } else {

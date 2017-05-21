@@ -19,7 +19,7 @@ export default class signpostGen {
     constructor(){
 
         this.id = 1;
-        this.arms = [];
+        this.arms = {};
         this.obj = new Object3D();
 
         this.base();
@@ -84,7 +84,7 @@ export default class signpostGen {
     disarm(index) {
 
         var self = this;
-console.log(this.arms);
+
         signpostRotator.paused(true);
 
         TweenLite.to(this.arms[index].arm.position, 1, { 
@@ -118,15 +118,18 @@ console.log(this.arms);
 
     }
 
-    move(index, position, removeOnComplete) {
+    move(id, position, removeOnComplete) {
+
+        console.log(id, this.arms)
 
         var self = this;
 
         var newPos = position * 6;
+        var delay = 0.25;
 
-        TweenLite.to(self.arms[index].joint.position, 1, {
-            delay: index * .25,
-            y: self.arms[index].joint.position.y + newPos,
+        TweenLite.to(self.arms[id].joint.position, 1, {
+            delay: delay,
+            y: self.arms[id].joint.position.y + newPos,
         });
 
     }
