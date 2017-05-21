@@ -155,8 +155,8 @@
               addPlace: function (event) {
                 socket.emit('geocode', { place: this.place, title: this.title });
               },
-              addArm: function(title, place, bearing, distance){
-                this.places.push({ title: title, place: place, bearing: bearing, distance: distance, active: false, index: this.places.length });
+              addArm: function(title, place, bearing, distance, id){
+                this.places.push({ title: title, place: place, bearing: bearing, distance: distance, active: false, index: this.places.length, id: id });
                 return this.places.length-1;
               },
               editArm: function(place){
@@ -166,7 +166,7 @@
                 socket.emit('geocode', { place: place.place, title: place.title, index: place.index });
               },
               deleteArm: function(place){
-                signpost.disarm(place.index);
+                signpost.disarm(place.id);
                 this.places.splice(place.index, 1);
                 this.places.map(function(p){
                   if (p.index >= place.index) {
@@ -178,29 +178,38 @@
               moveArm: function(bearing, distance, index) {
                 this.places[index].bearing = bearing;
                 this.places[index].distance = distance;
+                //TODO: Move?
                 return index;
               },
               onChange: function(e){
                 if (e.moved) {
                   if (e.moved.newIndex > e.moved.oldIndex) {
 
-                    signpost.move(e.moved.oldIndex, -1*e.moved.newIndex);
+                    //TODO: Fix single place move
 
-                    var s = (e.moved.oldIndex+1);
-                    var f = (e.moved.newIndex+1);
+                    signpost.move(this.places[e.moved.newIndex].id, -1 * e.moved.newIndex);
 
-                    for (var x = s; x < f; x++) { signpost.move(x, 1); }
+                    var s = (e.moved.oldIndex);
+                    var f = (e.moved.newIndex);
+
+                    for (var x = s; x < f; x++) {
+                      signpost.move(this.places[x].id, +1);
+                    }
 
                   } else {
 
-                    signpost.move(e.moved.oldIndex, e.moved.oldIndex-e.moved.newIndex);
+                    //up the post
+
+                    signpost.move(this.places[e.moved.newIndex].id, e.moved.oldIndex - e.moved.newIndex);
 
                     var f = (e.moved.oldIndex);
                     var s = (e.moved.newIndex);
 
-                    for (var x = s; x < f; x++) { signpost.move(x, -1); }
+                    for (var x = s; x < f; x++) {
+                      signpost.move(this.places[x].id, -1);
+                    }
 
-                }
+                  }
 
                 }
               },
@@ -218,14 +227,27 @@
           });
 
           socket.on('geocode', function (data) {
-            var index;
+            var index, id;
             if (data[0].index === -1) {
-              index = app.addArm(data[0].title, data[0].placename, data[0].bearing, data[0].distance, data[0].index);
+              id = generateUUID();
+              index = app.addArm(data[0].title, data[0].placename, data[0].bearing, data[0].distance, id);
             } else {
               index = app.moveArm(data[0].bearing, data[0].distance, data[0].index);
             }
-            signpost.arm(data[0].title || data[0].placename, data[0].bearing, data[0].distance, index);
+            signpost.arm(data[0].title || data[0].placename, data[0].bearing, data[0].distance, index, id);
           });
+
+          function generateUUID () { // Public Domain/MIT
+              var d = new Date().getTime();
+              if (typeof performance !== 'undefined' && typeof performance.now === 'function'){
+                  d += performance.now(); //use high-precision timer if available
+              }
+              return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (c) {
+                  var r = (d + Math.random() * 16) % 16 | 0;
+                  d = Math.floor(d / 16);
+                  return (c === 'x' ? r : (r & 0x3 | 0x8)).toString(16);
+              });
+          }
 
         </script>
 

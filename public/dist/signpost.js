@@ -3131,7 +3131,7 @@ var signpostGen = function () {
 
     _createClass(signpostGen, [{
         key: 'arm',
-        value: function arm(placename, direction, distance, index) {
+        value: function arm(placename, direction, distance, index, id) {
 
             if (index === -1) {
                 return;
@@ -3172,14 +3172,15 @@ var signpostGen = function () {
                     signpostRotator.paused(false);
                 } });
 
-            this.arms[index] = {
+            this.arms[id] = {
                 'placename': placename,
                 'distance': distance,
                 'joint': joint,
                 'arm': arm,
                 'geo': armGeo,
                 'mat': armMaterials,
-                'tex': texture
+                'tex': texture,
+                'id': id
             };
         }
     }, {
@@ -3187,7 +3188,7 @@ var signpostGen = function () {
         value: function disarm(index) {
 
             var self = this;
-
+            console.log(this.arms);
             signpostRotator.paused(true);
 
             TweenLite.to(this.arms[index].arm.position, 1, {
@@ -3294,22 +3295,6 @@ var signpostGen = function () {
 }();
 
 exports.default = signpostGen;
-
-
-function rotateAroundObjectAxis(object, axis, radians) {
-    var rotationMatrix = new _three.Matrix4();
-    rotationMatrix.makeRotationAxis(axis.normalize(), radians);
-    object.matrix.multiply(rotationMatrix);
-    object.rotation.setFromRotationMatrix(object.matrix);
-}
-
-function rotateAroundWorldAxis(object, axis, radians) {
-    var rotationMatrix = new _three.Matrix4();
-    rotationMatrix.makeRotationAxis(axis.normalize(), radians);
-    rotationMatrix.multiply(object.matrix);
-    object.matrix = rotationMatrix;
-    object.rotation.setFromRotationMatrix(object.matrix);
-}
 
 /***/ }),
 /* 3 */

@@ -26,7 +26,7 @@ export default class signpostGen {
 
     }
 
-    arm(placename, direction, distance, index){
+    arm(placename, direction, distance, index, id){
 
         if (index === -1) { return; }
 
@@ -68,14 +68,15 @@ export default class signpostGen {
 
         } });
 
-        this.arms[index] = { 
+        this.arms[id] = { 
             'placename': placename, 
             'distance': distance, 
             'joint': joint, 
             'arm': arm, 
             'geo': armGeo, 
             'mat': armMaterials, 
-            'tex': texture
+            'tex': texture,
+            'id': id
         };
 
     }
@@ -83,7 +84,7 @@ export default class signpostGen {
     disarm(index) {
 
         var self = this;
-
+console.log(this.arms);
         signpostRotator.paused(true);
 
         TweenLite.to(this.arms[index].arm.position, 1, { 
@@ -124,7 +125,7 @@ export default class signpostGen {
         var newPos = position * 6;
 
         TweenLite.to(self.arms[index].joint.position, 1, {
-            delay: index*.25,
+            delay: index * .25,
             y: self.arms[index].joint.position.y + newPos,
         });
 
@@ -186,23 +187,5 @@ export default class signpostGen {
         this.obj.add(topper);
 
     }
-
-}
-
-
-function rotateAroundObjectAxis(object, axis, radians) {
-    var rotationMatrix = new Matrix4();
-    rotationMatrix.makeRotationAxis(axis.normalize(), radians);
-    object.matrix.multiply(rotationMatrix);
-    object.rotation.setFromRotationMatrix( object.matrix );
-
-}
-
-function rotateAroundWorldAxis( object, axis, radians ) {
-    var rotationMatrix = new Matrix4();
-    rotationMatrix.makeRotationAxis( axis.normalize(), radians );
-    rotationMatrix.multiply( object.matrix );
-    object.matrix = rotationMatrix;
-    object.rotation.setFromRotationMatrix( object.matrix );
 
 }
