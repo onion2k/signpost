@@ -3223,8 +3223,6 @@ var signpostGen = function () {
         key: 'move',
         value: function move(id, position, removeOnComplete) {
 
-            console.log(id, this.arms);
-
             var self = this;
 
             var newPos = position * 6;

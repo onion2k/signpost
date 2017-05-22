@@ -120,8 +120,6 @@ export default class signpostGen {
 
     move(id, position, removeOnComplete) {
 
-        console.log(id, this.arms)
-
         var self = this;
 
         var newPos = position * 6;

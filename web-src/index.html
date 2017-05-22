@@ -191,27 +191,17 @@
                 if (e.moved) {
                   if (e.moved.newIndex > e.moved.oldIndex) {
 
-                    //TODO: Fix single place move
+                    signpost.move(this.places[e.moved.newIndex].id, -1 * (e.moved.newIndex - e.moved.oldIndex));
 
-                    signpost.move(this.places[e.moved.newIndex].id, -1 * e.moved.newIndex);
-
-                    var s = (e.moved.oldIndex);
-                    var f = (e.moved.newIndex);
-
-                    for (var x = s; x < f; x++) {
+                    for (var x = e.moved.oldIndex; x < e.moved.newIndex; x++) {
                       signpost.move(this.places[x].id, +1);
                     }
 
                   } else {
 
-                    //up the post
-
                     signpost.move(this.places[e.moved.newIndex].id, -1 * (e.moved.newIndex - e.moved.oldIndex));
 
-                    var f = (e.moved.oldIndex);
-                    var s = (e.moved.newIndex+1);
-
-                    for (var x = s; x <= f; x++) {
+                    for (var x = e.moved.newIndex+1; x <= e.moved.oldIndex; x++) {
                       signpost.move(this.places[x].id, -1);
                     }
 
@@ -241,7 +231,6 @@
               id = data[0].id;
               index = app.moveArm(data[0].bearing, data[0].distance, data[0].index);
             }
-            console.log(id)
             signpost.arm(data[0].title || data[0].placename, data[0].bearing, data[0].distance, index, id);
           });
 
