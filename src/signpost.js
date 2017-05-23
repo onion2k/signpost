@@ -81,44 +81,44 @@ export default class signpostGen {
 
     }
 
-    disarm(index) {
+    disarm(id) {
 
         var self = this;
 
         signpostRotator.paused(true);
 
-        TweenLite.to(this.arms[index].arm.position, 1, { 
-            x: this.arms[index].arm.position.x + 50, 
+        TweenLite.to(this.arms[id].arm.position, 1, { 
+            x: this.arms[id].arm.position.x + 50, 
             onComplete: function(){
 
-                var r = self.obj.remove(self.arms[index].joint);
+                var r = self.obj.remove(self.arms[id].joint);
 
-                self.arms[index].geo.dispose();
-                self.arms[index].mat[0].dispose();
-                self.arms[index].mat[1].dispose();
-                self.arms[index].mat[2].dispose();
-                self.arms[index].mat[3].dispose();
-                self.arms[index].mat[4].dispose();
-                self.arms[index].mat[5].dispose();
-                self.arms[index].tex.dispose();
+                self.arms[id].geo.dispose();
+                self.arms[id].mat[0].dispose();
+                self.arms[id].mat[1].dispose();
+                self.arms[id].mat[2].dispose();
+                self.arms[id].mat[3].dispose();
+                self.arms[id].mat[4].dispose();
+                self.arms[id].mat[5].dispose();
+                self.arms[id].tex.dispose();
 
-                delete self.arms[index];
-                self.arms.splice(index, 1);
+                delete self.arms[id];
 
-                //TODO: This is wrong if the arms have been moved. Move to Vue?
-                for (var g = index; g < self.arms.length; g++) {
-                    TweenLite.to(self.arms[g].joint.position, 1, { y: self.arms[g].joint.position.y + 6 });
-                }
+                // self.arms.splice(index, 1);
+
+                // for (var g = index; g < self.arms.length; g++) {
+                //     TweenLite.to(self.arms[g].joint.position, 1, { y: self.arms[g].joint.position.y + 6 });
+                // }
 
                 signpostRotator.paused(false);
 
             }, 
-            onCompleteParams:[ "index",index ]
+            onCompleteParams:[ "id",id ]
         });
 
     }
 
-    move(id, position, removeOnComplete) {
+    move(id, position) {
 
         var self = this;
 

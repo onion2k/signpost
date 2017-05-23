@@ -133,7 +133,7 @@
                 place.title = this.instanceTitle;
                 app.editArm(place);
               },
-              remove: function (place) {
+              remove: function (place,index) {
                 app.deleteArm(place);
               },
               activate: function(place){
@@ -175,8 +175,9 @@
                 signpost.disarm(place.id);
                 this.places.splice(place.index, 1);
                 this.places.map(function(p){
-                  if (p.index >= place.index) {
+                  if (p.index > place.index) {
                     p.index--;
+                    signpost.move(p.id, +1);
                   }
                 })
                 this.activateform();
@@ -185,10 +186,10 @@
                 this.places[index].bearing = bearing;
                 this.places[index].distance = distance;
                 this.places[index].active = false;
-                //TODO: Move?
                 return index;
               },
               onChange: function(e){
+                console.log(e);
                 if (e.moved) {
                   if (e.moved.newIndex > e.moved.oldIndex) {
 
