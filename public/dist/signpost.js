@@ -3189,35 +3189,36 @@ var signpostGen = function () {
 
             var self = this;
 
-            signpostRotator.paused(true);
+            var promise = new Promise(function (resolve, reject) {
 
-            TweenLite.to(this.arms[id].arm.position, 1, {
-                x: this.arms[id].arm.position.x + 50,
-                onComplete: function onComplete() {
+                signpostRotator.paused(true);
 
-                    var r = self.obj.remove(self.arms[id].joint);
+                TweenLite.to(self.arms[id].arm.position, 1, {
+                    x: self.arms[id].arm.position.x + 50,
+                    onComplete: function onComplete() {
 
-                    self.arms[id].geo.dispose();
-                    self.arms[id].mat[0].dispose();
-                    self.arms[id].mat[1].dispose();
-                    self.arms[id].mat[2].dispose();
-                    self.arms[id].mat[3].dispose();
-                    self.arms[id].mat[4].dispose();
-                    self.arms[id].mat[5].dispose();
-                    self.arms[id].tex.dispose();
+                        var r = self.obj.remove(self.arms[id].joint);
 
-                    delete self.arms[id];
+                        self.arms[id].geo.dispose();
+                        self.arms[id].mat[0].dispose();
+                        self.arms[id].mat[1].dispose();
+                        self.arms[id].mat[2].dispose();
+                        self.arms[id].mat[3].dispose();
+                        self.arms[id].mat[4].dispose();
+                        self.arms[id].mat[5].dispose();
+                        self.arms[id].tex.dispose();
 
-                    // self.arms.splice(index, 1);
+                        delete self.arms[id];
 
-                    // for (var g = index; g < self.arms.length; g++) {
-                    //     TweenLite.to(self.arms[g].joint.position, 1, { y: self.arms[g].joint.position.y + 6 });
-                    // }
+                        signpostRotator.paused(false);
 
-                    signpostRotator.paused(false);
-                },
-                onCompleteParams: ["id", id]
+                        resolve();
+                    },
+                    onCompleteParams: ["id", id]
+                });
             });
+
+            return promise;
         }
     }, {
         key: 'move',
