@@ -148,16 +148,21 @@
             data: {
               place: '',
               title: '',
-              places: [{ place: 'France', index: 0, id: 'france', active: false }, { place: 'London', index: 1, id: 'london', active: false }, { place: 'Germany', index: 2, id: 'germany', active: false }, { place: 'Sunderland, UK', index: 3, id: 'sunderland', active: false }],
+              places: [],
               placeform: true
             },
             created: function(){
-              for (p in this.places) {
-                var place = this.places[p];
-                socket.emit('geocode', { place: place.place, title: place.title, index: p, id: place.id });
-              }
+              console.log('Loading')
+              socket.emit('load', {});
             },
             methods: {
+              load: function(data){
+                this.places = data;
+                for (p in this.places) {
+                  var place = this.places[p];
+                  socket.emit('geocode', { place: place.place, title: place.title, index: p, id: place.id });
+                }
+              },
               addPlace: function (event) {
                 socket.emit('geocode', { place: this.place, title: this.title });
               },
@@ -237,6 +242,19 @@
             }
             signpost.arm(data[0].title || data[0].placename, data[0].bearing, data[0].distance, index, id);
           });
+
+          socket.on('save', function (data) {
+            //app.save(data);
+          });
+
+          socket.on('load', function (data) {
+            app.load(data);
+          });
+
+          socket.on('print', function (data) {
+            //app.print(data);
+          });
+
 
           function generateUUID () {
               var d = new Date().getTime();

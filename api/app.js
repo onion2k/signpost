@@ -35,9 +35,8 @@ io.on('connection', function (socket) {
       socket.emit('save', { saved: true });
   });
   socket.on('load', function(){
-      socket.emit('print', {
-        sign: [{ place: 'France', index: 0, id: 'france', active: false }, { place: 'London', index: 1, id: 'london', active: false }, { place: 'Germany', index: 2, id: 'germany', active: false }, { place: 'Sunderland, UK', index: 3, id: 'sunderland', active: false }]
-      });
+      socket.emit('load', [{ place: 'France', index: 0, id: 'france', active: false }, { place: 'London', index: 1, id: 'london', active: false }, { place: 'Germany', index: 2, id: 'germany', active: false }, { place: 'Sunderland, UK', index: 3, id: 'sunderland', active: false }]
+      );
   });
   socket.on('print', function(data){
       socket.emit('print', { printing: 'PC Load Letter' });
