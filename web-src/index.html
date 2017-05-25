@@ -60,7 +60,7 @@
                     <label for="title">Title (Optional)</label>
                     <input type="text" class="form-control" v-model="title" placeholder="Eg Allison's House'">
                   </div>
-                  <button type="button" id="addnewplace" v-on:click="addPlace" class="btn right waves-effect waves-light">Add Place</button>
+                  <button type="button" id="addnewplace" v-on:click="encode" class="btn right waves-effect waves-light">Add Place</button>
                 </form>
               </div>
             </li>
@@ -146,16 +146,16 @@
           var app = new Vue({
             el: '#placelist',
             data: {
-              place: '',
-              title: '',
               places: [],
               placeform: true
             },
             created: function(){
-              console.log('Loading')
               socket.emit('load', {});
             },
             methods: {
+              save: function(){
+
+              },
               load: function(data){
                 this.places = data;
                 for (p in this.places) {
@@ -163,21 +163,19 @@
                   socket.emit('geocode', { place: place.place, title: place.title, index: p, id: place.id });
                 }
               },
-              addPlace: function (event) {
+              encode: function (event) {
                 socket.emit('geocode', { place: this.place, title: this.title });
               },
               addArm: function(title, place, bearing, distance, id){
-                //TODO: Not keen on returning a value here ... not needed?
                 this.places.push({ title: title, place: place, bearing: bearing, distance: distance, active: false, index: this.places.length, id: id });
                 return this.places.length-1;
               },
               editArm: function(place){
                 signpost.disarm(place.id).then(()=>{
-
+                  //TODO: Remove dependence on place.index ... find id in the array instead
                   this.places[place.index].title = place.title;
                   this.places[place.index].place = place.place;
                   socket.emit('geocode', { place: place.place, title: place.title, index: place.index, id: place.id, active: true });
-
                 });
               },
               deleteArm: function(place){
@@ -185,6 +183,7 @@
                 this.places.splice(place.index, 1);
                 this.places.map(function(p){
                   if (p.index > place.index) {
+                    //TODO: Remove dependence on place.index
                     p.index--;
                     signpost.move(p.id, +1);
                   }
@@ -192,6 +191,7 @@
                 this.activateform();
               },
               moveArm: function(bearing, distance, index) {
+                  //TODO: Remove dependence on place.index ... find id in the array instead
                 this.places[index].bearing = bearing;
                 this.places[index].distance = distance;
                 return index;
@@ -199,23 +199,16 @@
               onChange: function(e){
                 if (e.moved) {
                   if (e.moved.newIndex > e.moved.oldIndex) {
-
                     signpost.move(this.places[e.moved.newIndex].id, -1 * (e.moved.newIndex - e.moved.oldIndex));
-
                     for (var x = e.moved.oldIndex; x < e.moved.newIndex; x++) {
                       signpost.move(this.places[x].id, +1);
                     }
-
                   } else {
-
                     signpost.move(this.places[e.moved.newIndex].id, -1 * (e.moved.newIndex - e.moved.oldIndex));
-
                     for (var x = e.moved.newIndex+1; x <= e.moved.oldIndex; x++) {
                       signpost.move(this.places[x].id, -1);
                     }
-
                   }
-
                 }
               },
               activateform: function(place){
