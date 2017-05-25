@@ -60,6 +60,7 @@
                     <label for="title">Title (Optional)</label>
                     <input type="text" class="form-control" v-model="title" placeholder="Eg Allison's House'">
                   </div>
+                  <button type="button" v-on:click="toggle" class="btn waves-effect waves-light">Stop/Start</button>
                   <button type="button" id="addnewplace" v-on:click="encode" class="btn right waves-effect waves-light">Add Place</button>
                 </form>
               </div>
@@ -146,6 +147,8 @@
           var app = new Vue({
             el: '#placelist',
             data: {
+              place: '',
+              title: '',
               places: [],
               placeform: true
             },
@@ -153,6 +156,9 @@
               socket.emit('load', {});
             },
             methods: {
+              toggle: function(){
+                signpostRotator.paused(!signpostRotator.paused());
+              },
               save: function(){
 
               },
@@ -209,6 +215,7 @@
                       signpost.move(this.places[x].id, -1);
                     }
                   }
+
                 }
               },
               activateform: function(place){
