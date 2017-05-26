@@ -45,7 +45,7 @@
           <ul id="placelist" ref="placelist" style="margin-top: 15px;">
 
             <draggable :list="places" @change="onChange" class="dragArea">
-              <placeedit v-for="place in places" v-bind:place="place" :key="place.place"></placeedit>
+              <placeedit v-for="(place, index) in places" v-bind:place="place" v-bind:index="index" :key="place.place"></placeedit>
             </draggable>
 
             <li id="newplaceform" class="" v-bind:class="{ active: placeform }">
@@ -107,7 +107,7 @@
           var socket = io.connect('http://localhost:8081');
 
           Vue.component('placeedit', {
-            props: ['place'],
+            props: ['place', 'index'],
             data: function(){
               return { 'instancePlace': this.place.place, 'instanceTitle': this.place.title };
             },
@@ -123,19 +123,19 @@
                     <label for="title">Title (Optional)</label>\
                     <input type="text" placeholder="Eg Allison\'s house" v-bind:value="instanceTitle" @input="instanceTitle = $event.target.value">\
                   </div>\
-                  <button type="button" v-on:click="remove(place)" class="btn red waves-effect waves-light">Delete</button>\
-                  <button type="button" v-on:click="edit(place)" class="btn right waves-effect waves-light">Update Place</button>\
+                  <button type="button" v-on:click="remove(place, index)" class="btn red waves-effect waves-light">Delete {{ index }}</button>\
+                  <button type="button" v-on:click="edit(place, index)" class="btn right waves-effect waves-light">Update Place</button>\
                 </form>\
               </div>\
             </li>',
             methods: {
-              edit: function (place) {
+              edit: function (place, index) {
                 place.place = this.instancePlace;
                 place.title = this.instanceTitle;
-                app.editArm(place);
+                app.editArm(place, index);
               },
               remove: function (place,index) {
-                app.deleteArm(place);
+                app.deleteArm(place, index);
               },
               activate: function(place){
                 app.deactivate();
@@ -164,6 +164,7 @@
               },
               load: function(data){
                 this.places = data;
+                //TODO: This isn't necessary if the API returns pre-geocoded arms
                 for (p in this.places) {
                   var place = this.places[p];
                   socket.emit('geocode', { place: place.place, title: place.title, index: p, id: place.id });
@@ -176,19 +177,19 @@
                 this.places.push({ title: title, place: place, bearing: bearing, distance: distance, active: false, index: this.places.length, id: id });
                 return this.places.length-1;
               },
-              editArm: function(place){
+              editArm: function(place, index){
                 signpost.disarm(place.id).then(()=>{
                   //TODO: Remove dependence on place.index ... find id in the array instead
-                  this.places[place.index].title = place.title;
-                  this.places[place.index].place = place.place;
+                  this.places[index].title = place.title;
+                  this.places[index].place = place.place;
                   socket.emit('geocode', { place: place.place, title: place.title, index: place.index, id: place.id, active: true });
                 });
               },
-              deleteArm: function(place){
+              deleteArm: function(place, index){
                 signpost.disarm(place.id);
-                this.places.splice(place.index, 1);
-                this.places.map(function(p){
-                  if (p.index > place.index) {
+                this.$delete(this.places, index);
+                this.places.map((p)=>{
+                  if (p.index > index) {
                     //TODO: Remove dependence on place.index
                     p.index--;
                     signpost.move(p.id, +1);
@@ -197,7 +198,7 @@
                 this.activateform();
               },
               moveArm: function(bearing, distance, index) {
-                  //TODO: Remove dependence on place.index ... find id in the array instead
+                //TODO: Remove dependence on place.index ... find id in the array instead
                 this.places[index].bearing = bearing;
                 this.places[index].distance = distance;
                 return index;
@@ -223,9 +224,7 @@
                 this.placeform = true;
               },
               deactivate: function() {
-                for (place in this.places) {
-                  this.places[place].active = false;
-                }
+                this.places.map((place)=>place.active = false);
                 this.placeform = false;
               }
             }
