@@ -3231,7 +3231,8 @@ var signpostGen = function () {
 
             TweenLite.to(self.arms[id].joint.position, 1, {
                 delay: delay,
-                y: self.arms[id].joint.position.y + newPos
+                y: self.arms[id].joint.position.y + newPos,
+                ease: Back.easeIn.config(0.5)
             });
         }
     }, {
