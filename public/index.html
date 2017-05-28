@@ -208,12 +208,13 @@
                   if (e.moved.newIndex > e.moved.oldIndex) {
                     signpost.move(this.places[e.moved.newIndex].id, -1 * (e.moved.newIndex - e.moved.oldIndex));
                     for (var x = e.moved.oldIndex; x < e.moved.newIndex; x++) {
-                      signpost.move(this.places[x].id, +1);
+                      signpost.move(this.places[x].id, +1, x*0.25);
                     }
                   } else {
                     signpost.move(this.places[e.moved.newIndex].id, -1 * (e.moved.newIndex - e.moved.oldIndex));
+                    var maxTime = e.moved.oldIndex - (e.moved.newIndex+1);
                     for (var x = e.moved.newIndex+1; x <= e.moved.oldIndex; x++) {
-                      signpost.move(this.places[x].id, -1);
+                      signpost.move(this.places[x].id, -1, (maxTime-x)*0.25);
                     }
                   }
 

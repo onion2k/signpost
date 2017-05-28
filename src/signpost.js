@@ -121,12 +121,12 @@ export default class signpostGen {
 
     }
 
-    move(id, position) {
+    move(id, position, delay) {
 
         var self = this;
 
         var newPos = position * 6;
-        var delay = 0.25;
+        var delay = delay || 0;
 
         TweenLite.to(self.arms[id].joint.position, 1, {
             delay: delay,
