@@ -3373,6 +3373,7 @@ var signpostScene = function () {
         key: 'addCameraControls',
         value: function addCameraControls() {
             this.cameraControl = new _OrbitControls2.default(this.cameras[0], this.renderer.domElement);
+            this.cameraControl.enableZoom = false;
             this.cameraControl.target.set(0, 40, 0);
         }
     }, {

@@ -58,6 +58,7 @@ export default class signpostScene {
 
     addCameraControls() {
         this.cameraControl = new OrbitControls(this.cameras[0], this.renderer.domElement);
+        this.cameraControl.enableZoom = false;
         this.cameraControl.target.set(0, 40, 0);
     }
 
