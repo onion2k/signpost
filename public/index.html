@@ -43,9 +43,9 @@
           <div class="nav-wrapper">
             <a href="#" class="brand-logo" style="margin-left: 10px;">It's A Sign</a>
             <ul id="nav-mobile" class="right hide-on-med-and-down">
-              <li><a href="sass.html">About</a></li>
-              <li><a href="badges.html">Buy A Sign</a></li>
-              <li><a href="sass.html">Custom Signs</a></li>
+              <li><a href="about">About Signs</a></li>
+              <li><a href="store">Ready Made Signs</a></li>
+              <li><a href="print">Print My Sign</a></li>
             </ul>
             <a href="#" data-activates="nav-mobile" class="button-collapse"><i class="material-icons">menu</i></a>
           </div>
@@ -80,10 +80,9 @@
           </ul>
 
           <div>
-            <button type="button" v-on:click="back" class="btn waves-effect waves-light col s3">Back</button>
-            <button type="button" v-on:click="stop" class="btn waves-effect waves-light col s3">Stop</button>
-            <button type="button" v-on:click="slow" class="btn waves-effect waves-light col s3">Slow</button>
-            <button type="button" v-on:click="fast" class="btn waves-effect waves-light col s3">Fast</button>
+            <button type="button" v-on:click="back" class="btn blue waves-effect waves-light col s3">Back</button>
+            <button type="button" v-on:click="stop" class="btn red waves-effect waves-light col s3">Stop</button>
+            <button type="button" v-on:click="forward" class="btn green waves-effect waves-light col s6">Forward</button>
           </div>
 
         </div>
@@ -94,16 +93,16 @@
     <footer class="page-footer">
         <div class="row">
           <div class="col l6 s12">
-            <h5 class="white-text">Footer Content</h5>
-            <p class="grey-text text-lighten-4">You can use rows and columns here to organize your footer content.</p>
+            <h5 class="white-text">It's A Sign</h5>
+            <p class="grey-text text-lighten-4">Ready made and custom 3D printed signs.</p>
           </div>
           <div class="col l4 offset-l2 s12">
-            <h5 class="white-text">Links</h5>
+            <h5 class="white-text">More</h5>
             <ul>
-              <li><a class="grey-text text-lighten-3" href="#!">Link 1</a></li>
-              <li><a class="grey-text text-lighten-3" href="#!">Link 2</a></li>
-              <li><a class="grey-text text-lighten-3" href="#!">Link 3</a></li>
-              <li><a class="grey-text text-lighten-3" href="#!">Link 4</a></li>
+              <li><a class="grey-text text-lighten-3" href="#!">International Orders</a></li>
+              <li><a class="grey-text text-lighten-3" href="#!">How it works</a></li>
+              <li><a class="grey-text text-lighten-3" href="#!">FAQs</a></li>
+              <li><a class="grey-text text-lighten-3" href="#!">Sign Store</a></li>
             </ul>
           </div>
         </div>
@@ -183,12 +182,11 @@
               stop: function(){
                 signpostRotator.pause();
               },
-              slow: function(){
-                signpostRotator.timeScale(0.5);
+              forward: function(){
                 signpostRotator.play();
               },
-              fast: function(){
-                signpostRotator.timeScale(1);
+              print: function(){
+
               },
               save: function(){
 
