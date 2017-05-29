@@ -48,6 +48,7 @@ function init() {
 function animate() {
 
     requestAnimationFrame(animate);
+    scene.cameraControl.update();
     render();
 
 }

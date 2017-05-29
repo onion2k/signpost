@@ -8,6 +8,8 @@ import {
     Vector3
 } from '../node_modules/three/build/three.module';
 
+import OrbitControls from './OrbitControls';
+
 export default class signpostScene {
 
     constructor(width, height){
@@ -18,6 +20,7 @@ export default class signpostScene {
         this.scene = new Scene();
         this.lights = [];
         this.cameras = [];
+        this.cameraControl = null;
 
         this.addCamera();
         this.addLight();
@@ -29,6 +32,7 @@ export default class signpostScene {
         this.renderer.setClearColor(0xffffff, 0);
         this.renderer.setSize(this.width, this.height);
 
+        this.addCameraControls();
 
     }
 
@@ -44,12 +48,17 @@ export default class signpostScene {
 
         // put a camera in the scene
         var camera = new PerspectiveCamera(65, this.width / this.height, 1, 10000);
-        camera.position.set(0, 75, 75);
+        camera.position.set(0, 85, 85);
         camera.lookAt(new Vector3(0,40,0));
         this.scene.add(camera);
 
         this.cameras.push(camera);
 
+    }
+
+    addCameraControls() {
+        this.cameraControl = new OrbitControls(this.cameras[0], this.renderer.domElement);
+        this.cameraControl.target.set(0, 40, 0);
     }
 
     addLight() {
