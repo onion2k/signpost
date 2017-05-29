@@ -3426,16 +3426,11 @@ function init() {
 
     scene.addObject(signpost.obj);
 
-    doTween();
+    var tl = new TimelineMax({ repeat: -1 });
+    tl.to(signpost.obj.rotation, 10, { y: Math.PI * 2, ease: Linear.easeNone });
 
     window.signpost = signpost;
-    window.signpostRotator = signpostRotator;
-}
-
-function doTween() {
-
-    signpost.obj.rotation.y = 0;
-    window.signpostRotator = TweenLite.to(signpost.obj.rotation, 10, { y: Math.PI * 2, ease: Linear.easeNone, onComplete: doTween });
+    window.signpostRotator = tl;
 }
 
 function animate() {

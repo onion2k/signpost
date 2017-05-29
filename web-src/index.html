@@ -9,7 +9,8 @@
         <link rel="stylesheet" href="css/materialize.css">
         <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
         <script src="http://cdnjs.cloudflare.com/ajax/libs/gsap/1.19.0/easing/EasePack.min.js"></script>
-        <script src="http://cdnjs.cloudflare.com/ajax/libs/gsap/1.19.0/TweenLite.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/1.19.1/TweenLite.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/1.19.1/TimelineMax.min.js"></script>
         <style>
           canvas {
             padding: 0;
@@ -79,8 +80,10 @@
           </ul>
 
           <div>
-            <button type="button" v-on:click="toggle" class="btn waves-effect waves-light">Stop/Start</button>
-            <button type="button" v-on:click="toggle" class="btn waves-effect waves-light">Stop/Start</button>
+            <button type="button" v-on:click="back" class="btn waves-effect waves-light col s3">Back</button>
+            <button type="button" v-on:click="stop" class="btn waves-effect waves-light col s3">Stop</button>
+            <button type="button" v-on:click="slow" class="btn waves-effect waves-light col s3">Slow</button>
+            <button type="button" v-on:click="fast" class="btn waves-effect waves-light col s3">Fast</button>
           </div>
 
         </div>
@@ -174,8 +177,18 @@
               socket.emit('load', {});
             },
             methods: {
-              toggle: function(){
-                signpostRotator.paused(!signpostRotator.paused());
+              back: function(){
+                signpostRotator.reverse();
+              },
+              stop: function(){
+                signpostRotator.pause();
+              },
+              slow: function(){
+                signpostRotator.timeScale(0.5);
+                signpostRotator.play();
+              },
+              fast: function(){
+                signpostRotator.timeScale(1);
               },
               save: function(){
 
