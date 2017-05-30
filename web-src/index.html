@@ -80,6 +80,12 @@
           </ul>
 
           <div>
+            <button type="button" v-on:click="newsign" class="btn orange waves-effect waves-light col s3">New Sign</button>
+            <button type="button" v-on:click="save" class="btn red waves-effect waves-light col s9">Save</button>
+          </div>
+
+          <p class="col s12">Sign Controls</p>
+          <div>
             <button type="button" v-on:click="back" class="btn blue waves-effect waves-light col s3">Back</button>
             <button type="button" v-on:click="stop" class="btn red waves-effect waves-light col s3">Stop</button>
             <button type="button" v-on:click="forward" class="btn green waves-effect waves-light col s6">Forward</button>
@@ -187,6 +193,9 @@
               },
               print: function(){
 
+              },
+              newsign: function(){
+                this.places = [];
               },
               save: function(){
 
