@@ -198,7 +198,7 @@
                 this.places = [];
               },
               save: function(){
-
+                socket.emit('save', JSON.stringify(this.places));
               },
               load: function(data){
                 this.places = data;
@@ -282,6 +282,7 @@
           });
 
           socket.on('save', function (data) {
+            alert('Saved');
             //app.save(data);
           });
 
