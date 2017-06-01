@@ -1,4 +1,5 @@
 var express = require('express');
+var jsonfile = require('jsonfile');
 
 var app = express();
 
@@ -32,8 +33,10 @@ io.on('connection', function (socket) {
     });
   });
   socket.on('save', function(data){
-    console.log(data.id);
+
+    jsonfile.writeFile('./signs/'+data.id+'.json', data, {spaces: 2});
     socket.emit('save', { saved: true });
+
   });
   socket.on('load', function(){
     socket.emit('load', {

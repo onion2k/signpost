@@ -214,6 +214,7 @@
                   places: this.places
                 }
                 socket.emit('save', signData);
+                //update cookie with id to load next time
               },
               load: function(data){
                 if (data.id) { this.id = data.id; } else { this.id = generateUUID(); }
