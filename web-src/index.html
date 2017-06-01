@@ -182,6 +182,7 @@
           var app = new Vue({
             el: '#placelist',
             data: {
+              id: '',
               place: '',
               title: '',
               places: [],
@@ -204,14 +205,19 @@
 
               },
               newsign: function(){
+                this.id = generateUUID();
                 this.places = [];
               },
               save: function(){
-                socket.emit('save', JSON.stringify(this.places));
+                var signData = {
+                  id: this.id,
+                  places: this.places
+                }
+                socket.emit('save', signData);
               },
               load: function(data){
-                this.places = data;
-                //TODO: This isn't necessary if the API returns pre-geocoded arms
+                if (data.id) { this.id = data.id; } else { this.id = generateUUID(); }
+                this.places = data.places;
                 for (p in this.places) {
                   var place = this.places[p];
                   socket.emit('geocode', { place: place.place, title: place.title, index: p, id: place.id });
