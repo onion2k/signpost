@@ -34,6 +34,15 @@
           .controls {
             position: relative;
           }
+          #toast-container {
+            top: 5%;
+            right: 5%;
+            left: auto;
+          }
+          .toast {
+            border-radius: 5px;
+            border: 2px solid #000;
+          }
         </style>
     </head>
     <body>
@@ -282,8 +291,7 @@
           });
 
           socket.on('save', function (data) {
-            alert('Saved');
-            //app.save(data);
+            Materialize.toast('Sign saved', 2500, 'toast');
           });
 
           socket.on('load', function (data) {
