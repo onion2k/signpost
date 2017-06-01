@@ -216,6 +216,7 @@
                   var place = this.places[p];
                   socket.emit('geocode', { place: place.place, title: place.title, index: p, id: place.id });
                 }
+                Materialize.toast('Sign loaded', 2500, 'toast');
               },
               encode: function (event) {
                 socket.emit('geocode', { place: this.place, title: this.title });
@@ -299,7 +300,7 @@
           });
 
           socket.on('print', function (data) {
-            //app.print(data);
+            Materialize.toast('Print order received', 2500, 'toast');
           });
 
 
