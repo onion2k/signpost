@@ -137,8 +137,6 @@
 
         <script>
 
-          var socket = io.connect('http://localhost:8081');
-
           Vue.component('placeedit', {
             props: ['place', 'index'],
             data: function(){
@@ -190,7 +188,7 @@
               placeform: true
             },
             created: function(){
-              socket.emit('load', {});
+              //Do nothing on create
             },
             methods: {
               back: function(){
@@ -238,7 +236,7 @@
                   //TODO: Remove dependence on place.index ... find id in the array instead
                   this.places[index].title = place.title;
                   this.places[index].place = place.place;
-                  socket.emit('geocode', { place: place.place, title: place.title, index: place.index, id: place.id, active: true });
+                  socket.emit('geocode', { place: place.place, title: place.title, index: index, id: place.id, active: true });
                 });
               },
               deleteArm: function(place, index){
@@ -286,6 +284,11 @@
               }
             }
           });
+
+
+          var socket = io.connect('http://localhost:8081');
+
+          socket.emit('load', {});
 
           socket.on('geocode', function (data) {
             var index, id;
