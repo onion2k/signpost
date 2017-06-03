@@ -205,6 +205,9 @@
               },
               newsign: function(){
                 this.id = generateUUID();
+                for (place of this.places) {
+                  signpost.disarm(place.id);
+                }
                 this.places = [];
               },
               save: function(){
