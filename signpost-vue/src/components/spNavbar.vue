@@ -2,7 +2,7 @@
     <div class="navbar-fixed">
       <nav class="light-blue">
           <div class="nav-wrapper">
-            <a href="#" class="brand-logo" style="margin-left: 10px;">It's A Sign</a>
+            <a href="/" class="brand-logo" style="margin-left: 10px;">It's A Sign</a>
             <ul id="nav-mobile" class="right hide-on-med-and-down">
               <li><a href="about">About Signs</a></li>
               <li><a href="store">Ready Made Signs</a></li>
@@ -16,10 +16,10 @@
 
 <script>
 export default {
-  name: 'nav',
+  name: 'spNavbar',
   data () {
     return {
-      msg: 'Nav'
+
     }
   }
 }
