@@ -1,11 +1,19 @@
 <template>
   <div class="main">
     <spNavbar></spNavbar>
-
-            <draggable :list="places" :options="{handle:'.handle'}" @change="onChange" class="dragArea">
-              <placeedit v-for="(place, index) in places" v-bind:place="place" v-bind:index="index" :key="place.place"></placeedit>
-            </draggable>
-
+    <div class="row">
+      <div class="col s5" id="placelist" ref="placelist">
+        <ul>
+          <draggable :list="places" :options="{handle:'.handle'}" @change="onChange" class="dragArea">
+            <spPlacesEditor v-for="(place, index) in places" v-bind:place="place" v-bind:index="index" :key="place.place"></spPlacesEditor>
+          </draggable>
+          <spPlacesNew></spPlacesNew>
+        </ul>
+      </div>
+      <div class="col s7">
+        <spThreeViewer></spThreeViewer>
+      </div>
+    </div>
     <spFooter></spFooter>
   </div>
 </template>
@@ -14,6 +22,9 @@
 
 import spNavbar from '@/components/spNavbar.vue';
 import spFooter from '@/components/spFooter.vue';
+import spPlacesEditor from '@/components/spPlacesEditor.vue';
+import spPlacesNew from '@/components/spPlacesNew.vue';
+import spThreeViewer from '@/components/spThreeViewer.vue';
 import draggable from 'vuedraggable'
 
 export default {
@@ -23,8 +34,7 @@ export default {
       id: '',
       place: '',
       title: '',
-      places: [],
-      placeform: true
+      places: [{ place: 'London', title: ''}],
     }
   },
   created: function(){
@@ -33,6 +43,9 @@ export default {
   components: {
     spNavbar,
     spFooter,
+    spPlacesEditor,
+    spPlacesNew,
+    spThreeViewer,
     draggable
   },
   methods: {
@@ -136,5 +149,16 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-
+  .controls {
+    position: relative;
+  }
+  #toast-container {
+    top: 5%;
+    right: 5%;
+    left: auto;
+  }
+  .toast {
+    border-radius: 5px;
+    border: 2px solid #000;
+  }
 </style>

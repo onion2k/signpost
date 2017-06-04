@@ -29,15 +29,15 @@ export default {
         return { 'instancePlace': this.place.place, 'instanceTitle': this.place.title };
     },
     methods: {
-        edit: function (place, index) {
+        edit(place, index) {
             place.place = this.instancePlace;
             place.title = this.instanceTitle;
             app.editArm(place, index);
         },
-        remove: function (place,index) {
+        remove(place,index) {
             app.deleteArm(place, index);
         },
-        activate: function(place){
+        activate(place){
             app.deactivate();
             place.active = !place.active;
         }
@@ -47,5 +47,25 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
+  .collapsible-header {
+    padding: 0;
+    background-color: red;
+  }
+  .collapsible-header span.handle i {
+    margin-right: 0;
+  }
+  .collapsible-body {
+    padding: 0.5rem;
+  }
+  .collapsible-header.active {
+    display: block;
+    background-color: green;
+  }
+  .collapsible-body.active {
+    display: block;
+  }
+  .handle {
+    color: #bbb;
+  }
 
 </style>
