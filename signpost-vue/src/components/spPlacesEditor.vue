@@ -28,6 +28,11 @@ export default {
     data: function(){
         return { 'instancePlace': this.place.place, 'instanceTitle': this.place.title };
     },
+    computed: {
+        places () {
+            return this.$store.state.places
+        }
+    },
     methods: {
         edit(place, index) {
             place.place = this.instancePlace;
@@ -38,8 +43,12 @@ export default {
             app.deleteArm(place, index);
         },
         activate(place){
-            app.deactivate();
-            place.active = !place.active;
+            console.log('acti');
+            console.log(this.places);
+            place.active = true;
+        },
+        deactivate(){
+            place.active = false;
         }
     }
 }
@@ -49,7 +58,6 @@ export default {
 <style scoped>
   .collapsible-header {
     padding: 0;
-    background-color: red;
   }
   .collapsible-header span.handle i {
     margin-right: 0;
@@ -59,7 +67,6 @@ export default {
   }
   .collapsible-header.active {
     display: block;
-    background-color: green;
   }
   .collapsible-body.active {
     display: block;

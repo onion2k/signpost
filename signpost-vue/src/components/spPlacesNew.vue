@@ -29,7 +29,10 @@ export default {
     },
     methods: {
         activate() {
-            this.placeform = !this.placeform;
+            this.placeform = true;
+        },
+        deactivate(){
+            this.placeform = false;
         },
         encode() {
 
@@ -42,7 +45,6 @@ export default {
 <style scoped>
   .collapsible-header {
     padding: 0;
-    background-color: red;
   }
   .collapsible-header span.handle i {
     margin-right: 0;
@@ -52,7 +54,6 @@ export default {
   }
   .collapsible-header.active {
     display: block;
-    background-color: green;
   }
   .collapsible-body.active {
     display: block;
