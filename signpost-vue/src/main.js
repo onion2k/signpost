@@ -9,7 +9,7 @@ Vue.config.productionTip = false;
 
 const store = new Vuex.Store({
   state: {
-    places: [{ place: 'London', title: ''}]
+    places: [{ place: 'London', title: '', active: false }]
   },
   mutations: {
     increment (state) {

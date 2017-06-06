@@ -33,9 +33,13 @@ export default {
     return {
       id: '',
       place: '',
-      title: '',
-      places: [{ place: 'London', title: ''}],
+      title: ''
     }
+  },
+  computed: {
+      places () {
+          return this.$store.state.places
+      }
   },
   created: function(){
     //Do nothing on create
