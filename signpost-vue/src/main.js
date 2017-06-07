@@ -4,13 +4,6 @@ import router from './router';
 import Vuex from 'vuex';
 import io from 'socket.io-client'
 
-var socket = io.connect('http://localhost:8081');
-    socket.emit('load', {});
-
-    socket.on('load', function (data) {
-      console.log('Loading');
-    });
-
 Vue.use(Vuex);
 
 Vue.config.productionTip = false;
@@ -50,9 +43,23 @@ const store = new Vuex.Store({
 });
 
 /* eslint-disable no-new */
-new Vue({
+var app = new Vue({
   el: '#app',
   store,
   router,
-  render: h => h(App)
+  render: h => h(App),
+  methods: {
+    alert: function() {
+
+    }
+  }
 });
+
+
+var socket = io.connect('http://localhost:8081');
+    //socket.emit('load', {});
+
+    socket.on('load', function (data) {
+      console.log('Loading');
+      app.alert();
+    });
