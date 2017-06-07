@@ -1,6 +1,6 @@
 <template>
     <li class="place" v-bind:class="{ active: place.active }">
-        <div class="collapsible-header" v-on:click="activate(place)" v-bind:class="{ active: place.active }">
+        <div class="collapsible-header" v-on:click="activate(place.id)" v-bind:class="{ active: place.active }">
         <i class="material-icons">label</i>{{ instanceTitle || instancePlace }}
         <span class="handle secondary-content"><i class="material-icons">reorder</i></span>
         </div>
@@ -42,13 +42,9 @@ export default {
         remove(place,index) {
             app.deleteArm(place, index);
         },
-        activate(place){
-            console.log('acti');
-            console.log(this.places);
-            place.active = true;
-        },
-        deactivate(){
-            place.active = false;
+        activate(id){
+            console.log(id);
+            this.$store.commit('activate', {'id': id});
         }
     }
 }

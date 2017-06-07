@@ -35,7 +35,7 @@ export default {
             this.placeform = false;
         },
         encode() {
-
+            console.log('Encoding', this.place, this.title);
         }
     }
 }

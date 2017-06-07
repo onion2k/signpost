@@ -9,11 +9,16 @@ Vue.config.productionTip = false;
 
 const store = new Vuex.Store({
   state: {
-    places: [{ place: 'London', title: '', active: false }]
+    places: [
+      { place: 'London', title: '', active: false, id: 'london' },
+      { place: 'France', title: '', active: false, id: 'france' },
+      { place: 'Germany', title: '', active: false, id: 'germany' },
+      { place: 'Sunderland', title: '', active: false, id: 'sunderland' }
+    ]
   },
   mutations: {
-    increment (state) {
-      state.count++
+    activate (state, payload) {
+      state.places.map((place)=>{ place.active = place.id===payload.id ? true : false; });
     }
   }
 });
