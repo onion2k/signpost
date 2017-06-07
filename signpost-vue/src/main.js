@@ -2,6 +2,14 @@ import Vue from 'vue';
 import App from './App';
 import router from './router';
 import Vuex from 'vuex';
+import io from 'socket.io-client'
+
+var socket = io.connect('http://localhost:8081');
+    socket.emit('load', {});
+
+    socket.on('load', function (data) {
+      console.log('Loading');
+    });
 
 Vue.use(Vuex);
 
@@ -25,10 +33,10 @@ const store = new Vuex.Store({
       } else {
         state.placeform = false;
       }
+      socket.emit('load', {});
     },
     remove (state, payload) {
       //delete signpost arm
-      console.log(payload)
       state.places.splice(payload.id, 1);
       state.places.map((p)=>{
         if (p.index > payload.id) {
@@ -36,7 +44,7 @@ const store = new Vuex.Store({
           //signpost.move(p.id, +1);
         }
       });
-      //this.commit('activate', { id: 'placeform' });
+      state.placeform = true;
     }
   }
 });

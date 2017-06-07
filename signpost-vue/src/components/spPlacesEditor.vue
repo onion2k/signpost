@@ -12,7 +12,7 @@
             </div>
             <div class="form-group">
             <label for="title">Title (Optional)</label>
-            <input type="text" placeholder="Eg Allison\'s house" v-bind:value="instanceTitle" @input="instanceTitle = $event.target.value">
+            <input type="text" placeholder="Eg Allison's house" v-bind:value="instanceTitle" @input="instanceTitle = $event.target.value">
             </div>
             <button type="button" v-on:click="remove(place, index)" class="btn red waves-effect waves-light">Delete</button>
             <button type="button" v-on:click="edit(place, index)" class="btn right waves-effect waves-light">Update Place</button>
