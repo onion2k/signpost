@@ -38,12 +38,13 @@ export default {
             place.place = this.instancePlace;
             place.title = this.instanceTitle;
             app.editArm(place, index);
+            //this.$store.commit('update', place);
         },
-        remove(place,index) {
-            app.deleteArm(place, index);
+        remove(place, index) {
+            //app.deleteArm(place, index);
+            this.$store.commit('remove', {'id': index});
         },
         activate(id){
-            console.log(id);
             this.$store.commit('activate', {'id': id});
         }
     }

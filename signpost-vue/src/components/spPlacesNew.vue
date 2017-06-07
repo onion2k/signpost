@@ -22,17 +22,18 @@ export default {
     name: 'spPlacesNew',
     data: function(){
         return {
-            placeform: true,
             place: '',
             title: ''
         }
     },
+    computed: {
+        placeform () {
+            return this.$store.state.placeform
+        }
+    },
     methods: {
         activate() {
-            this.placeform = true;
-        },
-        deactivate(){
-            this.placeform = false;
+            this.$store.commit('activate', {'id': 'placeform'});
         },
         encode() {
             console.log('Encoding', this.place, this.title);
