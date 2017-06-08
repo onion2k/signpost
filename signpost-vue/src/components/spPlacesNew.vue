@@ -36,7 +36,7 @@ export default {
             this.$store.commit('activate', {'id': 'placeform'});
         },
         encode() {
-            console.log('Encoding', this.place, this.title);
+            this.$store.dispatch('geocode', { place: this.place, title: this.title });
         }
     }
 }

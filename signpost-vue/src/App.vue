@@ -51,6 +51,7 @@ export default {
       socket.emit('geocode', { place: this.place, title: this.title });
     },
     addArm: function(title, place, bearing, distance, id){
+      
       this.places.push({ title: title, place: place, bearing: bearing, distance: distance, active: false, index: this.places.length, id: id });
       return this.places.length-1;
     },

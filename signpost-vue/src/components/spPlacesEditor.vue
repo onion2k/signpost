@@ -37,11 +37,9 @@ export default {
         edit(place, index) {
             place.place = this.instancePlace;
             place.title = this.instanceTitle;
-            app.editArm(place, index);
-            //this.$store.commit('update', place);
+            this.$store.dispatch('edit', { place: place, index: index });
         },
         remove(place, index) {
-            //app.deleteArm(place, index);
             this.$store.commit('remove', {'id': index});
         },
         activate(id){

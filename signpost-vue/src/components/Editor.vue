@@ -66,18 +66,10 @@ export default {
 
     },
     newsign: function(){
-      this.id = generateUUID();
-      for (place of this.places) {
-        signpost.disarm(place.id);
-      }
-      this.places = [];
+      this.$store.dispatch('new', { });
     },
     save: function(){
-      var signData = {
-        id: this.id,
-        places: this.places
-      }
-      socket.emit('save', signData);
+      this.$store.dispatch('save', { });
       //update cookie with id to load next time
     },
     load: function(data){

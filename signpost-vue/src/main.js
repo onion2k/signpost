@@ -4,12 +4,15 @@ import router from './router';
 import Vuex from 'vuex';
 import io from 'socket.io-client'
 
+var socket;
+
 Vue.use(Vuex);
 
 Vue.config.productionTip = false;
 
 const store = new Vuex.Store({
   state: {
+    id: '',
     places: [
       { place: 'London', title: '', active: false, id: 'london' },
       { place: 'France', title: '', active: false, id: 'france' },
@@ -21,12 +24,7 @@ const store = new Vuex.Store({
   mutations: {
     activate (state, payload) {
       state.places.map((place)=>{ place.active = place.id===payload.id ? true : false; });
-      if (payload.id==='placeform') {
-        state.placeform = true;
-      } else {
-        state.placeform = false;
-      }
-      socket.emit('load', {});
+      state.placeform = (payload.id==='placeform') ? true : false;
     },
     remove (state, payload) {
       //delete signpost arm
@@ -39,6 +37,21 @@ const store = new Vuex.Store({
       });
       state.placeform = true;
     }
+  },
+  actions: {
+    geocode (state, payload) { socket.emit('geocode', payload); },
+    new (state, payload) {
+      state.id = generateUUID();
+      // for (place of this.places) {
+      //   signpost.disarm(place.id);
+      // }
+      state.places = [];
+    },
+    edit (state, payload)  {
+      socket.emit('geocode', { place: payload.place.place, title: payload.place.title, index: payload.index, id: payload.place.id, active: true });
+    },
+    save (state, payload)  { socket.emit('save', payload); },
+    print (state, payload) { socket.emit('print', payload); }
   }
 });
 
@@ -50,8 +63,13 @@ var app = new Vue({
   render: h => h(App),
   methods: {
     load: function() {
-      console.log('Loading');
-      Materialize.toast('Sign saved', 2500, 'toast');
+      Materialize.toast('Sign loaded', 3750, 'toast');
+    },
+    add: function() {
+      Materialize.toast('Arm added', 3750, 'toast');
+    },
+    move: function() {
+      Materialize.toast('Arm moved', 3750, 'toast');
     }
   }
 });
@@ -68,20 +86,16 @@ var socket = io.connect('http://localhost:8081');
       var index, id;
       if (data[0].index === -1) {
         id = generateUUID();
-        index = app.addArm(data[0].title, data[0].placename, data[0].bearing, data[0].distance, id);
+        index = app.add(data[0].title, data[0].placename, data[0].bearing, data[0].distance, id);
       } else {
         id = data[0].id;
-        index = app.moveArm(data[0].bearing, data[0].distance, data[0].index);
+        index = app.move(data[0].bearing, data[0].distance, data[0].index);
       }
       //signpost.arm(data[0].title || data[0].placename, data[0].bearing, data[0].distance, index, id);
     });
 
     socket.on('save', function (data) {
       Materialize.toast('Sign saved', 2500, 'toast');
-    });
-
-    socket.on('load', function (data) {
-      //app.load(data);
     });
 
     socket.on('print', function (data) {
