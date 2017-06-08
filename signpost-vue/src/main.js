@@ -49,17 +49,54 @@ var app = new Vue({
   router,
   render: h => h(App),
   methods: {
-    alert: function() {
-
+    load: function() {
+      console.log('Loading');
+      Materialize.toast('Sign saved', 2500, 'toast');
     }
   }
 });
 
 
 var socket = io.connect('http://localhost:8081');
-    //socket.emit('load', {});
+    socket.emit('load', {});
 
     socket.on('load', function (data) {
-      console.log('Loading');
-      app.alert();
+      app.load();
     });
+
+    socket.on('geocode', function (data) {
+      var index, id;
+      if (data[0].index === -1) {
+        id = generateUUID();
+        index = app.addArm(data[0].title, data[0].placename, data[0].bearing, data[0].distance, id);
+      } else {
+        id = data[0].id;
+        index = app.moveArm(data[0].bearing, data[0].distance, data[0].index);
+      }
+      //signpost.arm(data[0].title || data[0].placename, data[0].bearing, data[0].distance, index, id);
+    });
+
+    socket.on('save', function (data) {
+      Materialize.toast('Sign saved', 2500, 'toast');
+    });
+
+    socket.on('load', function (data) {
+      //app.load(data);
+    });
+
+    socket.on('print', function (data) {
+      Materialize.toast('Print order received', 2500, 'toast');
+    });
+
+
+    function generateUUID () {
+        var d = new Date().getTime();
+        if (typeof performance !== 'undefined' && typeof performance.now === 'function'){
+            d += performance.now();
+        }
+        return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (c) {
+            var r = (d + Math.random() * 16) % 16 | 0;
+            d = Math.floor(d / 16);
+            return (c === 'x' ? r : (r & 0x3 | 0x8)).toString(16);
+        });
+    }
