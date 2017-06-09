@@ -40,12 +40,13 @@ const store = new Vuex.Store({
   },
   actions: {
     geocode (state, payload) { socket.emit('geocode', payload); },
-    new (state, payload) {
-      state.id = generateUUID();
+    newsign (state, payload) {
+      Materialize.toast('New sign started', 3750, 'toast');
+      state.state.id = generateUUID();
       // for (place of this.places) {
       //   signpost.disarm(place.id);
       // }
-      state.places = [];
+      state.state.places = [];
     },
     edit (state, payload)  {
       socket.emit('geocode', { place: payload.place.place, title: payload.place.title, index: payload.index, id: payload.place.id, active: true });

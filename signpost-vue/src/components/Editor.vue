@@ -1,6 +1,7 @@
 <template>
   <div class="main">
     <spNavbar></spNavbar>
+    <spFile></spFile>
     <div class="row">
       <div class="col s5" id="placelist" ref="placelist">
         <ul>
@@ -22,6 +23,7 @@
 
 import spNavbar from '@/components/spNavbar.vue';
 import spFooter from '@/components/spFooter.vue';
+import spFile from '@/components/spFile.vue';
 import spPlacesEditor from '@/components/spPlacesEditor.vue';
 import spPlacesNew from '@/components/spPlacesNew.vue';
 import spThreeViewer from '@/components/spThreeViewer.vue';
@@ -46,6 +48,7 @@ export default {
   },
   components: {
     spNavbar,
+    spFile,
     spFooter,
     spPlacesEditor,
     spPlacesNew,
