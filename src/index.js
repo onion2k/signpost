@@ -16,7 +16,7 @@ var camera;
 var signpost, post, base;
 var arms = [];
 
-if (!init()) animate();
+window.signpostInit = init;
 
 function init() {
 
@@ -42,6 +42,8 @@ function init() {
 
     window.signpost = signpost;
     window.signpostRotator = tl;
+
+    animate();
 
 }
 
