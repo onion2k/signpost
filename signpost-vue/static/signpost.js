@@ -4434,7 +4434,6 @@ function animate() {
     render();
 }
 
-// render the scene
 function render() {
     scene.render();
 }

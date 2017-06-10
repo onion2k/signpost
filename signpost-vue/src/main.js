@@ -21,6 +21,7 @@ var app = new Vue({
   methods: {
     load: function(data) {
       window.signpostInit();
+      store.dispatch('load', data);
       Materialize.toast(data.id+' loaded', 3750, 'toast');
     },
     add: function(payload) {

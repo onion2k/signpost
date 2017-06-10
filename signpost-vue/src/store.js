@@ -9,12 +9,7 @@ var signstore = function(socket){
     let store = new Vuex.Store({
         state: {
             id: '',
-            places: [
-                { place: 'London', title: '', active: false, id: 'london' },
-                { place: 'France', title: '', active: false, id: 'france' },
-                { place: 'Germany', title: '', active: false, id: 'germany' },
-                { place: 'Sunderland', title: '', active: false, id: 'sunderland' }
-            ],
+            places: [],
             placeform: true
         },
         mutations: {
@@ -23,11 +18,15 @@ var signstore = function(socket){
                 state.placeform = (payload.id==='placeform') ? true : false;
             },
             add (state, payload) {
+                payload.index = state.places.length+1;
+                payload.active = false;
                 state.places.push(payload);
+                signpost.arm(payload.title || payload.place, payload.bearing, payload.distance, payload.index, payload.id);
             },
             update (state, payload) {
                 let p = state.places.filter((p)=>{ return p.id===payload.id});
                     p = payload;
+                signpost.arm(payload.title || payload.place, payload.bearing, payload.distance, payload.index, payload.id);
             },
             remove (state, id) {
                 let index = state.places.map(p => p.id).indexOf(id.id);
@@ -45,7 +44,14 @@ var signstore = function(socket){
                 // }
                 state.state.places = [];
             },
-            edit (state, payload)  {
+            load (state, payload) {
+                state.state.places = payload.places;
+                for (var p in state.state.places) {
+                    var place = state.state.places[p];
+                    socket.emit('geocode', { place: place.place, title: place.title, index: p, id: place.id });
+                }
+            },
+            edit (state, payload) {
                 socket.emit('geocode', { place: payload.place.place, title: payload.place.title, index: payload.index, id: payload.place.id, active: true });
             },
             save (state, payload)  { socket.emit('save', payload); },

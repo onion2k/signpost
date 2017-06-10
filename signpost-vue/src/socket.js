@@ -22,8 +22,7 @@ var signsocket = function(){
                 place: data[0].placename,
                 bearing: data[0].bearing,
                 distance: data[0].distance,
-                index: data[0].index,
-                id: data[0].id
+                id: id
             });
         } else {
             id = data[0].id;

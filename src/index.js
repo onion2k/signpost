@@ -55,7 +55,6 @@ function animate() {
 
 }
 
-// render the scene
 function render() {
     scene.render();
 }
