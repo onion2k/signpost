@@ -20,7 +20,6 @@ var app = new Vue({
   },
   methods: {
     load: function(data) {
-      console.log(data);
       Materialize.toast(data.id+' loaded', 3750, 'toast');
     },
     add: function(payload) {

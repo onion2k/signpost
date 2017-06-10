@@ -28,7 +28,7 @@ var signsocket = function(){
         } else {
             id = data[0].id;
             //index = socket.app.move(data[0].bearing, data[0].distance, data[0].index);
-            socket.app.$store.commit('move', {
+            socket.app.$store.commit('update', {
                 title: data[0].title,
                 place: data[0].placename,
                 bearing: data[0].bearing,

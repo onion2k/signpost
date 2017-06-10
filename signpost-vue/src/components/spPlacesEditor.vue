@@ -40,7 +40,7 @@ export default {
             this.$store.dispatch('edit', { place: place, index: index });
         },
         remove(place, index) {
-            this.$store.commit('remove', {'id': index});
+            this.$store.commit('remove', {'id': place.id});
         },
         activate(id){
             this.$store.commit('activate', {'id': id});

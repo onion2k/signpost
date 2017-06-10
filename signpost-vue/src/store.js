@@ -25,15 +25,13 @@ var signstore = function(socket){
             add (state, payload) {
                 state.places.push(payload);
             },
-            remove (state, payload) {
-                //delete signpost arm
-                state.places.splice(payload.id, 1);
-                state.places.map((p)=>{
-                    if (p.index > payload.id) {
-                    p.index--;
-                    //signpost.move(p.id, +1);
-                    }
-                });
+            update (state, payload) {
+                let p = state.places.filter((p)=>{ return p.id===payload.id});
+                    p = payload;
+            },
+            remove (state, id) {
+                let index = state.places.map(p => p.id).indexOf(id.id);
+                state.places.splice(index, 1);
                 state.placeform = true;
             }
         },
