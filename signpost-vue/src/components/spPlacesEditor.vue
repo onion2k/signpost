@@ -35,12 +35,16 @@ export default {
     },
     methods: {
         edit(place, index) {
-            place.place = this.instancePlace;
-            place.title = this.instanceTitle;
-            this.$store.dispatch('edit', { place: place, index: index });
+            signpost.disarm(place.id).then(()=>{
+                place.place = this.instancePlace;
+                place.title = this.instanceTitle;
+                this.$store.dispatch('edit', place);
+            });
         },
         remove(place, index) {
-            this.$store.commit('remove', {'id': place.id});
+            signpost.disarm(place.id).then(()=>{
+                this.$store.commit('remove', {'id': place.id});
+            });
         },
         activate(place){
             this.$store.commit('activate', {'id': place.id});

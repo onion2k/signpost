@@ -32,6 +32,11 @@ var signstore = function(socket){
                 let index = state.places.map(p => p.id).indexOf(id.id);
                 state.places.splice(index, 1);
                 state.placeform = true;
+                state.places.map((p,i)=>{
+                  if (i >= index) {
+                    signpost.move(p.id, +1);
+                  }
+                })
             }
         },
         actions: {
@@ -52,7 +57,8 @@ var signstore = function(socket){
                 }
             },
             edit (state, payload) {
-                socket.emit('geocode', { place: payload.place.place, title: payload.place.title, index: payload.index, id: payload.place.id, active: true });
+                let index = state.state.places.map(p => p.id).indexOf(payload.id);
+                socket.emit('geocode', { place: payload.place, title: payload.title, index: index, id: payload.id, active: true });
             },
             save (state, payload)  { socket.emit('save', payload); },
             print (state, payload) { socket.emit('print', payload); }
