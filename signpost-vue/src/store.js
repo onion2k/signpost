@@ -10,10 +10,10 @@ var signstore = function(socket){
         state: {
             id: '',
             places: [
-            { place: 'London', title: '', active: false, id: 'london' },
-            { place: 'France', title: '', active: false, id: 'france' },
-            { place: 'Germany', title: '', active: false, id: 'germany' },
-            { place: 'Sunderland', title: '', active: false, id: 'sunderland' }
+                { place: 'London', title: '', active: false, id: 'london' },
+                { place: 'France', title: '', active: false, id: 'france' },
+                { place: 'Germany', title: '', active: false, id: 'germany' },
+                { place: 'Sunderland', title: '', active: false, id: 'sunderland' }
             ],
             placeform: true
         },
@@ -21,6 +21,9 @@ var signstore = function(socket){
             activate (state, payload) {
                 state.places.map((place)=>{ place.active = place.id===payload.id ? true : false; });
                 state.placeform = (payload.id==='placeform') ? true : false;
+            },
+            add (state, payload) {
+                state.places.push(payload);
             },
             remove (state, payload) {
                 //delete signpost arm

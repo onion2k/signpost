@@ -10,17 +10,32 @@ var signsocket = function(){
     }
 
     socket.on('load', function (data) {
-        socket.app.load();
+        socket.app.load(data);
     });
 
     socket.on('geocode', function (data) {
         var index, id;
         if (data[0].index === -1) {
             id = generateUUID();
-            index = socket.app.add(data[0].title, data[0].placename, data[0].bearing, data[0].distance, id);
+            socket.app.$store.commit('add', {
+                title: data[0].title,
+                place: data[0].placename,
+                bearing: data[0].bearing,
+                distance: data[0].distance,
+                index: data[0].index,
+                id: data[0].id
+            });
         } else {
             id = data[0].id;
-            index = socket.app.move(data[0].bearing, data[0].distance, data[0].index);
+            //index = socket.app.move(data[0].bearing, data[0].distance, data[0].index);
+            socket.app.$store.commit('move', {
+                title: data[0].title,
+                place: data[0].placename,
+                bearing: data[0].bearing,
+                distance: data[0].distance,
+                index: data[0].index,
+                id: data[0].id
+            });
         }
         //signpost.arm(data[0].title || data[0].placename, data[0].bearing, data[0].distance, index, id);
     });

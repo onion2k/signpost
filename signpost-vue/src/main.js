@@ -19,10 +19,12 @@ var app = new Vue({
     socket.emit('load', {});
   },
   methods: {
-    load: function() {
-      Materialize.toast('Sign loaded', 3750, 'toast');
+    load: function(data) {
+      console.log(data);
+      Materialize.toast(data.id+' loaded', 3750, 'toast');
     },
-    add: function() {
+    add: function(payload) {
+      store.emit('add', payload)
       Materialize.toast('Arm added', 3750, 'toast');
     },
     move: function() {
