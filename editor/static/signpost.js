@@ -3180,13 +3180,13 @@ var signpostGen = function () {
             var armGeo = new _three.BoxGeometry(12 + len * 1, 6, 1);
             var arm = new _three.Mesh(armGeo, armMaterials);
 
-            arm.position.y = 66 - index * 6;
+            arm.position.y = 76 - index * 6;
             arm.position.x = 12 + len / 2 - 5;
 
             var capGeo = this.buildCapGeometry(3);
             var cap = new _three.Mesh(capGeo, new _three.MeshPhongMaterial({ color: 0xd4d4d4, shininess: 10, shading: _three.FlatShading }));
 
-            cap.position.y = 66 - index * 6;
+            cap.position.y = 76 - index * 6;
             cap.position.x = (12 + len / 2 - 5) * 2 - 0.5;
 
             var combo = new _three.Object3D();
@@ -3210,8 +3210,9 @@ var signpostGen = function () {
                 'placename': placename,
                 'distance': distance,
                 'joint': joint,
-                'arm': arm,
+                'arm': combo,
                 'geo': armGeo,
+                'cap': capGeo,
                 'mat': armMaterials,
                 'tex': texture,
                 'id': id
@@ -3302,7 +3303,7 @@ var signpostGen = function () {
             var postMaterial = new _three.MeshPhongMaterial({ color: 0xdddddd, shininess: 10, shading: _three.FlatShading });
             var postGeo = new _three.CylinderGeometry(2, 2, 80, 12, 1);
             var post = new _three.Mesh(postGeo, postMaterial);
-            post.position.y = 30;
+            post.position.y = 40;
 
             this.obj.add(post);
 
@@ -3315,6 +3316,7 @@ var signpostGen = function () {
             var northMaterial = new _three.MeshPhysicalMaterial({ color: 0xff0000 });
             var northGeo = new _three.CylinderGeometry(2, 2, 2, 8, 1);
             var north = new _three.Mesh(northGeo, northMaterial);
+            north.position.y = 1;
             north.position.z = -24;
 
             this.obj.add(north);
@@ -3322,7 +3324,7 @@ var signpostGen = function () {
             var topperMaterial = new _three.MeshPhongMaterial({ color: 0xdddddd, shininess: 10, shading: _three.FlatShading });
             var topperGeo = new _three.SphereGeometry(3, 12, 12);
             var topper = new _three.Mesh(topperGeo, topperMaterial);
-            topper.position.y = 72;
+            topper.position.y = 82;
 
             this.obj.add(topper);
         }
