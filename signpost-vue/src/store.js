@@ -18,7 +18,7 @@ var signstore = function(socket){
                 state.placeform = (payload.id==='placeform') ? true : false;
             },
             add (state, payload) {
-                payload.index = state.places.length+1;
+                payload.index = state.places.length;
                 payload.active = false;
                 state.places.push(payload);
                 signpost.arm(payload.title || payload.place, payload.bearing, payload.distance, payload.index, payload.id);
