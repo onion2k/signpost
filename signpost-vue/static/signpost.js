@@ -3130,29 +3130,6 @@ var signpostGen = function () {
     }
 
     _createClass(signpostGen, [{
-        key: 'buildCapGeometry',
-        value: function buildCapGeometry(len) {
-
-            var cube_geometry = new _three.BoxGeometry(1, 6, 1);
-
-            var extrusion = len;
-            var point = 3;
-
-            cube_geometry.vertices[0].y -= point;
-            cube_geometry.vertices[1].y -= point;
-
-            cube_geometry.vertices[2].y += point;
-            cube_geometry.vertices[3].y += point;
-
-            cube_geometry.vertices[0].x += extrusion;
-            cube_geometry.vertices[1].x += extrusion;
-
-            cube_geometry.vertices[2].x += extrusion;
-            cube_geometry.vertices[3].x += extrusion;
-
-            return cube_geometry;
-        }
-    }, {
         key: 'arm',
         value: function arm(placename, direction, distance, index, id) {
 
@@ -3176,32 +3153,22 @@ var signpostGen = function () {
 
             ];
 
-            //var armGeo = this.buildArmGeometry(len);
-            var armGeo = new _three.BoxGeometry(12 + len * 1, 6, 1);
+            var armGeo = buildArmGeometry(len);
+
             var arm = new _three.Mesh(armGeo, armMaterials);
 
             arm.position.y = 66 - index * 6;
             arm.position.x = 12 + len / 2 - 5;
 
-            var capGeo = this.buildCapGeometry(3);
-            var cap = new _three.Mesh(capGeo, new _three.MeshPhongMaterial({ color: 0xd4d4d4, shininess: 10, shading: _three.FlatShading }));
-
-            cap.position.y = 66 - index * 6;
-            cap.position.x = (12 + len / 2 - 5) * 2 - 0.5;
-
-            var combo = new _three.Object3D();
-            combo.add(arm);
-            combo.add(cap);
-
             var joint = new _three.Object3D();
-            joint.add(combo);
+            joint.add(arm);
             joint.rotation.y = Math.PI / 2 + -1 * direction * 0.0174533;
 
             this.obj.add(joint);
 
             signpostRotator.paused(true);
 
-            TweenLite.from(combo.position, 1, { x: 12 + len / 2 - 5 + 50, ease: Back.easeOut.config(1.2), onComplete: function onComplete() {
+            TweenLite.from(arm.position, 1, { x: 12 + len / 2 - 5 + 50, ease: Back.easeOut.config(1.2), onComplete: function onComplete() {
 
                     signpostRotator.paused(false);
                 } });
@@ -3216,6 +3183,53 @@ var signpostGen = function () {
                 'tex': texture,
                 'id': id
             };
+        }
+    }, {
+        key: 'buildArmGeometry',
+        value: function buildArmGeometry(len) {
+
+            var cube_geometry = new THREE.BoxGeometry(3, 3, 3, 2, 1, 3);
+
+            var extrusion = 10;
+            var indention = 1;
+            var point = 1.5;
+
+            cube_geometry.vertices[0].y -= point;
+            cube_geometry.vertices[3].y -= point;
+            cube_geometry.vertices[0].z -= indention;
+            cube_geometry.vertices[3].z += indention;
+
+            cube_geometry.vertices[1].y -= point;
+            cube_geometry.vertices[2].y -= point;
+
+            cube_geometry.vertices[4].y += point;
+            cube_geometry.vertices[7].y += point;
+            cube_geometry.vertices[4].z -= indention;
+            cube_geometry.vertices[7].z += indention;
+
+            cube_geometry.vertices[5].y += point;
+            cube_geometry.vertices[6].y += point;
+
+            cube_geometry.vertices[0].x += extrusion;
+            cube_geometry.vertices[1].x += extrusion;
+            cube_geometry.vertices[2].x += extrusion;
+            cube_geometry.vertices[3].x += extrusion;
+            cube_geometry.vertices[4].x += extrusion;
+            cube_geometry.vertices[5].x += extrusion;
+            cube_geometry.vertices[6].x += extrusion;
+            cube_geometry.vertices[7].x += extrusion;
+
+            cube_geometry.vertices[17].x += extrusion;
+            cube_geometry.vertices[18].x += extrusion;
+            cube_geometry.vertices[19].x += extrusion;
+            cube_geometry.vertices[20].x += extrusion;
+            cube_geometry.vertices[21].x += extrusion;
+            cube_geometry.vertices[22].x += extrusion;
+            cube_geometry.vertices[23].x += extrusion;
+            cube_geometry.vertices[16].x += extrusion;
+
+            //var armGeo = new BoxGeometry(12 + (len * 1), 6, 1);
+            return cube_geometry;
         }
     }, {
         key: 'disarm',

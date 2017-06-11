@@ -26,6 +26,30 @@ export default class signpostGen {
 
     }
 
+    buildCapGeometry(len) {
+
+        var cube_geometry = new BoxGeometry( 1, 6, 1 );
+
+        var extrusion = len;
+        var point = 3;
+
+        cube_geometry.vertices[0].y -= point;
+        cube_geometry.vertices[1].y -= point;
+
+        cube_geometry.vertices[2].y += point;
+        cube_geometry.vertices[3].y += point;
+
+        cube_geometry.vertices[0].x += extrusion;
+        cube_geometry.vertices[1].x += extrusion;
+
+        cube_geometry.vertices[2].x += extrusion;
+        cube_geometry.vertices[3].x += extrusion;
+
+        return cube_geometry;
+
+    }
+
+
     arm(placename, direction, distance, index, id){
 
         if (index === -1) { return; }
@@ -48,21 +72,32 @@ export default class signpostGen {
 
         ];
 
+        //var armGeo = this.buildArmGeometry(len);
         var armGeo = new BoxGeometry(12 + (len * 1), 6, 1);
         var arm = new Mesh(armGeo, armMaterials);
 
             arm.position.y = 66 - (index * 6);
             arm.position.x = (12 + (len) / 2) - 5;
 
+        var capGeo = this.buildCapGeometry(3);
+        var cap = new Mesh(capGeo, new MeshPhongMaterial({ color: 0xd4d4d4, shininess: 10, shading: FlatShading }));
+
+            cap.position.y = 66 - (index * 6);
+            cap.position.x = (((12 + (len/2)) - 5 ) * 2) -0.5;
+
+        var combo = new Object3D();
+            combo.add(arm);
+            combo.add(cap);
+
         var joint = new Object3D();
-            joint.add(arm);
+            joint.add(combo);
             joint.rotation.y = (Math.PI / 2) + (-1 * direction * 0.0174533);
 
         this.obj.add(joint);
 
         signpostRotator.paused(true);
 
-        TweenLite.from(arm.position, 1, { x: (12 + (len) / 2) - 5 + 50, ease: Back.easeOut.config(1.2), onComplete: function(){
+        TweenLite.from(combo.position, 1, { x: (12 + (len) / 2) - 5 + 50, ease: Back.easeOut.config(1.2), onComplete: function(){
     
             signpostRotator.paused(false);
 
