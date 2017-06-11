@@ -1,6 +1,6 @@
 <template>
     <li id="newplaceform" class="" v-bind:class="{ active: placeform }">
-        <div class="collapsible-header" v-on:click="activate" v-bind:class="{ active: placeform }"><i class="material-icons">location_on</i>Add a new place {{ placeform }}</div>
+        <div class="collapsible-header" v-on:click="activate" v-bind:class="{ active: placeform }"><i class="material-icons">location_on</i>Add a new place</div>
         <div class="collapsible-body" v-bind:class="{ active: placeform }" style="overflow: auto;">
         <form id="addplace">
             <div class="form-group">
