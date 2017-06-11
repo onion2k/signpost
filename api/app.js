@@ -6,7 +6,7 @@ var app = express();
 var server = require('http').Server(app);
 var io = require('socket.io')(server);
 
-var geocoder = require('../geocoder/geocoder.module.js');
+var geocoder = require('./geocoder/geocoder.module.js');
 var geo = new geocoder();
 
 var from = {
@@ -34,7 +34,7 @@ io.on('connection', function (socket) {
   });
   socket.on('save', function(data){
 
-    jsonfile.writeFile('./signs/'+data.id+'.json', data, {spaces: 2});
+    jsonfile.writeFile('./cache/signs/'+data.id+'.json', data, {spaces: 2});
     socket.emit('save', { saved: true });
 
   });

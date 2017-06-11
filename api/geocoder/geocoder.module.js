@@ -1,4 +1,4 @@
-var env = require('../.env');
+var env = require('../../.env');
 var NodeGeocoder = require('node-geocoder');
 var geolib = require('geolib');
 var jsonfile = require('jsonfile');
@@ -18,7 +18,7 @@ module.exports = class geocoder {
 
   calcDist(from, to){
 
-    var toJson = jsonfile.readFileSync('./places/'+to.place.replace(/\W+/g, '')+".json", { throws: false });
+    var toJson = jsonfile.readFileSync('./cache/places/'+to.place.replace(/\W+/g, '')+".json", { throws: false });
 
     if (!toJson) {
 
@@ -28,7 +28,7 @@ module.exports = class geocoder {
           to.longitude = res[0].longitude;
           to.latitude = res[0].latitude;
 
-          jsonfile.writeFile('./places/'+to.place.replace(/\W+/g, '')+'.json', to, {spaces: 2});
+          jsonfile.writeFile('./cache/places/'+to.place.replace(/\W+/g, '')+'.json', to, {spaces: 2});
 
           var response = { 
             "title": to.title,
