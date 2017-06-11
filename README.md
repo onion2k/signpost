@@ -7,14 +7,16 @@ A generator for making 3D models of those signposts that point to lots of farawa
 * Done: Placename materials in canvas
 * Done: Geocoder to enable discovering distances to and from a place
 * Done: Decide on a UI framework
-* TODO: A nice UI
+* Done: A nice UI
 * TODO: Nicer materials shader(?) for signpost and arms
+* TODO: Nicer geomeetry for signpost and arms
 * Done: Animation on elements
 * Done: Controls for rotation
 * Done: A socket.io based API to geocode in 'realtime'
+* TODO: Vue.resource API for fallback when sockets aren't available 
 * TODO: Save to localstorage (or API?)
 * TODO: STL Export
 * TODO: Print service integration
 * TODO: Investigate OSM geocoding
-* TODO: Add vuex state manager
-* TODO: Move Vue code out of index.html (webpack?)
+* Done: Add vuex state manager
+* Done: Move Vue code out of index.html (webpack?)
