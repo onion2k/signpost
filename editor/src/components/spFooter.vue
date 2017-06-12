@@ -8,10 +8,10 @@
           <div class="col l4 offset-l2 s12">
             <h5 class="white-text">More</h5>
             <ul>
-              <li><a class="grey-text text-lighten-3" href="#!">International Orders</a></li>
-              <li><a class="grey-text text-lighten-3" href="#!">How it works</a></li>
-              <li><a class="grey-text text-lighten-3" href="#!">FAQs</a></li>
-              <li><a class="grey-text text-lighten-3" href="#!">Sign Store</a></li>
+              <li><a class="grey-text text-lighten-3" href="/howitworks">How it works</a></li>
+              <li><a class="grey-text text-lighten-3" href="/faqs">FAQs</a></li>
+              <li><a class="grey-text text-lighten-3" href="/prices">Prices</a></li>
+              <li><a class="grey-text text-lighten-3" href="/orders">Orders</a></li>
             </ul>
           </div>
         </div>
