@@ -17,6 +17,7 @@ A generator for making 3D models of those signposts that point to lots of farawa
 * TODO: Save to localstorage (or API?)
 * TODO: STL Export
 * TODO: Print service integration
+* TODO: Open a QR code to launch AR.js
 * TODO: Investigate OSM geocoding
 * Done: Add vuex state manager
 * Done: Move Vue code out of index.html (webpack?)

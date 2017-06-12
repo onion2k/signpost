@@ -82,13 +82,4 @@ export default {
   .controls {
     position: relative;
   }
-  #toast-container {
-    top: 5%;
-    right: 5%;
-    left: auto;
-  }
-  .toast {
-    border-radius: 5px;
-    border: 2px solid #000;
-  }
 </style>

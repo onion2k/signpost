@@ -6,6 +6,7 @@
             <ul id="nav-mobile" class="hide-on-med-and-down">
               <li><a v-on:click="save">Save Sign</a></li>
               <li><a  v-on:click="print">Print My Sign</a></li>
+              <li><a  v-on:click="ar">AR View</a></li>
             </ul>
 
             <ul id="nav-mobile" class="right hide-on-med-and-down">
@@ -35,6 +36,9 @@ export default {
     newsign: function(){
       this.$store.dispatch('newsign', { });
     },
+    ar: function(){
+      //open an AR QR code modal
+    }
   }
 }
 </script>
